@@ -9,3 +9,4 @@ sistem informasi akademik dengan codeigniter
 * 5.0.1 : gitignore folder assets
 * 6.0.0 : instal phpspreatsheet
 * 6.0.1 : gitignore folder vendor
+* 7.0.0 : instal ion auth 3

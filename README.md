@@ -11,3 +11,4 @@ sistem informasi akademik dengan codeigniter
 * 6.0.1 : gitignore folder vendor
 * 7.0.0 : instal ion auth 3
 * 8.0.0 : copy template sb-admin-2
+* 9.0.0 : membuat halaman dashboard

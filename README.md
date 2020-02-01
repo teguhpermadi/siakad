@@ -6,3 +6,4 @@ sistem informasi akademik dengan codeigniter
 * 3.0.0 : setting database
 * 4.0.0 : setting autoload
 * 5.0.0 : copy file assets
+* 5.0.1 : gitignore folder assets

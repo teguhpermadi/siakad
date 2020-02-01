@@ -27,7 +27,8 @@ class Dashboard extends CI_Controller {
         $this->data['jumlah_siswa'] = $this->Siswa_model->count_row();
 
         $user = $this->ion_auth->user()->row();
-        
+        $tahun_pelajaran = $this->db->query('SELECT * FROM tahun_pelajaran ORDER BY tahun DESC LIMIT 1')->row();
+
         $userData = array(
             'id' => $user->id,
             'ip_address' => $user->ip_address,
@@ -38,11 +39,17 @@ class Dashboard extends CI_Controller {
             'last_name' => $user->last_name,
             'company' => $user->company,
             'phone' => $user->phone,
-            'user_id' => $user->user_id
+            'user_id' => $user->id,
+            'id_tahun_pelajaran' => $tahun_pelajaran->id,
+            'tahun' => $tahun_pelajaran->tahun,
+            'semester' => $tahun_pelajaran->semester,
+            'id_kepsek' => $tahun_pelajaran->id_kepsek,
+            'tanggal_rapor' => $tahun_pelajaran->tanggal_rapor
         );
-        print_r($userData);
+        // print_r($userData);
+        $this->session->set_userdata($userData);
 
-        $this->session->set_flashdata('message', 'anda berhasil menginput data');
+        // $this->session->set_flashdata('message', 'anda berhasil menginput data');
         
         $this->load->view('template/header', $this->data);
         $this->load->view('template/sidebar', $this->data);

@@ -12,6 +12,7 @@ sistem informasi akademik dengan codeigniter
 * 7.0.0 : instal ion auth 3
 * 8.0.0 : copy template sb-admin-2
 * 9.0.0 : membuat halaman dashboard
+  * 9.0.1 : menghitung jumlah siswa, guru, mapel, dan cek profil 
 * 9.1.0 : membuat halaman profil
 * 9.2.0 : membuat halaman tahun pelajaran
 * 9.3.0 : membuat halaman siswa

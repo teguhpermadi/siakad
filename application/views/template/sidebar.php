@@ -144,7 +144,7 @@
 					<div class="d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100">
 						<h3 class="text-primary font-weight-bold">
 							<i class="far fa-calendar-check"></i>
-							<span>Tahun Pelajaran 2019/2020</span>
+							<span>Tahun Pelajaran <?= $_SESSION['tahun']; ?> (<?= $_SESSION['semester']; ?>)</span>
 						</h3>
 
 					</div>

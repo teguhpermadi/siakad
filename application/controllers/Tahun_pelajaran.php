@@ -16,6 +16,8 @@ class Tahun_pelajaran extends CI_Controller{
      */
     function index()
     {
+        // print_r($_SESSION);
+
         $data['tahun_pelajaran'] = $this->Tahun_pelajaran_model->get_all_tahun_pelajaran();
         
         $data['_view'] = 'tahun_pelajaran/index';
@@ -124,5 +126,22 @@ class Tahun_pelajaran extends CI_Controller{
         else
             show_error('The tahun_pelajaran you are trying to delete does not exist.');
     }
-    
+
+    /*
+    * setting session
+    */
+    function set_session($id)
+    {
+        $tahun_pelajaran = $this->Tahun_pelajaran_model->get_tahun_pelajaran($id);
+        $update_session = array(
+            'id_tahun_pelajaran' => $tahun_pelajaran['id'],
+            'tahun' => $tahun_pelajaran['tahun'],
+            'semester' => $tahun_pelajaran['semester'],
+            'id_kepsek' => $tahun_pelajaran['id_kepsek'],
+            'tanggal_rapor' => $tahun_pelajaran['tanggal_rapor']
+        );
+
+        $this->session->set_userdata($update_session);
+        redirect('tahun_pelajaran');
+    }
 }

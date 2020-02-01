@@ -55,7 +55,8 @@ class Auth extends CI_Controller
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $this->data);
+			//$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $this->data);
+			redirect('dashboard');
 		}
 	}
 
@@ -101,6 +102,8 @@ class Auth extends CI_Controller
 				'name' => 'identity',
 				'id' => 'identity',
 				'type' => 'text',
+				'class' => 'form-control form-control-user',
+				'placeholder' => 'Username',
 				'value' => $this->form_validation->set_value('identity'),
 			];
 
@@ -108,9 +111,14 @@ class Auth extends CI_Controller
 				'name' => 'password',
 				'id' => 'password',
 				'type' => 'password',
+				'class' => 'form-control form-control-user',
+				'placeholder' => 'Password',
 			];
 
+			//$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'login', $this->data);
+			$this->_render_page('template' . DIRECTORY_SEPARATOR . 'header', $this->data);
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'login', $this->data);
+			$this->_render_page('template' . DIRECTORY_SEPARATOR . 'footer', $this->data);
 		}
 	}
 
@@ -223,6 +231,8 @@ class Auth extends CI_Controller
 			$this->data['identity'] = [
 				'name' => 'identity',
 				'id' => 'identity',
+				'class' => 'form-control form-control-user',
+				'placeholder' => 'Email anda'
 			];
 
 			if ($this->config->item('identity', 'ion_auth') != 'email')
@@ -236,7 +246,10 @@ class Auth extends CI_Controller
 
 			// set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			$this->_render_page('template' . DIRECTORY_SEPARATOR . 'header', $this->data);
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
+			$this->_render_page('template' . DIRECTORY_SEPARATOR . 'footer', $this->data);
+
 		}
 		else
 		{
@@ -395,7 +408,9 @@ class Auth extends CI_Controller
 		{
 			// redirect them to the auth page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth", 'refresh');
+			// redirect("auth", 'refresh');
+			redirect('users');
+
 		}
 		else
 		{
@@ -451,7 +466,8 @@ class Auth extends CI_Controller
 			}
 
 			// redirect them back to the auth page
-			redirect('auth', 'refresh');
+			// redirect('auth', 'refresh');
+			redirect('users');
 		}
 	}
 
@@ -506,7 +522,8 @@ class Auth extends CI_Controller
 			// check to see if we are creating the user
 			// redirect them back to the admin page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth", 'refresh');
+			// redirect("auth", 'refresh');
+			redirect('users');
 		}
 		else
 		{
@@ -518,52 +535,72 @@ class Auth extends CI_Controller
 				'name' => 'first_name',
 				'id' => 'first_name',
 				'type' => 'text',
+				'class' => 'form-control',
+				'placeholder' => 'first name',
 				'value' => $this->form_validation->set_value('first_name'),
 			];
 			$this->data['last_name'] = [
 				'name' => 'last_name',
 				'id' => 'last_name',
+				'class' => 'form-control',
 				'type' => 'text',
+				'placeholder' => 'last name',
 				'value' => $this->form_validation->set_value('last_name'),
 			];
 			$this->data['identity'] = [
 				'name' => 'identity',
 				'id' => 'identity',
+				'class' => 'form-control',
 				'type' => 'text',
+				'placeholder' => 'identity',
 				'value' => $this->form_validation->set_value('identity'),
 			];
 			$this->data['email'] = [
 				'name' => 'email',
 				'id' => 'email',
-				'type' => 'text',
+				'class' => 'form-control',
+				'type' => 'email',
+				'placeholder' => 'email',
 				'value' => $this->form_validation->set_value('email'),
 			];
 			$this->data['company'] = [
 				'name' => 'company',
 				'id' => 'company',
+				'class' => 'form-control',
 				'type' => 'text',
+				'placeholder' => 'company',
 				'value' => $this->form_validation->set_value('company'),
 			];
 			$this->data['phone'] = [
 				'name' => 'phone',
 				'id' => 'phone',
+				'class' => 'form-control',
 				'type' => 'text',
+				'placeholder' => 'phone',
 				'value' => $this->form_validation->set_value('phone'),
 			];
 			$this->data['password'] = [
 				'name' => 'password',
 				'id' => 'password',
+				'class' => 'form-control',
 				'type' => 'password',
+				'placeholder' => 'password',
 				'value' => $this->form_validation->set_value('password'),
 			];
 			$this->data['password_confirm'] = [
 				'name' => 'password_confirm',
 				'id' => 'password_confirm',
+				'class' => 'form-control',
+				'placeholder' => 'confirm password',
 				'type' => 'password',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			];
 
+			$this->_render_page('template' . DIRECTORY_SEPARATOR . 'header', $this->data);
+			$this->_render_page('template' . DIRECTORY_SEPARATOR . 'sidebar', $this->data);
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
+			$this->_render_page('template' . DIRECTORY_SEPARATOR . 'footer', $this->data);
+
 		}
 	}
 	/**
@@ -742,7 +779,8 @@ class Auth extends CI_Controller
 				// check to see if we are creating the group
 				// redirect them back to the admin page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth", 'refresh');
+				// redirect("auth", 'refresh');
+				redirect('users');
 			}
 			else
             		{
@@ -758,16 +796,20 @@ class Auth extends CI_Controller
 			'name'  => 'group_name',
 			'id'    => 'group_name',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('group_name'),
 		];
 		$this->data['description'] = [
 			'name'  => 'description',
 			'id'    => 'description',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('description'),
 		];
-
+		$this->_render_page('template/header', $this->data);
+		$this->_render_page('template/sidebar', $this->data);
 		$this->_render_page('auth/create_group', $this->data);
+		$this->_render_page('template/footer', $this->data);
 		
 	}
 

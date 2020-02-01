@@ -7,3 +7,4 @@ sistem informasi akademik dengan codeigniter
 * 4.0.0 : setting autoload
 * 5.0.0 : copy file assets
 * 5.0.1 : gitignore folder assets
+* 6.0.0 : instal phpspreatsheet

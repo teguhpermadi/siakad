@@ -24,8 +24,13 @@ class Rombel_model extends CI_Model
      */
     function get_all_rombel()
     {
-        $this->db->order_by('id', 'desc');
-        return $this->db->get('rombel')->result_array();
+        $this->db->select('*');
+        $this->db->from('rombel');
+        $this->db->join('tahun_pelajaran', 'tahun_pelajaran.id = rombel.id_tahun');
+        $this->db->join('kelas', 'kelas.id = rombel.id_kelas');
+        $this->db->join('siswa', 'siswa.id = rombel.id_siswa');
+        $this->db->order_by('rombel.id', 'desc');
+        return $this->db->get()->result_array();
     }
         
     /*

@@ -17,7 +17,7 @@ class Rombel extends CI_Controller{
     function index()
     {
         $data['rombel'] = $this->Rombel_model->get_all_rombel();
-        
+        print_r($data['rombel']);
         $data['_view'] = 'rombel/index';
         $this->load->view('template/header',$data);
         $this->load->view('template/sidebar',$data);
@@ -54,11 +54,11 @@ class Rombel extends CI_Controller{
                 ]);
             }
 
-            // print_r($params);
+            print_r($params);
             
-            $this->Rombel_model->add_rombel($params);
-            $this->session->set_flashdata('berhasil', 'Anda berhasil menambahkan data id kelas <strong>'.$params['id_kelas'].'</strong>');
-            redirect('rombel/index');
+            // $this->Rombel_model->add_rombel($params);
+            // $this->session->set_flashdata('berhasil', 'Anda berhasil menambahkan data id kelas <strong>'.$params['id_kelas'].'</strong>');
+            // redirect('rombel/index');
         }
         else
         {
@@ -141,7 +141,7 @@ class Rombel extends CI_Controller{
             show_error('The rombel you are trying to delete does not exist.');
     }
 
-    function tes()
+    function simpan()
     {
         $params = array();
             $id_tahun = $this->input->post('id_tahun');
@@ -157,6 +157,7 @@ class Rombel extends CI_Controller{
             }
 
             $this->db->insert_batch('rombel', $params);
+            redirect('rombel');
     }
     
 }

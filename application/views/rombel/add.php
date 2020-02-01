@@ -11,8 +11,10 @@
 					<h3 class="m-0 font-weight-bold text-primary">Tambah Rombel</h3>
 				</div>
 				<div class="card-body">
-					<?php echo form_open('rombel/add',array("class"=>"form-horizontal")); ?>
-					<div class="form-group">
+					<?php echo form_open('rombel/simpan',array("class"=>"form-horizontal")); ?>
+					<input type="text" value='<?= $_SESSION['id_tahun_pelajaran']?>' name='id_tahun' id='id_tahun'
+						hidden>
+					<!-- <div class="form-group col-md-4">
 						<select name="id_tahun" id='id_tahun' class="form-control">
 							<option value="">select tahun_pelajaran</option>
 							<?php 
@@ -24,23 +26,34 @@
 							} 
 							?>
 						</select>
+					</div> -->
+					<div class="form-group col-md-4">
+						<label for="">Tahun Pelajaran</label>
+						<input type="text" value='<?= $_SESSION['tahun']?>' class='form-control' readonly>
 					</div>
-					<div class="form-group">
+					<div class="form-group col-md-4">
+						<label for="">Semester</label>
+						<input type="text" value='<?= $_SESSION['semester']?>' class='form-control' readonly>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="">Kelas</label>
 						<select class="custom-select" name='id_kelas' id='id_kelas'>
 							<?php foreach($kelas as $k) {?>
 							<option value="<?= $k['id'] ?>"><?= $k['nama'] ?></option>
 							<?php }?>
 						</select>
 					</div>
-					<div class="form-group">
+					<div class="form-group col-md-4">
+						<label for="">Anggota Rombel</label>
 						<select class='searchable' multiple='multiple' name='id_siswa[]' id='id_siswa'>
 							<?php foreach($siswa as $m){ ?>
 							<option value='<?= $m['id']; ?>'><?= $m['nama_lengkap']; ?></option>
 							<?php } ?>
 						</select>
 					</div>
-					<div class="form-group">
+					<div class="form-group col-md-4">
 						<button type="submit" class='btn btn-primary'>Simpan</button>
+						<a href="<?= base_url('rombel') ?>" class='btn btn-secondary'>Batal</a>
 					</div>
 
 					<?php echo form_close(); ?>
@@ -84,8 +97,8 @@
 
 <script type="text/javascript">
 	$('.searchable').multiSelect({
-		selectableHeader: "<input type='text' class='form-control mb-1' autocomplete='off' placeholder='try \"12\"'>",
-		selectionHeader: "<input type='text' class='form-control mb-1' autocomplete='off' placeholder='try \"4\"'>",
+		selectableHeader: "<input type='text' class='form-control mb-1' autocomplete='off' placeholder='cari siswa'>",
+		selectionHeader: "<input type='text' class='form-control mb-1' autocomplete='off' placeholder='cari siswa'>",
 		afterInit: function (ms) {
 			var that = this,
 				$selectableSearch = that.$selectableUl.prev(),

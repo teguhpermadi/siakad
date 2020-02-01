@@ -19,3 +19,4 @@ sistem informasi akademik dengan codeigniter
 * 9.5.0 : membuat halaman rombel
 * 9.6.0 : membuat halaman guru
 * 9.7.0 : membuat halaman mapel
+* 9.8.0 : membuat halaman users

@@ -14,3 +14,4 @@ sistem informasi akademik dengan codeigniter
 * 9.0.0 : membuat halaman dashboard
 * 9.1.0 : membuat halaman profil
 * 9.2.0 : membuat halaman tahun pelajaran
+* 9.3.0 : membuat halaman siswa

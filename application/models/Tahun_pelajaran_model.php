@@ -24,8 +24,12 @@ class Tahun_pelajaran_model extends CI_Model
      */
     function get_all_tahun_pelajaran()
     {
+        $this->db->select('t.id as id, t.tahun as tahun, t.semester as semester, t.tanggal_rapor as tanggal_rapor, g.nama_lengkap as kepsek');
+        $this->db->from('tahun_pelajaran as t');
+        $this->db->join('guru as g', 't.id_kepsek = g.id');
         $this->db->order_by('id', 'desc');
-        return $this->db->get('tahun_pelajaran')->result_array();
+        return $this->db->get()->result_array();
+        // return $this->db->get('tahun_pelajaran')->result_array();
     }
         
     /*

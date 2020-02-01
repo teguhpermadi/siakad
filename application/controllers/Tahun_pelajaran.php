@@ -19,7 +19,7 @@ class Tahun_pelajaran extends CI_Controller{
         // print_r($_SESSION);
 
         $data['tahun_pelajaran'] = $this->Tahun_pelajaran_model->get_all_tahun_pelajaran();
-        
+        // print_r($data['tahun_pelajaran']);
         $data['_view'] = 'tahun_pelajaran/index';
 
         $this->load->view('template/header');

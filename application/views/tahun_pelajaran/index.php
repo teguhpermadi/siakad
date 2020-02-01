@@ -27,20 +27,21 @@
 				<thead>
 					<tr>
 						<th>Status</th>
-						<th>Semester</th>
-						<th>Id Kepsek</th>
 						<th>Tahun</th>
+						<th>Semester</th>
+						<th>Kepala Sekolah</th>
 						<th>Tanggal Rapor</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
+				<tbody>
 				<?php foreach($tahun_pelajaran as $t){ ?>
 				<tr>
 					<td><?php if($_SESSION['id_tahun_pelajaran'] == $t['id']) { ?><span
 							class="badge badge-primary">Aktif</span> <?php } ?></td>
-					<td><?php echo $t['semester']; ?></td>
-					<td><?php echo $t['id_kepsek']; ?></td>
 					<td><?php echo $t['tahun']; ?></td>
+					<td><?php echo $t['semester']; ?></td>
+					<td><?php echo $t['kepsek']; ?></td>
 					<td><?php echo $t['tanggal_rapor']; ?></td>
 					<td>
 						<a href="<?php echo site_url('tahun_pelajaran/edit/'.$t['id']); ?>"
@@ -54,6 +55,7 @@
 					</td>
 				</tr>
 				<?php } ?>
+				</tbody>
 				<tfoot>
 					<tr>
 						<th>Status</th>

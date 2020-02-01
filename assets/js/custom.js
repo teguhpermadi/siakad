@@ -20,5 +20,7 @@ $(document).ready(function() {
 
 // datatable mapel
 $(document).ready(function() {
-    $('#datatable-tahun-pelajaran').DataTable();
+    $('#datatable-tahun-pelajaran').DataTable({
+        "order": [[ 1, "asc" ]]
+    });
 } );

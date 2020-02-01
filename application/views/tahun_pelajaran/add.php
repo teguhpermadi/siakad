@@ -10,7 +10,15 @@
 				</div>
 				<div class="card-body">
 					<?php echo form_open('tahun_pelajaran/add',array("class"=>"form-horizontal")); ?>
-
+					<div class="form-group">
+						<label for="tahun" class="col-md-4 control-label"><span
+								class="text-danger">*</span>Tahun</label>
+						<div class="col-md-8">
+							<input type="text" name="tahun" value="<?php echo $this->input->post('tahun'); ?>"
+								class="form-control" id="tahun" />
+							<span class="text-danger"><?php echo form_error('tahun');?></span>
+						</div>
+					</div>
 					<div class="form-group">
 						<label for="semester" class="col-md-4 control-label"><span
 								class="text-danger">*</span>Semester</label>
@@ -53,15 +61,6 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="tahun" class="col-md-4 control-label"><span
-								class="text-danger">*</span>Tahun</label>
-						<div class="col-md-8">
-							<input type="text" name="tahun" value="<?php echo $this->input->post('tahun'); ?>"
-								class="form-control" id="tahun" />
-							<span class="text-danger"><?php echo form_error('tahun');?></span>
-						</div>
-					</div>
-					<div class="form-group">
 						<label for="tanggal_rapor" class="col-md-4 control-label"><span
 								class="text-danger">*</span>Tanggal Rapor</label>
 						<div class="col-md-8">
@@ -74,7 +73,8 @@
 
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-success">Save</button>
+							<button type="submit" class="btn btn-primary">Simpan</button>
+							<a href='<?= base_url('tahun_pelajaran') ?>' class="btn btn-secondary">Batal</a>
 						</div>
 					</div>
 

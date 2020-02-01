@@ -40,6 +40,13 @@
 					<span>Profil Sekolah</span></a>
 			</li>
 
+			<!-- Nav Item - Charts -->
+			<li class="nav-item">
+				<a class="nav-link" href="<?= base_url('tahun_pelajaran'); ?>">
+					<i class="fas fa-calendar"></i>
+					<span>Tahun Pelajaran</span></a>
+			</li>
+
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
@@ -49,7 +56,6 @@
 				</a>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="<?= base_url('tahun_pelajaran'); ?>">Tahun Pelajaran</a>
 						<a class="collapse-item" href="<?= base_url('siswa'); ?>">Siswa</a>
 						<a class="collapse-item" href="<?= base_url('kelas'); ?>">Kelas</a>
 						<a class="collapse-item" href="<?= base_url('rombel'); ?>">Rombel</a>
@@ -178,14 +184,14 @@
 
 						<!-- Nav Item - Alerts -->
 
-						<li class="nav-item dropdown no-arrow mx-1">
+						<!-- <li class="nav-item dropdown no-arrow mx-1">
 							<a class="nav-link dropdown-toggle text-gray-600" href="#" id="alertsDropdown" role="button"
 								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="far fa-calendar-alt"></i>
 								<span class="ml-2">Ubah Tahun Pelajaran</span>
-							</a>
+							</a> -->
 							<!-- Dropdown - Alerts -->
-							<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+							<!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="alertsDropdown">
 								<h6 class="dropdown-header">
 									Pilih tahun pelajaran
@@ -197,7 +203,7 @@
 									2019/2020
 								</a>
 							</div>
-						</li>
+						</li> -->
 
 						<div class="topbar-divider d-none d-sm-block"></div>
 

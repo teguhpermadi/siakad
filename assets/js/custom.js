@@ -17,3 +17,8 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#datatable-mapel').DataTable();
 } );
+
+// datatable mapel
+$(document).ready(function() {
+    $('#datatable-tahun-pelajaran').DataTable();
+} );

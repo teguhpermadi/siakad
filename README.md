@@ -17,6 +17,7 @@ sistem informasi akademik dengan codeigniter
 * 9.1.0 : membuat halaman profil
 * 9.2.0 : membuat halaman tahun pelajaran
     * 9.2.1 : membuat session berdasarkan data user dan tahun pelajaran yang aktif
+    * 9.2.2 : merapikan tampilan tahun pelajaran
 * 9.3.0 : membuat halaman siswa
 * 9.4.0 : membuat halaman kelas
 * 9.5.0 : membuat halaman rombel

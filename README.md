@@ -17,3 +17,4 @@ sistem informasi akademik dengan codeigniter
 * 9.3.0 : membuat halaman siswa
 * 9.4.0 : membuat halaman kelas
 * 9.5.0 : membuat halaman rombel
+* 9.6.0 : membuat halaman guru

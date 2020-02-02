@@ -91,7 +91,7 @@
 
 	<div class="row">
 		<?php foreach($get_kelas_by_tahun as $k) {?>
-		<div class="col-sm-6 mb-3">
+		<div class="col-sm-4 mb-3">
 			<div class="card shadow">
 				<div class="card-body">
 					<h3 class="card-title text-uppercase text-primary font-weight-bolder"><?= $k['nama'] ?></h3>
@@ -111,7 +111,7 @@
 						</li>
 					<?php } ?>
 					</ul>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
+					<a href="#" class="btn btn-primary">Edit Kelas</a>
 				</div>
 			</div>
 		</div>

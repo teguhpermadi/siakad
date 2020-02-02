@@ -91,7 +91,7 @@ class Rombel_model extends CI_Model
         $this->db->group_by('id_kelas');
         $this->db->where('rombel.id_tahun ='.$_SESSION['id_tahun_pelajaran']);
         $this->db->join('kelas', 'kelas.id = rombel.id_kelas');
-        $this->db->order_by('rombel.id', 'desc');
+        $this->db->order_by('kelas.tingkat', 'asc');
         return $this->db->get()->result_array();
     }
     

@@ -170,6 +170,7 @@ class Rombel extends CI_Controller{
         $data['siswa'] = $this->Rombel_model->get_all_siswa();
         $data['kelas'] = $this->Rombel_model->get_all_kelas();
         print_r($data['rombel']);
+        // print_r($_SESSION);
         $this->load->view('template/header',$data);
         $this->load->view('template/sidebar',$data);
         $this->load->view('rombel/edit',$data);

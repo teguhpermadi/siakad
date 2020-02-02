@@ -165,10 +165,10 @@ class Rombel_model extends CI_Model
     */
     function get_siswa_by_rombel($id_kelas)
     {
-        return $this->db->query('SELECT siswa.id as id_siswa, siswa.nama_lengkap 
+        return $this->db->query('SELECT siswa.id as id_siswa, siswa.nama_lengkap, rombel.id_siswa as cek
         FROM siswa   
         LEFT JOIN rombel               
-        ON siswa.id = rombel.id_siswa')->result_array();
+        ON siswa.id = rombel.id_siswa and rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' and rombel.id_kelas ='.$id_kelas)->result_array();
     }
 
 }

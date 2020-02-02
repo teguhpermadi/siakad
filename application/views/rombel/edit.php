@@ -31,8 +31,9 @@
 					<div class="form-group col-md-4">
 						<label for="">Anggota Rombel</label>
 						<select class='searchable-edit' multiple='multiple' name='id_siswa[]' id='id_siswa'>
-							<?php foreach($siswa as $s){ ?>
-							<option value='<?= $s['id']; ?>'><?= $s['nama_lengkap']; ?></option>
+							<?php foreach($rombel as $r){ ?>
+							<option value='<?= $r['id']; ?>'><?= $r['nama_lengkap']; echo $selected; ?>
+							</option>
 							<?php } ?>
 						</select>
 					</div>

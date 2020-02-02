@@ -16,8 +16,9 @@ class Rombel extends CI_Controller{
      */
     function index()
     {
-        $data['rombel'] = $this->Rombel_model->get_all_rombel();
-        print_r($data['rombel']);
+        // $data['rombel'] = $this->Rombel_model->get_all_rombel();
+        $data['get_kelas_by_tahun'] = $this->Rombel_model->get_kelas_by_tahun();
+
         $data['_view'] = 'rombel/index';
         $this->load->view('template/header',$data);
         $this->load->view('template/sidebar',$data);

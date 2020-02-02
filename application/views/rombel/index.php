@@ -48,9 +48,9 @@
 	<?php } ?>
 
 	<!-- DataTales Example -->
-	<div class="card shadow mb-4">
+	<!-- <div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h3 class="m-0 font-weight-bold text-primary">Daftar Mata Pelajaran</h6>
+			<h3 class="m-0 font-weight-bold text-primary">Daftar Rombel</h6>
 		</div>
 		<div class="card-body">
 			<table id="datatable-siswa" class="table table-striped table-bordered" style="width:100%">
@@ -85,9 +85,39 @@
 				</tfoot>
 			</table>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- content row -->
+
+	<div class="row">
+		<?php foreach($get_kelas_by_tahun as $k) {?>
+		<div class="col-sm-6 mb-3">
+			<div class="card shadow">
+				<div class="card-body">
+					<h3 class="card-title text-uppercase text-primary font-weight-bolder"><?= $k['nama'] ?></h3>
+					<?php 
+						$siswa = $this->Rombel_model->get_siswa_by_id_kelas($k['id_kelas']);
+						$jml_siswa = $this->Rombel_model->count_siswa_by_id_kelas($k['id_kelas']);
+						$jml_siswa_laki = $this->Rombel_model->count_siswa_laki_by_id_kelas($k['id_kelas']);
+						$jml_siswa_perempuan = $this->Rombel_model->count_siswa_perempuan_by_id_kelas($k['id_kelas']);
+					?>
+					<p class="card-text">Jumlah seluruh siswa: <?= $jml_siswa; ?> orang.<br>Jumlah siswa laki-laki: <?= $jml_siswa_laki; ?> orang<br>Jumlah siswa perempuan: <?= $jml_siswa_perempuan; ?> orang.</p>
+					<ul class="list-group mb-3">
+					<?php foreach($siswa as $s) { ?>
+						<li class="list-group-item d-flex justify-content-between align-items-center">
+							<?= $s['nama_lengkap'] ?>
+							<!-- <span class="badge badge-primary badge-pill"><?= $s['nis'] ?></span> -->
+							<span class="badge badge-primary badge-pill"><?= $s['nama_panggilan'] ?></span>
+						</li>
+					<?php } ?>
+					</ul>
+					<a href="#" class="btn btn-primary">Go somewhere</a>
+				</div>
+			</div>
+		</div>
+		<?php } ?>
+	</div>
+
 
 </div>
 <!-- /.container-fluid -->

@@ -11,7 +11,7 @@
 					<h3 class="m-0 font-weight-bold text-primary">Edit Rombel</h3>
 				</div>
 				<div class="card-body">
-					<?php echo form_open('rombel/simpan',array("class"=>"form-horizontal")); ?>
+					<?php echo form_open('rombel/update',array("class"=>"form-horizontal")); ?>
 					<div class="form-group col-md-4">
 						<label for="">Tahun Pelajaran</label>
 						<input type="text" value='<?= $_SESSION['tahun']?>' class='form-control' readonly>
@@ -22,7 +22,7 @@
 					</div>
 					<div class="form-group col-md-4">
 						<label for="">Kelas</label>
-						<select class="custom-select" name='id_kelas' id='id_kelas'>
+						<select class="custom-select" name='id_kelas' id='id_kelas'disabled>
 							<?php foreach($kelas as $k) {?>
 							<option value="<?= $k['id'] ?>"><?= $k['nama'] ?></option>
 							<?php }?>
@@ -31,10 +31,15 @@
 					<div class="form-group col-md-4">
 						<label for="">Anggota Rombel</label>
 						<select class='searchable-edit' multiple='multiple' name='id_siswa[]' id='id_siswa'>
-							<?php foreach($rombel as $r){ ?>
-							<option value='<?= $r['id']; ?>'><?= $r['nama_lengkap']; echo $selected; ?>
-							</option>
-							<?php } ?>
+							<?php 
+								foreach($rombel as $r){
+									if(empty($r['cek'])){
+										echo '<option value='.$r['id_siswa'].'>'.$r['nama_lengkap'].'</option>';
+									} else {
+										echo '<option value='.$r['id_siswa'].' selected >'.$r['nama_lengkap'].'</option>';
+									}
+								}
+							?>
 						</select>
 					</div>
 					<div class="form-group col-md-4">

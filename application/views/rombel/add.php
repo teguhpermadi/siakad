@@ -12,21 +12,6 @@
 				</div>
 				<div class="card-body">
 					<?php echo form_open('rombel/simpan',array("class"=>"form-horizontal")); ?>
-					<input type="text" value='<?= $_SESSION['id_tahun_pelajaran']?>' name='id_tahun' id='id_tahun'
-						hidden>
-					<!-- <div class="form-group col-md-4">
-						<select name="id_tahun" id='id_tahun' class="form-control">
-							<option value="">select tahun_pelajaran</option>
-							<?php 
-							foreach($all_tahun_pelajaran as $tahun_pelajaran)
-							{
-								$selected = ($tahun_pelajaran['id'] == $this->input->post('id_tahun')) ? ' selected="selected"' : "";
-
-								echo '<option value="'.$tahun_pelajaran['id'].'" '.$selected.'>'.$tahun_pelajaran['tahun'].'</option>';
-							} 
-							?>
-						</select>
-					</div> -->
 					<div class="form-group col-md-4">
 						<label for="">Tahun Pelajaran</label>
 						<input type="text" value='<?= $_SESSION['tahun']?>' class='form-control' readonly>

@@ -106,12 +106,11 @@
 					<?php foreach($siswa as $s) { ?>
 						<li class="list-group-item d-flex justify-content-between align-items-center">
 							<?= $s['nama_lengkap'] ?>
-							<!-- <span class="badge badge-primary badge-pill"><?= $s['nis'] ?></span> -->
 							<span class="badge badge-primary badge-pill"><?= $s['nama_panggilan'] ?></span>
 						</li>
 					<?php } ?>
 					</ul>
-					<a href="#" class="btn btn-primary">Edit Kelas</a>
+					<a href="<?= base_url('rombel/edit_rombel/'.$k['id_kelas']); ?>" class="btn btn-primary">Edit Kelas</a>
 				</div>
 			</div>
 		</div>

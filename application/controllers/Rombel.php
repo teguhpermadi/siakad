@@ -151,7 +151,7 @@ class Rombel extends CI_Controller{
 
             foreach($id_siswa as $siswa){
                 array_push($params, [
-                    'id_tahun' => $id_tahun,
+                    'id_tahun' => $_SESSION['id_tahun_pelajaran'],
                     'id_kelas' => $id_kelas,
                     'id_siswa' => $siswa
                 ]);
@@ -159,6 +159,21 @@ class Rombel extends CI_Controller{
 
             $this->db->insert_batch('rombel', $params);
             redirect('rombel');
+    }
+
+    /*
+    * edit rombel berdasarkan id kelas dan id tahun pelajaran yang aktif
+    */
+    function edit_rombel($id_kelas)
+    {
+        $data['rombel'] = $this->Rombel_model->get_siswa_by_rombel($id_kelas);
+        $data['siswa'] = $this->Rombel_model->get_all_siswa();
+        $data['kelas'] = $this->Rombel_model->get_all_kelas();
+        print_r($data['rombel']);
+        $this->load->view('template/header',$data);
+        $this->load->view('template/sidebar',$data);
+        $this->load->view('rombel/edit',$data);
+        $this->load->view('template/footer',$data);
     }
     
 }

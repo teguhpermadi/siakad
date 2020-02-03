@@ -196,6 +196,6 @@ class Rombel extends CI_Controller{
         }
 
         print_r($params);
-        // $this->db->update_batch('rombel', $params, 'id_siswa');
+        $this->db->update_batch('rombel', $params, 'id_siswa');
     }
 }

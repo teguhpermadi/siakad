@@ -22,7 +22,10 @@
 					</div>
 					<div class="form-group col-md-4">
 						<label for="">Kelas</label>
-						<select class="custom-select" name='id_kelas' id='id_kelas'disabled>
+						<?php foreach($kelas as $k) {?>
+						<input type="hidden" name='id_kelas' id='id_kelas' value='<?= $k['id'] ?>'>
+						<?php }?>
+						<select class="custom-select" disabled>
 							<?php foreach($kelas as $k) {?>
 							<option value="<?= $k['id'] ?>"><?= $k['nama'] ?></option>
 							<?php }?>
@@ -42,6 +45,7 @@
 							?>
 						</select>
 					</div>
+					<input type="text" name="tes[]" id="tes">
 					<div class="form-group col-md-4">
 						<button type="submit" class='btn btn-primary'>Simpan</button>
 						<a href="<?= base_url('rombel') ?>" class='btn btn-secondary'>Batal</a>
@@ -89,6 +93,8 @@
 
 
 <script type="text/javascript">
+	var id_siswa_deselect = [];
+
 	$('.searchable-edit').multiSelect({
 		selectableHeader: "<input type='text' class='form-control mb-1' autocomplete='off' placeholder='cari siswa'>",
 		selectionHeader: "<input type='text' class='form-control mb-1' autocomplete='off' placeholder='cari siswa'>",
@@ -120,9 +126,12 @@
 			this.qs1.cache();
 			this.qs2.cache();
 		},
-		afterDeselect: function () {
+		afterDeselect: function (values) {
 			this.qs1.cache();
 			this.qs2.cache();
+			id_siswa_deselect.push(tes);
+			document.getElementById("tes").value = values;
+			console.log(id_siswa_deselect);
 		}
 	});
 

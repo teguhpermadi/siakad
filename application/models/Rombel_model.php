@@ -69,7 +69,7 @@ class Rombel_model extends CI_Model
     {
         // $this->db->order_by('id', 'desc');
         // return $this->db->get('siswa')->result_array();
-        return $this->db->query("SELECT * FROM siswa WHERE NOT EXISTS (SELECT * FROM rombel WHERE siswa.id = rombel.id_siswa)")->result_array();
+        return $this->db->query("SELECT * FROM siswa WHERE NOT EXISTS (SELECT * FROM rombel WHERE siswa.id = rombel.id_siswa AND rombel.id_tahun = ".$_SESSION['id_tahun_pelajaran'].")")->result_array();
     }
 
     /*
@@ -103,7 +103,7 @@ class Rombel_model extends CI_Model
         $this->db->select('rombel.*, siswa.nama_lengkap, siswa.nis, siswa.jenis_kelamin, siswa.nama_panggilan');
         $this->db->from('rombel');
         $this->db->where('rombel.id_kelas ='.$id_kelas);
-        $this->db->where('rombel.id_tahun ='.$_SESSION['id_tahun_pelajaran']);
+        // $this->db->where('rombel.id_tahun ='.$_SESSION['id_tahun_pelajaran']);
         $this->db->join('siswa', 'siswa.id = rombel.id_siswa');
         $this->db->order_by('siswa.id', 'desc');
         return $this->db->get()->result_array();
@@ -169,6 +169,14 @@ class Rombel_model extends CI_Model
         FROM siswa   
         LEFT JOIN rombel               
         ON siswa.id = rombel.id_siswa and rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' and rombel.id_kelas ='.$id_kelas)->result_array();
+    }
+
+    /*
+     * Get kelas by id
+     */
+    function get_kelas($id_kelas)
+    {
+        return $this->db->get_where('kelas',array('id'=>$id_kelas))->result_array();
     }
 
 }

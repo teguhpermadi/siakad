@@ -1,3 +1,12 @@
+<style>
+.area {
+  /* background: white; */
+  height: 250px;
+  overflow: auto;
+}
+
+
+</style>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -47,46 +56,6 @@
 	</div>
 	<?php } ?>
 
-	<!-- DataTales Example -->
-	<!-- <div class="card shadow mb-4">
-		<div class="card-header py-3">
-			<h3 class="m-0 font-weight-bold text-primary">Daftar Rombel</h6>
-		</div>
-		<div class="card-body">
-			<table id="datatable-siswa" class="table table-striped table-bordered" style="width:100%">
-				<thead>
-					<tr>
-						<th>Id Tahun</th>
-						<th>Id Kelas</th>
-						<th>Id Siswa</th>
-						<th>Actions</th>
-				</thead>
-
-				<?php foreach($rombel as $r){ ?>
-				<tr>
-
-					<td><?php echo $r['id_tahun']; ?></td>
-					<td><?php echo $r['id_kelas']; ?></td>
-					<td><?php echo $r['id_siswa']; ?></td>
-					<td>
-						<a href="<?php echo site_url('rombel/edit/'.$r['id']); ?>" class="btn btn-info btn-xs">Edit</a>
-						<a href="<?php echo site_url('rombel/remove/'.$r['id']); ?>"
-							class="btn btn-danger btn-xs">Delete</a>
-					</td>
-				</tr>
-				<?php } ?>
-				<tfoot>
-					<tr>
-						<th>Id Tahun</th>
-						<th>Id Kelas</th>
-						<th>Id Siswa</th>
-						<th>Actions</th>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
-	</div> -->
-
 	<!-- content row -->
 
 	<div class="row">
@@ -102,7 +71,7 @@
 						$jml_siswa_perempuan = $this->Rombel_model->count_siswa_perempuan_by_id_kelas($k['id_kelas']);
 					?>
 					<p class="card-text">Jumlah seluruh siswa: <?= $jml_siswa; ?> orang.<br>Jumlah siswa laki-laki: <?= $jml_siswa_laki; ?> orang<br>Jumlah siswa perempuan: <?= $jml_siswa_perempuan; ?> orang.</p>
-					<ul class="list-group mb-3">
+					<ul class="list-group mb-3 area">
 					<?php foreach($siswa as $s) { ?>
 						<li class="list-group-item d-flex justify-content-between align-items-center">
 							<?= $s['nama_lengkap'] ?>
@@ -144,3 +113,8 @@
 <a class="scroll-to-top rounded" href="#page-top">
 	<i class="fas fa-angle-up"></i>
 </a>
+
+<script>
+let scrollDiv = document.querySelector(".area");
+SimpleScrollbar.initEl(scrollDiv);
+</script>

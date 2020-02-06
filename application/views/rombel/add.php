@@ -30,7 +30,7 @@
 					</div>
 					<div class="form-group col-md-4">
 						<label for="">Anggota Rombel</label>
-						<select class='searchable' multiple='multiple' name='id_siswa[]' id='id_siswa'>
+						<select class='searchable' multiple='multiple' name='id_siswa[]' id='id_siswa' required>
 							<?php foreach($siswa as $m){ ?>
 							<option value='<?= $m['id']; ?>'><?= $m['nama_lengkap']; ?></option>
 							<?php } ?>

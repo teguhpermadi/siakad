@@ -145,20 +145,20 @@ class Rombel extends CI_Controller{
     function simpan()
     {
         $params = array();
-            $id_tahun = $this->input->post('id_tahun');
-            $id_kelas = $this->input->post('id_kelas');
-            $id_siswa = $this->input->post('id_siswa[]');
+        $id_tahun = $this->input->post('id_tahun');
+        $id_kelas = $this->input->post('id_kelas');
+        $id_siswa = $this->input->post('id_siswa[]');
 
-            foreach($id_siswa as $siswa){
-                array_push($params, [
-                    'id_tahun' => $_SESSION['id_tahun_pelajaran'],
-                    'id_kelas' => $id_kelas,
-                    'id_siswa' => $siswa
-                ]);
-            }
+        foreach($id_siswa as $siswa){
+            array_push($params, [
+                'id_tahun' => $_SESSION['id_tahun_pelajaran'],
+                'id_kelas' => $id_kelas,
+                'id_siswa' => $siswa
+            ]);
+        }
 
-            $this->db->insert_batch('rombel', $params);
-            redirect('rombel');
+        $this->db->insert_batch('rombel', $params);
+        redirect('rombel');
     }
 
     /*
@@ -166,9 +166,11 @@ class Rombel extends CI_Controller{
     */
     function edit_rombel($id_kelas)
     {
-        $data['rombel'] = $this->Rombel_model->get_siswa_by_rombel($id_kelas);
+        $data['rombel'] = $this->Rombel_model->get_siswa_by_id_kelas($id_kelas);
+        $data['kelas'] = $this->Rombel_model->get_kelas($id_kelas);
         $data['siswa'] = $this->Rombel_model->get_all_siswa();
-        $data['kelas'] = $this->Rombel_model->get_all_kelas();
+
+        // print_r($data['rombel']);
         
         $this->load->view('template/header',$data);
         $this->load->view('template/sidebar',$data);
@@ -178,9 +180,9 @@ class Rombel extends CI_Controller{
 
 
     /*
-    * update rombel berdasarkan id kelas dan id tahun pelajaran aktif
+    * masukkan siswa berdasarkan id siswa, id kelas dan id tahun pelajaran aktif
     */
-    function update()
+    function masuk_rombel()
     {
         $params = array();
         $id_tahun = $this->input->post('id_tahun');
@@ -195,7 +197,21 @@ class Rombel extends CI_Controller{
             ]);
         }
 
-        print_r($params);
-        $this->db->update_batch('rombel', $params, 'id_siswa');
+        $this->db->insert_batch('rombel', $params);
+        redirect('rombel/edit_rombel/'.$id_kelas);
+    }
+
+    /*
+    * keluarkan siswa berdasarkan id siswa, id kelas dan id tahun pelajaran aktif
+    */
+    function keluar_rombel()
+    {
+        $params = array();
+        $id_rombel = $this->input->post('id_rombel[]');
+        $id_kelas = $this->input->post('id_kelas');
+
+        $this->db->where_in('id', $id_rombel);
+        $this->db->delete('rombel');
+        redirect('rombel/edit_rombel/'.$id_kelas);
     }
 }

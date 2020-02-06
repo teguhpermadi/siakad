@@ -145,7 +145,6 @@ class Rombel extends CI_Controller{
     function simpan()
     {
         $params = array();
-        $id_tahun = $this->input->post('id_tahun');
         $id_kelas = $this->input->post('id_kelas');
         $id_siswa = $this->input->post('id_siswa[]');
 
@@ -166,9 +165,8 @@ class Rombel extends CI_Controller{
     */
     function edit_rombel($id_kelas)
     {
-        $data['rombel'] = $this->Rombel_model->get_siswa_by_id_kelas($id_kelas);
+        $data['rombel'] = $this->Rombel_model->get_siswa_by_rombel($id_kelas);
         $data['kelas'] = $this->Rombel_model->get_kelas($id_kelas);
-        $data['siswa'] = $this->Rombel_model->get_all_siswa();
 
         // print_r($data['rombel']);
         
@@ -178,17 +176,17 @@ class Rombel extends CI_Controller{
         $this->load->view('template/footer',$data);
     }
 
-
-    /*
-    * masukkan siswa berdasarkan id siswa, id kelas dan id tahun pelajaran aktif
-    */
-    function masuk_rombel()
+    // update anggota rombel berdasarkan id kelas dan id tahun pelajaran
+    function update()
     {
         $params = array();
-        $id_tahun = $this->input->post('id_tahun');
         $id_kelas = $this->input->post('id_kelas');
         $id_siswa = $this->input->post('id_siswa[]');
+        
+        // hapus dulu semua anggota rombel yang lama
+        $this->Rombel_model->delete_siswa_by_rombel($id_kelas);
 
+        // simpan anggota rombel yang baru
         foreach($id_siswa as $siswa){
             array_push($params, [
                 'id_tahun' => $_SESSION['id_tahun_pelajaran'],
@@ -198,20 +196,6 @@ class Rombel extends CI_Controller{
         }
 
         $this->db->insert_batch('rombel', $params);
-        redirect('rombel/edit_rombel/'.$id_kelas);
-    }
-
-    /*
-    * keluarkan siswa berdasarkan id siswa, id kelas dan id tahun pelajaran aktif
-    */
-    function keluar_rombel()
-    {
-        $params = array();
-        $id_rombel = $this->input->post('id_rombel[]');
-        $id_kelas = $this->input->post('id_kelas');
-
-        $this->db->where_in('id', $id_rombel);
-        $this->db->delete('rombel');
-        redirect('rombel/edit_rombel/'.$id_kelas);
+        redirect('rombel');
     }
 }

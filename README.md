@@ -27,3 +27,4 @@ sistem informasi akademik dengan codeigniter
 * 9.6.0 : membuat halaman guru
 * 9.7.0 : membuat halaman mapel
 * 9.8.0 : membuat halaman users
+* 9.9.0 : membuat halaman pengajar

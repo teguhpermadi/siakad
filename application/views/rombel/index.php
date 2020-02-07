@@ -1,10 +1,9 @@
 <style>
-.area {
-  /* background: white; */
-  height: 250px;
-  overflow: auto;
-}
-
+	.area {
+		/* background: white; */
+		height: 250px;
+		overflow: auto;
+	}
 
 </style>
 <!-- Begin Page Content -->
@@ -70,16 +69,30 @@
 						$jml_siswa_laki = $this->Rombel_model->count_siswa_laki_by_id_kelas($k['id_kelas']);
 						$jml_siswa_perempuan = $this->Rombel_model->count_siswa_perempuan_by_id_kelas($k['id_kelas']);
 					?>
-					<p class="card-text">Jumlah seluruh siswa: <?= $jml_siswa; ?> orang.<br>Jumlah siswa laki-laki: <?= $jml_siswa_laki; ?> orang<br>Jumlah siswa perempuan: <?= $jml_siswa_perempuan; ?> orang.</p>
+					<p class="card-text">Jumlah seluruh siswa: <?= $jml_siswa; ?> orang.<br>Jumlah siswa laki-laki:
+						<?= $jml_siswa_laki; ?> orang<br>Jumlah siswa perempuan: <?= $jml_siswa_perempuan; ?> orang.</p>
 					<ul class="list-group mb-3 area">
-					<?php foreach($siswa as $s) { ?>
+						<?php foreach($siswa as $s) { ?>
 						<li class="list-group-item d-flex justify-content-between align-items-center">
 							<?= $s['nama_lengkap'] ?>
-							<span class="badge badge-primary badge-pill"><?= $s['nama_panggilan'] ?></span>
+							<span class="badge badge-info badge-pill"><?= $s['nama_panggilan'] ?></span>
 						</li>
-					<?php } ?>
+						<?php } ?>
 					</ul>
-					<a href="<?= base_url('rombel/edit_rombel/'.$k['id_kelas']); ?>" class="btn btn-primary">Edit Kelas</a>
+					<a href="<?= base_url('rombel/edit_rombel/'.$k['id_kelas']); ?>" class="btn btn-primary">Edit
+						Kelas</a>
+					<!-- Default dropup button -->
+					<div class="btn-group dropup">
+						<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
+							Pilihan
+						</button>
+						<div class="dropdown-menu">
+							<!-- Dropdown menu links -->
+							<a href="#" class='dropdown-item'>Cetak absensi kelas</a>
+							<a href="#" class='dropdown-item'>Hapus kelas</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -115,6 +128,7 @@
 </a>
 
 <script>
-let scrollDiv = document.querySelector(".area");
-SimpleScrollbar.initEl(scrollDiv);
+	let scrollDiv = document.querySelector(".area");
+	SimpleScrollbar.initEl(scrollDiv);
+
 </script>

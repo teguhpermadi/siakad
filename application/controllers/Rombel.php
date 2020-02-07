@@ -185,7 +185,7 @@ class Rombel extends CI_Controller{
         
         // hapus dulu semua anggota rombel yang lama
         $this->Rombel_model->delete_siswa_by_rombel($id_kelas);
-
+        
         // simpan anggota rombel yang baru
         foreach($id_siswa as $siswa){
             array_push($params, [

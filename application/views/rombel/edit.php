@@ -11,7 +11,7 @@
 					<h3 class="m-0 font-weight-bold text-primary">Edit Rombel</h3>
 				</div>
 				<div class="card-body">
-				<form action="<?= base_url('rombel/update'); ?>" method="post">
+				<?php echo form_open('rombel/update',array("class"=>"form-horizontal")); ?>
 					<div class="form-group col-md-4">
 						<label for="">Tahun Pelajaran</label>
 						<input type="text" value='<?= $_SESSION['tahun']?>' class='form-control' readonly>
@@ -28,25 +28,28 @@
 					</div>
 					<?php foreach($kelas as $k){ ?>
 					<input type="text" value='<?= $k['id'];?>' class='form-control' name='id_kelas' id='id_kelas' hidden>
-					<?php } ?>
 					<div class="form-group col-md-4">
 						<select class='searchable-siswa' multiple='multiple' name='id_siswa[]' id='id_siswa' required>
 							<?php foreach($rombel as $r){
-								if(empty($r['cek'])){
-									// cek siswanya jika tidak masuk dalam rombel
-									echo '<option value="'.$r['id_siswa'].'">'.$r['nama_lengkap'].'</option>';
-								} else {
-									// cek siswanya jika masuk dalam rombel
+								if($r['cek'] == $k['id'] && !empty($r['cek'])) 
+								{
+									// jika cek sama dengan id kelas maka selected siswanya
 									echo '<option value="'.$r['id_siswa'].'" selected>'.$r['nama_lengkap'].'</option>';
+								} else if(empty($r['cek']))
+								{
+									// jika cek tidak sama dengan id kelas maka tidak di selected siswanya
+									echo '<option value="'.$r['id_siswa'].'">'.$r['nama_lengkap'].'</option>';
+
 								}
 							}?>
 						</select>
 					</div>
+					<?php } ?>
 					<div class="form-group col-md-4">
 						<button type="submit" class='btn btn-primary'>Simpan</button>
 						<a href="<?= base_url('rombel'); ?>" class='btn btn-secondary'>Kembali</a>
 					</div>
-					</form>
+					<?php echo form_close(); ?>
 				</div>
 			</div>
 		</div>

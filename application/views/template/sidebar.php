@@ -61,7 +61,7 @@
 						<a class="collapse-item" href="<?= base_url('rombel'); ?>">Rombel</a>
 						<a class="collapse-item" href="<?= base_url('guru'); ?>">Guru</a>
 						<a class="collapse-item" href="<?= base_url('mapel'); ?>">Mata Pelajaran</a>
-						<a class="collapse-item" href="<?= base_url('guru_mapel'); ?>">Pengajar</a>
+						<a class="collapse-item" href="<?= base_url('pengajar'); ?>">Pengajar</a>
 					</div>
 				</div>
 			</li>

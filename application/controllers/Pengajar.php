@@ -17,6 +17,7 @@ class Pengajar extends CI_Controller{
     function index()
     {
         $data['pengajar'] = $this->Pengajar_model->get_all_pengajar();
+        // print_r($data['pengajar']);
         
         $data['_view'] = 'pengajar/index';
         $this->load->view('template/header',$data);
@@ -32,14 +33,24 @@ class Pengajar extends CI_Controller{
     {   
         if(isset($_POST) && count($_POST) > 0)     
         {   
-            $params = array(
-				'id_guru' => $this->input->post('id_guru'),
-				'id_mapel' => $this->input->post('id_mapel'),
-				'id_kelas' => $this->input->post('id_kelas'),
-				'id_tahun' => $this->input->post('id_tahun'),
-            );
+            $params = array();
+            $id_guru = $this->input->post('id_guru');
+			$id_mapel = $this->input->post('id_mapel');
+			$id_kelas = $this->input->post('id_kelas[]');
+            $id_tahun = $this->input->post('id_tahun');
             
-            $pengajar_id = $this->Pengajar_model->add_pengajar($params);
+            foreach($id_kelas as $kelas)
+            {
+                array_push($params, [
+                    'id_guru' => $id_guru,
+                    'id_mapel' => $id_mapel,
+                    'id_tahun' => $id_tahun,
+                    'id_kelas' => $kelas
+                ]);
+            }
+
+            $this->db->insert_batch('pengajar', $params);
+            // $pengajar_id = $this->Pengajar_model->add_pengajar($params);
             redirect('pengajar/index');
         }
         else
@@ -48,7 +59,7 @@ class Pengajar extends CI_Controller{
 			$data['all_guru'] = $this->Guru_model->get_all_guru();
 
 			$this->load->model('Mapel_model');
-			$data['all_mapel'] = $this->Mapel_model->get_all_mapel();
+            $data['all_mapel'] = $this->Mapel_model->get_all_mapel();
 
 			$this->load->model('Kelas_model');
 			$data['all_kelas'] = $this->Kelas_model->get_all_kelas();

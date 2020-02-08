@@ -24,8 +24,13 @@ class Pengajar_model extends CI_Model
      */
     function get_all_pengajar()
     {
-        $this->db->order_by('id', 'desc');
-        return $this->db->get('pengajar')->result_array();
+        $this->db->select('pengajar.*, guru.nama_lengkap');
+        $this->db->from('pengajar');
+        $this->db->group_by('id_guru');
+        $this->db->where('pengajar.id_tahun ='.$_SESSION['id_tahun_pelajaran']);
+        $this->db->join('guru', 'guru.id = pengajar.id_guru');
+        $this->db->order_by('guru.nama_lengkap', 'asc');
+        return $this->db->get()->result_array();
     }
         
     /*
@@ -52,5 +57,18 @@ class Pengajar_model extends CI_Model
     function delete_pengajar($id)
     {
         return $this->db->delete('pengajar',array('id'=>$id));
+    }
+
+    // dapatkan semua mapel yang diajarkan berdasarkan id_guru dan id_tahun 
+    function get_mapel_by_id_guru($id_guru)
+    {
+        $this->db->select('pengajar.*, mapel.nama as nama_mapel, mapel.kode as kode_mapel, kelas.nama as nama_kelas');
+        $this->db->from('pengajar');
+        $this->db->where('pengajar.id_guru ='.$id_guru);
+        $this->db->where('pengajar.id_tahun ='.$_SESSION['id_tahun_pelajaran']);
+        $this->db->join('mapel', 'mapel.id = pengajar.id_mapel');
+        $this->db->join('kelas', 'kelas.id = pengajar.id_kelas');
+        $this->db->order_by('pengajar.id_mapel', 'asc');
+        return $this->db->get()->result_array();
     }
 }

@@ -65,7 +65,7 @@
 						<table id="datatable-mapel" class="table table-striped table-bordered" style="width:100%">
 							<thead>
 								<tr>
-									<th>No</th>
+									<th>Pilih</th>
 									<th>Nama Mapel</th>
 									<th>Kelas</th>
 									<th>Actions</th>
@@ -73,10 +73,10 @@
 							</thead>
 
 							<?php 
-							$no = 1;
+							
 							foreach($mapel as $m){ ?>
 							<tr>
-								<td><?= $no++ ; ?></td>
+								<td><input type='checkbox' class='check-item' name='nis[]' value='<?= $m['id']?>'></td>
 								<td><?php echo $m['nama_mapel']; ?></td>
 								<td><?php echo $m['nama_kelas']; ?></td>
 								<td>

@@ -69,8 +69,7 @@
 						</li>
 					<?php } ?>
 					</ul>
-					<a href="#" class="btn btn-primary">Edit
-						Pengajar</a>
+					<a href="<?= base_url('pengajar/edit/'.$p['id_guru']); ?>" class="btn btn-primary">Edit Pengajar</a>
 					<!-- Default dropup button -->
 					<div class="btn-group dropup">
 						<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"

@@ -29,3 +29,4 @@ sistem informasi akademik dengan codeigniter
 * 9.8.0 : membuat halaman users
 * 9.9.0 : membuat halaman pengajar
   * 9.9.1 : membuat halaman tambah pengajar, edit tampilan halaman pengajar
+  * 9.9.2 : fungsi halaman edit pengajar

@@ -27,6 +27,13 @@
 									</div>
 								</div>
 								<div class="form-group">
+									<label for="" class="col-md-12 control-label">Tahun Pelajaran</label>
+									<div class="col-md-12">
+										<input type="text" value='<?= $_SESSION['semester'] ?>' class="form-control"
+											readonly>
+									</div>
+								</div>
+								<div class="form-group">
 									<label for="id_guru" class="col-md-12 control-label">Guru</label>
 									<div class="col-md-12">
 										<select name="id_guru" class="form-control">

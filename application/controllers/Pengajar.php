@@ -75,11 +75,13 @@ class Pengajar extends CI_Controller{
     /*
      * Editing a pengajar
      */
-    function edit($id)
+    function edit($id_guru)
     {   
         // check if the pengajar exists before trying to edit it
-        $data['pengajar'] = $this->Pengajar_model->get_pengajar($id);
-        
+        $data['pengajar'] = $this->Pengajar_model->get_pengajar($id_guru);
+        $data['mapel'] = $this->Pengajar_model->get_mapel_by_id_guru($id_guru);
+        print_r($data['pengajar']);
+        // print_r($data['mapel']);
         if(isset($data['pengajar']['id']))
         {
             if(isset($_POST) && count($_POST) > 0)     
@@ -91,7 +93,7 @@ class Pengajar extends CI_Controller{
 					'id_tahun' => $this->input->post('id_tahun'),
                 );
 
-                $this->Pengajar_model->update_pengajar($id,$params);            
+                $this->Pengajar_model->update_pengajar($id_guru,$params);            
                 redirect('pengajar/index');
             }
             else
@@ -106,10 +108,16 @@ class Pengajar extends CI_Controller{
 				$data['all_kelas'] = $this->Kelas_model->get_all_kelas();
 
                 $data['_view'] = 'pengajar/edit';
-                $this->load->view('template/header',$data);
-                $this->load->view('template/sidebar',$data);
-                $this->load->view('pengajar/edit',$data);
-                $this->load->view('template/footer',$data);
+
+                if(!empty($data['pengajar'])){
+                    $this->load->view('template/header',$data);
+                    $this->load->view('template/sidebar',$data);
+                    $this->load->view('pengajar/edit',$data);
+                    $this->load->view('template/footer',$data);
+                } else {
+                    redirect('pengajar');
+                }
+                
             }
         }
         else
@@ -121,16 +129,8 @@ class Pengajar extends CI_Controller{
      */
     function remove($id)
     {
-        $pengajar = $this->Pengajar_model->get_pengajar($id);
-
-        // check if the pengajar exists before trying to delete it
-        if(isset($pengajar['id']))
-        {
-            $this->Pengajar_model->delete_pengajar($id);
-            redirect('pengajar/index');
-        }
-        else
-            show_error('The pengajar you are trying to delete does not exist.');
+        $id_guru = $this->uri->segment(4, 0);
+        $this->Pengajar_model->delete_pengajar($id);
+        redirect('pengajar/edit/'.$id_guru);
     }
-    
 }

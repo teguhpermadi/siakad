@@ -16,7 +16,7 @@ class Pengajar_model extends CI_Model
      */
     function get_pengajar($id)
     {
-        return $this->db->get_where('pengajar',array('id'=>$id))->row_array();
+        return $this->db->get_where('pengajar',array('id_guru'=>$id))->row_array();
     }
         
     /*
@@ -62,7 +62,7 @@ class Pengajar_model extends CI_Model
     // dapatkan semua mapel yang diajarkan berdasarkan id_guru dan id_tahun 
     function get_mapel_by_id_guru($id_guru)
     {
-        $this->db->select('pengajar.*, mapel.nama as nama_mapel, mapel.kode as kode_mapel, kelas.nama as nama_kelas');
+        $this->db->select('pengajar.id as id, pengajar.id_guru, mapel.id as id_mapel, mapel.nama as nama_mapel, mapel.kode as kode_mapel, kelas.nama as nama_kelas');
         $this->db->from('pengajar');
         $this->db->where('pengajar.id_guru ='.$id_guru);
         $this->db->where('pengajar.id_tahun ='.$_SESSION['id_tahun_pelajaran']);

@@ -80,7 +80,7 @@ class Pengajar extends CI_Controller{
         // check if the pengajar exists before trying to edit it
         $data['pengajar'] = $this->Pengajar_model->get_pengajar($id_guru);
         $data['mapel'] = $this->Pengajar_model->get_mapel_by_id_guru($id_guru);
-        print_r($data['pengajar']);
+        // print_r($data['pengajar']);
         // print_r($data['mapel']);
         if(isset($data['pengajar']['id']))
         {
@@ -132,5 +132,12 @@ class Pengajar extends CI_Controller{
         $id_guru = $this->uri->segment(4, 0);
         $this->Pengajar_model->delete_pengajar($id);
         redirect('pengajar/edit/'.$id_guru);
+    }
+
+    // uji coba
+    function edit_tes($id_guru)
+    {
+        $id_pengajar = $this->input->post('id_pengajar[]');
+        print_r($id_pengajar);
     }
 }

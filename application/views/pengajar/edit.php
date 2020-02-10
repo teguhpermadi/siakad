@@ -1,7 +1,10 @@
+ <!-- Load librari/plugin jquery nya -->
+ <script src="<?= base_url(); ?>/assets/vendor/jquery/jquery.js"></script> 
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-	<?php echo form_open('pengajar/edit/'.$pengajar['id'],array("class"=>"form-horizontal")); ?>
+	<?php echo form_open('pengajar/edit_tes/'.$pengajar['id'],array("class"=>"form-horizontal", 'id' => 'form-update')); ?>
 	<!-- Content Row -->
 	<div class="row">
 		<div class="col-12">
@@ -61,6 +64,10 @@
 					<h3 class="m-0 font-weight-bold text-primary">Mapel yang diajarkan</h3>
 				</div>
 				<div class="card-body">
+				<div class="mb-3">
+				<button type="button" id="btn-delete" class='btn btn-danger'>Hapus</button>
+				
+				</div>
 					<div class="box-body">
 						<table id="datatable-mapel" class="table table-striped table-bordered" style="width:100%">
 							<thead>
@@ -76,7 +83,7 @@
 							
 							foreach($mapel as $m){ ?>
 							<tr>
-								<td><input type='checkbox' class='check-item' name='nis[]' value='<?= $m['id']?>'></td>
+								<td><input type='checkbox' class='check-item' name='id_pengajar[]' id='id_pengajar' value='<?= $m['id']?>'></td>
 								<td><?php echo $m['nama_mapel']; ?></td>
 								<td><?php echo $m['nama_kelas']; ?></td>
 								<td>
@@ -134,3 +141,20 @@
 <a class="scroll-to-top rounded" href="#page-top">
 	<i class="fas fa-angle-up"></i>
 </a>
+
+<script>
+$(document).ready(function(){
+	$("#btn-delete").click(function(){ // Ketika user mengklik tombol delete
+		if($("#id_pengajar").prop('checked') == true){
+    		// cek jika checkbox id_pengajar di centang
+			var confirm = window.confirm("Apakah Anda yakin ingin menghapus data-data ini?"); // Buat sebuah alert konfirmasi
+			if(confirm)
+			{
+				$("#form-update").submit(); // Submit form
+			};
+		} else {
+			window.confirm("Anda belum memilih data mapel.");
+		}
+	});
+});
+</script>

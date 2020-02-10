@@ -71,4 +71,24 @@ class Pengajar_model extends CI_Model
         $this->db->order_by('pengajar.id_mapel', 'asc');
         return $this->db->get()->result_array();
     }
+
+    // dapatkan semua mapel yang diajarkan berdasarkan id_guru dan id_tahun 
+    function get_mapel_by_id_guru_group_by_id_mapel($id_guru)
+    {
+        $this->db->select('pengajar.id as id, pengajar.id_guru, mapel.id as id_mapel, mapel.nama as nama_mapel, mapel.kode as kode_mapel, kelas.nama as nama_kelas');
+        $this->db->from('pengajar');
+        $this->db->where('pengajar.id_guru ='.$id_guru);
+        $this->db->where('pengajar.id_tahun ='.$_SESSION['id_tahun_pelajaran']);
+        $this->db->join('mapel', 'mapel.id = pengajar.id_mapel');
+        $this->db->join('kelas', 'kelas.id = pengajar.id_kelas');
+        $this->db->group_by('id_mapel');
+        $this->db->order_by('pengajar.id_mapel', 'asc');
+        return $this->db->get()->result_array();
+    }
+
+    // dapatkan kelas berdasarkan id mapel, id guru, dan id tahun
+    function get_kelas_by_id_mapel_id_guru_id_tahun($id_mapel)
+    {
+        
+    }
 }

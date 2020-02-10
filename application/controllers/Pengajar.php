@@ -79,8 +79,8 @@ class Pengajar extends CI_Controller{
     {   
         // check if the pengajar exists before trying to edit it
         $data['pengajar'] = $this->Pengajar_model->get_pengajar($id_guru);
-        $data['mapel'] = $this->Pengajar_model->get_mapel_by_id_guru($id_guru);
-        print_r($data['pengajar']);
+        $data['mapel'] = $this->Pengajar_model->get_mapel_by_id_guru_group_by_id_mapel($id_guru);
+        print_r($data['mapel']);
         // print_r($data['mapel']);
         if(isset($data['pengajar']['id']))
         {

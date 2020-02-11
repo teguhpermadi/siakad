@@ -34,3 +34,4 @@ sistem informasi akademik dengan codeigniter
       * 9.9.2.1 : membuat tabel pada seluruh mapel dan kelas ditambah dengan fungsi checklist agar bisa dihapus
 * 9.10.0 : copy folder untuk donwload template excel dan upload data excel
   * 9.10.1 : setting config untuk load phpspreatsheet
+* 9.11.0 : membuat halaman walikelas

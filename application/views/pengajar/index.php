@@ -60,18 +60,7 @@
 					<?php } ?>
 					</ul>
 					<a href="<?= base_url('pengajar/edit/'.$p['id_guru']); ?>" class="btn btn-primary">Edit Pengajar</a>
-					<!-- Default dropup button -->
-					<div class="btn-group dropup">
-						<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">
-							Pilihan
-						</button>
-						<div class="dropdown-menu">
-							<!-- Dropdown menu links -->
-							<a href="#" class='dropdown-item'>Cetak mapel</a>
-							<a href="#" class='dropdown-item'>Hapus pengajar</a>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>

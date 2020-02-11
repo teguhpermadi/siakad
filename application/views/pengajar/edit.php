@@ -72,7 +72,7 @@
  							<table id="datatable-mapel" class="table table-striped table-bordered" style="width:100%">
  								<thead>
  									<tr>
- 										<th><input name="select_all" value="1" id="example-select-all"
+ 										<th width='5%'><input name="select_all" value="1" id="example-select-all"
  												type="checkbox" /> Pilih</th>
  										<th>Nama Mapel</th>
  										<th>Kelas</th>

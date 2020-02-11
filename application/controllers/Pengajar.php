@@ -142,7 +142,7 @@ class Pengajar extends CI_Controller{
         foreach($id as $i){
             $this->db->delete('pengajar', array('id' => $i)); 
         }
-        $this->session->set_flashdata('berhasil', 'Anda berhasil mengubah data pengajar.</strong>');
+        $this->session->set_flashdata('hapus', 'Anda berhasil mengubah data pengajar.</strong>');
         redirect('pengajar');
     }
 }

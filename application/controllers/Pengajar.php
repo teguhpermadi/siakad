@@ -51,6 +51,7 @@ class Pengajar extends CI_Controller{
 
             $this->db->insert_batch('pengajar', $params);
             // $pengajar_id = $this->Pengajar_model->add_pengajar($params);
+            $this->session->set_flashdata('berhasil', 'Anda berhasil menambah data pengajar.</strong>');
             redirect('pengajar/index');
         }
         else
@@ -80,7 +81,7 @@ class Pengajar extends CI_Controller{
         // check if the pengajar exists before trying to edit it
         $data['pengajar'] = $this->Pengajar_model->get_pengajar($id_guru);
         $data['mapel'] = $this->Pengajar_model->get_mapel_by_id_guru($id_guru);
-        print_r($data['pengajar']);
+        // print_r($data['pengajar']);
         // print_r($data['mapel']);
         if(isset($data['pengajar']['id']))
         {
@@ -132,5 +133,16 @@ class Pengajar extends CI_Controller{
         $id_guru = $this->uri->segment(4, 0);
         $this->Pengajar_model->delete_pengajar($id);
         redirect('pengajar/edit/'.$id_guru);
+    }
+
+    // uji coba
+    function update_pengajar()
+    {
+        $id = $this->input->post('id[]');
+        foreach($id as $i){
+            $this->db->delete('pengajar', array('id' => $i)); 
+        }
+        $this->session->set_flashdata('hapus', 'Anda berhasil mengubah data pengajar.</strong>');
+        redirect('pengajar');
     }
 }

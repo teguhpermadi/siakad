@@ -36,7 +36,7 @@
 								<div class="form-group">
 									<label for="id_guru" class="col-md-12 control-label">Guru</label>
 									<div class="col-md-12">
-										<select name="id_guru" class="form-control">
+										<select name="id_guru" class="form-control" required>
 											<option value="">select guru</option>
 											<?php 
                                                 foreach($all_guru as $guru)
@@ -53,7 +53,7 @@
                                 <div class="form-group">
 									<label for="id_mapel" class="col-md-12 control-label">Mapel</label>
 									<div class="col-md-12">
-										<select name="id_mapel" class="form-control">
+										<select name="id_mapel" class="form-control" required>
 											<option value="">select mapel</option>
 											<?php 
                                                 foreach($all_mapel as $mapel)

@@ -37,16 +37,6 @@
 	</div>
 	<?php } ?>
 
-	<!-- flash data -->
-	<?php if($this->session->flashdata('berhasil_upload')) { ?>
-	<div class="alert alert-primary alert-dismissible fade show" role="alert">
-		<?= $this->session->flashdata('berhasil_upload'); ?>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	<?php } ?>
-
 	<!-- DataTales Example -->
 	<div class="row">
     <!-- disini foreach nya -->
@@ -70,18 +60,7 @@
 					<?php } ?>
 					</ul>
 					<a href="<?= base_url('pengajar/edit/'.$p['id_guru']); ?>" class="btn btn-primary">Edit Pengajar</a>
-					<!-- Default dropup button -->
-					<div class="btn-group dropup">
-						<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">
-							Pilihan
-						</button>
-						<div class="dropdown-menu">
-							<!-- Dropdown menu links -->
-							<a href="#" class='dropdown-item'>Cetak mapel</a>
-							<a href="#" class='dropdown-item'>Hapus pengajar</a>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>

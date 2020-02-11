@@ -30,3 +30,4 @@ sistem informasi akademik dengan codeigniter
 * 9.9.0 : membuat halaman pengajar
   * 9.9.1 : membuat halaman tambah pengajar, edit tampilan halaman pengajar
   * 9.9.2 : fungsi halaman edit pengajar
+* 9.10.0 : copy folder untuk donwload template excel dan upload data excel

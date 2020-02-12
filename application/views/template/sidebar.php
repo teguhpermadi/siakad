@@ -59,6 +59,7 @@
 						<a class="collapse-item" href="<?= base_url('siswa'); ?>">Siswa</a>
 						<a class="collapse-item" href="<?= base_url('kelas'); ?>">Kelas</a>
 						<a class="collapse-item" href="<?= base_url('rombel'); ?>">Rombel</a>
+						<a class="collapse-item" href="<?= base_url('walikelas'); ?>">Walikelas</a>
 						<a class="collapse-item" href="<?= base_url('guru'); ?>">Guru</a>
 						<a class="collapse-item" href="<?= base_url('mapel'); ?>">Mata Pelajaran</a>
 						<a class="collapse-item" href="<?= base_url('pengajar'); ?>">Pengajar</a>

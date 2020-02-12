@@ -18,6 +18,12 @@ class Walikelas extends CI_Controller{
     {
         $data['walikelas'] = $this->Walikelas_model->get_all_walikelas();
         
+        $this->load->model('Guru_model');
+		$data['all_guru'] = $this->Guru_model->get_all_guru();
+
+		$this->load->model('Kelas_model');
+        $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
+            
         $data['_view'] = 'walikelas/index';
         $this->load->view('template/header',$data);
         $this->load->view('template/sidebar',$data);
@@ -125,5 +131,27 @@ class Walikelas extends CI_Controller{
         else
             show_error('The walikelas you are trying to delete does not exist.');
     }
-    
+
+    function simpan()
+    {
+        $params = array(
+            'id_guru' => $this->input->post('id_guru'),
+            'id_kelas' => $this->input->post('id_kelas'),
+            'id_tahun' => $_SESSION['id_tahun_pelajaran']
+        );
+        
+        $data = $this->Walikelas_model->add_walikelas($params);
+        echo json_encode($data);
+    }    
+
+    function tes()
+    {
+        $data = $this->Walikelas_model->get_all_walikelas();
+        $data2 = array (
+            'data' =>$data
+        );
+        // print_r($data2);
+        // header('Content-Type: application/json');
+        echo json_encode($data);
+    }
 }

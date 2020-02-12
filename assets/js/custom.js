@@ -18,6 +18,12 @@ $(document).ready(function() {
     $('#datatable-mapel').DataTable();
 } );
 
+// datatable walikelas
+$(document).ready(function() {
+    $('#datatable-walikelas').DataTable();
+} );
+
+
 // datatable mapel
 $(document).ready(function() {
     $('#datatable-tahun-pelajaran').DataTable({

@@ -35,3 +35,4 @@ sistem informasi akademik dengan codeigniter
 * 9.10.0 : copy folder untuk donwload template excel dan upload data excel
   * 9.10.1 : setting config untuk load phpspreatsheet
 * 9.11.0 : membuat halaman walikelas
+  * 9.11.1 : edit halaman walikelas dengan fungsi javascript squery ajax

@@ -36,4 +36,5 @@ sistem informasi akademik dengan codeigniter
   * 9.10.1 : setting config untuk load phpspreatsheet
 * 9.11.0 : membuat halaman walikelas
   * 9.11.1 : edit halaman walikelas dengan fungsi javascript squery ajax
-  * 9.11.2 : menampilkan data dengan ajax, dan menampilkan data by id dengan ajax
+  * 9.11.2 : menampilkan data dengan ajax, dan menampilkan data by id dengan ajax (belum berhasil)
+  * 9.11.3 : hapus data dengan ajax (belum berhasil)

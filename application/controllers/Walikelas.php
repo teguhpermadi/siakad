@@ -165,4 +165,13 @@ class Walikelas extends CI_Controller{
     {
         
     }
+
+    // hapus
+    function hapus()
+    {
+        $id = $this->input->get('id');
+        $data = $this->Walikelas_model->delete_walikelas($id);
+        echo json_encode($data);
+
+    }
 }

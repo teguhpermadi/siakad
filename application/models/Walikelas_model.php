@@ -24,8 +24,15 @@ class Walikelas_model extends CI_Model
      */
     function get_all_walikelas()
     {
-        $this->db->order_by('id', 'desc');
-        return $this->db->get('walikelas')->result_array();
+        // $this->db->order_by('id', 'desc');
+        // return $this->db->get('walikelas')->result_array();
+        $this->db->select('walikelas.*, kelas.nama as nama_kelas, guru.nama_lengkap as nama_guru');
+        $this->db->from('walikelas');
+        $this->db->join('kelas', 'kelas.id = walikelas.id_kelas');
+        $this->db->join('guru', 'guru.id = walikelas.id_guru');
+        $this->db->where('walikelas.id_tahun='.$_SESSION['id_tahun_pelajaran']);
+        $this->db->order_by('id_kelas', 'desc');
+        return $this->db->get()->result_array();
     }
         
     /*

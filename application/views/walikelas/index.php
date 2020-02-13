@@ -51,32 +51,7 @@
 								<th>Actions</th>
 							</tr>
 						</thead>
-
 						<tbody id="show_data"></tbody>
-
-						<!-- <?php foreach($walikelas as $w){ ?>
-						<tr>
-							<td><?php echo $w['id_kelas']; ?></td>
-							<td><?php echo $w['id_guru']; ?></td>
-							<td>
-								<a href="<?= base_url('walikelas/edit/'.$w['id']); ?>"
-									class="btn btn-info btn-icon-split btn-sm">
-									<span class="icon text-white-50">
-										<i class="fas fa-book"></i>
-									</span>
-									<span class="text">Edit</span>
-								</a>
-
-								<a href="<?= base_url('walikelas/remove/'.$w['id']); ?>"
-									class="btn btn-danger btn-icon-split btn-sm">
-									<span class="icon text-white-50">
-										<i class="fas fa-book"></i>
-									</span>
-									<span class="text">Hapus</span>
-								</a>
-							</td>
-						</tr>
-						<?php } ?> -->
 						<tfoot>
 							<tr>
 								<th>Kelas</th>
@@ -119,7 +94,7 @@
 	<i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Modal -->
+<!-- Modal tambah walikelas -->
 <div class="modal fade" id="modal-tambah-walikelas" tabindex="-1" role="dialog" aria-labelledby="modal-tambah-walikelas"
 	aria-hidden="true">
 	<div class="modal-dialog" role="document">
@@ -136,7 +111,7 @@
 						<label for="id_guru" class="col-md-12 control-label"><span
 								class="text-danger">*</span>Guru</label>
 						<div class="col-md-12">
-							<select name="id_guru" id='id_guru' class="form-control">
+							<select name="id_guru" id='id_guru' class="form-control" require>
 								<option value="">select guru</option>
 								<?php 
 				foreach($all_guru as $guru)
@@ -154,7 +129,7 @@
 						<label for="id_kelas" class="col-md-12 control-label"><span
 								class="text-danger">*</span>Kelas</label>
 						<div class="col-md-12">
-							<select name="id_kelas" id='id_kelas' class="form-control">
+							<select name="id_kelas" id='id_kelas' class="form-control" require>
 								<option value="">select kelas</option>
 								<?php 
 				foreach($all_kelas as $kelas)
@@ -171,9 +146,65 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-					<button type="button" class="btn btn-primary" id='btn_simpan'>Simpan</button>
+					<button type="submit" class="btn btn-primary" id='btn_simpan'>Simpan</button>
 				</div>
 			</form>
+		</div>
+	</div>
+</div>
+
+<!-- modal edit walikelas -->
+<div class="modal fade" id="modal-edit-walikelas" tabindex="-1" role="dialog" aria-labelledby="modal-edit-walikelas"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal-edit-walikelas">Edit Walikelas</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="id_guru" class="col-md-12 control-label"><span class="text-danger">*</span>Guru</label>
+					<div class="col-md-12">
+						<select name="update_id_guru" id='update_id_guru' class="form-control" require>
+							<option value="">select guru</option>
+							<?php 
+				foreach($all_guru as $guru)
+				{
+					$selected = ($guru['id'] == $this->input->post('id_guru')) ? ' selected="selected"' : "";
+
+					echo '<option value="'.$guru['id'].'" '.$selected.'>'.$guru['nama_lengkap'].'</option>';
+				} 
+				?>
+						</select>
+						<span class="text-danger"><?php echo form_error('id_guru');?></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="id_kelas" class="col-md-12 control-label"><span
+							class="text-danger">*</span>Kelas</label>
+					<div class="col-md-12">
+						<select name="update_id_kelas" id='update_id_kelas' class="form-control" require>
+							<option value="">select kelas</option>
+							<?php 
+				foreach($all_kelas as $kelas)
+				{
+					$selected = ($kelas['id'] == $this->input->post('id_kelas')) ? ' selected="selected"' : "";
+
+					echo '<option value="'.$kelas['id'].'" '.$selected.'>'.$kelas['nama'].'</option>';
+				} 
+				?>
+						</select>
+						<span class="text-danger"><?php echo form_error('id_kelas');?></span>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<button type="submit" class="btn btn-primary" id='btn_update'>Simpan</button>
+			</div>
 		</div>
 	</div>
 </div>
@@ -190,7 +221,7 @@
 			$.ajax({
 				type: 'GET',
 				url: '<?php echo base_url('
-				walikelas / tes ')?>',
+				walikelas / tampilkan_semua_data ')?>',
 				async: true,
 				dataType: 'json',
 				success: function (data) {
@@ -201,14 +232,10 @@
 							'<td>' + data[i].id_kelas + '</td>' +
 							'<td>' + data[i].id_guru + '</td>' +
 							'<td>' +
-								<a href="' + data[i].id + '"
-									class="btn btn-info btn-icon-split btn-sm">
-									<span class="icon text-white-50">
-										<i class="fas fa-book"></i>
-									</span>
-									<span class="text">Edit</span>
-								</a>
-							</td>' +
+							'<a href="javascript:;" class="btn btn-info btn-icon-split btn-sm item_edit" data="' +
+							data[i].id +
+							'"> <span class="icon text-white-50"><i class="fas fa-book"></i></span><span class="text">Edit</span></a>' +
+							'</td>' +
 							'</tr>';
 					}
 					$('#show_data').html(html);
@@ -233,11 +260,59 @@
 					$('[name="id_guru"]').val("");
 					$('[name="id_kelas"]').val("");
 					$('#modal-tambah-walikelas').modal('hide');
-					// tampil_data_barang();
+					$('.modal-backdrop').remove();
+					tampil_data();
 				}
 			});
 			return false;
 		});
+
+		//GET UPDATE
+		$('#show_data').on('click', '.item_edit', function () {
+			var id = $(this).attr('data');
+			$.ajax({
+				type: "GET",
+				url: "<?php echo base_url('walikelas/get_walikelas')?>",
+				dataType: "JSON",
+				data: {
+					id: id
+				},
+				success: function (data) {
+					$.each(data, function (id_kelas, id_guru) {
+						$('#modal-edit-walikelas').modal('show');
+						$('[name="update_id_kelas"]').val(data.id_kelas);
+						$('[name="update_id_guru"]').val(data.id_guru);
+					});
+				}
+			});
+			return false;
+		});
+
+		//Update Barang
+		$('#btn_update').on('click', function () {
+			var id_guru = $('#update_id_guru').val();
+			var id_kelas = $('#update_id_kelas').val();
+
+			$.ajax({
+				type: "POST",
+				url: "<?php echo base_url('walikelas/update')?>",
+				dataType: "JSON",
+				data: {
+					id_kelas,
+					id_guru
+				},
+				success: function (data) {
+					$('[name="update_id_kelas"]').val("");
+					$('[name="update_id_guru"]').val("");
+					$('#modal-tambah-walikelas').modal('hide');
+					$('.modal-backdrop').remove();
+					tampil_data();
+
+				}
+			});
+			return false;
+		});
+
 	});
 
 </script>

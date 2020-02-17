@@ -9,6 +9,8 @@ class Walikelas extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Walikelas_model');
+        $this->load->model('Kelas_model');
+        $this->load->model('Guru_model');
     } 
 
     /*
@@ -16,153 +18,36 @@ class Walikelas extends CI_Controller{
      */
     function index()
     {
-        $data['walikelas'] = $this->Walikelas_model->get_all_walikelas();
-        
-        $this->load->model('Guru_model');
-		$data['all_guru'] = $this->Guru_model->get_all_guru();
+        $data['guru'] = $this->Guru_model->get_all_guru();
+        $data['kelas'] = $this->Kelas_model->get_all_kelas();
 
-		$this->load->model('Kelas_model');
-        $data['all_kelas'] = $this->Kelas_model->get_all_kelas();
-            
-        $data['_view'] = 'walikelas/index';
-        $this->load->view('template/header',$data);
-        $this->load->view('template/sidebar',$data);
-        $this->load->view('walikelas/index',$data);
-        $this->load->view('template/footer',$data);
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('walikelas/index', $data);
+        $this->load->view('template/footer');
     }
 
-    /*
-     * Adding a new walikelas
-     */
-    function add()
-    {   
-        $this->load->library('form_validation');
-
-		$this->form_validation->set_rules('id_guru','Id Guru','required');
-		$this->form_validation->set_rules('id_kelas','Id Kelas','required');
-		$this->form_validation->set_rules('id_tahun','Id Tahun','required');
-		
-		if($this->form_validation->run())     
-        {   
-            $params = array(
-				'id_guru' => $this->input->post('id_guru'),
-				'id_kelas' => $this->input->post('id_kelas'),
-				'id_tahun' => $this->input->post('id_tahun'),
-            );
-            
-            $walikelas_id = $this->Walikelas_model->add_walikelas($params);
-            redirect('walikelas/index');
-        }
-        else
-        {
-			$this->load->model('Guru_model');
-			$data['all_guru'] = $this->Guru_model->get_all_guru();
-
-			$this->load->model('Kelas_model');
-			$data['all_kelas'] = $this->Kelas_model->get_all_kelas();
-
-			$this->load->model('Tahun_pelajaran_model');
-			$data['all_tahun_pelajaran'] = $this->Tahun_pelajaran_model->get_all_tahun_pelajaran();
-            
-            $data['_view'] = 'walikelas/add';
-            $this->load->view('layouts/main',$data);
-        }
-    }  
-
-    /*
-     * Editing a walikelas
-     */
-    function edit($id)
-    {   
-        // check if the walikelas exists before trying to edit it
-        $data['walikelas'] = $this->Walikelas_model->get_walikelas($id);
-        
-        if(isset($data['walikelas']['id']))
-        {
-            $this->load->library('form_validation');
-
-			$this->form_validation->set_rules('id_guru','Id Guru','required');
-			$this->form_validation->set_rules('id_kelas','Id Kelas','required');
-			$this->form_validation->set_rules('id_tahun','Id Tahun','required');
-		
-			if($this->form_validation->run())     
-            {   
-                $params = array(
-					'id_guru' => $this->input->post('id_guru'),
-					'id_kelas' => $this->input->post('id_kelas'),
-					'id_tahun' => $this->input->post('id_tahun'),
-                );
-
-                $this->Walikelas_model->update_walikelas($id,$params);            
-                redirect('walikelas/index');
-            }
-            else
-            {
-				$this->load->model('Guru_model');
-				$data['all_guru'] = $this->Guru_model->get_all_guru();
-
-				$this->load->model('Kelas_model');
-				$data['all_kelas'] = $this->Kelas_model->get_all_kelas();
-
-				$this->load->model('Tahun_pelajaran_model');
-				$data['all_tahun_pelajaran'] = $this->Tahun_pelajaran_model->get_all_tahun_pelajaran();
-
-                $data['_view'] = 'walikelas/edit';
-                $this->load->view('layouts/main',$data);
-            }
-        }
-        else
-            show_error('The walikelas you are trying to edit does not exist.');
-    } 
-
-    /*
-     * Deleting walikelas
-     */
-    function remove($id)
+    function get_all_walikelas()
     {
-        $walikelas = $this->Walikelas_model->get_walikelas($id);
-
-        // check if the walikelas exists before trying to delete it
-        if(isset($walikelas['id']))
-        {
-            $this->Walikelas_model->delete_walikelas($id);
-            redirect('walikelas/index');
-        }
-        else
-            show_error('The walikelas you are trying to delete does not exist.');
+        $data = $this->Walikelas_model->get_all_walikelas();
+        echo json_encode($data);
     }
 
     // simpan datanya dari form modal
-    function simpan()
+    function add()
     {
         $params = array(
             'id_kelas' => $this->input->post('id_kelas'),
             'id_guru' => $this->input->post('id_guru'),
             'id_tahun' => $_SESSION['id_tahun_pelajaran']
         );
-        
-        $data = $this->Walikelas_model->add_walikelas($params);
-        echo json_encode($data);
+
+        if($params['id_kelas'] == 0 || $params['id_guru'] == 0){
+            echo json_encode($data);
+        } else {
+            $data = $this->session->set_flashdata('message', 'Anda berhasil menambahkan data walikelas.');
+            $this->Walikelas_model->add_walikelas($params);
+            echo json_encode($data);
+        }
     }    
-
-    // tampilkan semua datanya dengan javascript
-    function tampilkan_semua_data()
-    {
-        $data = $this->Walikelas_model->get_all_walikelas();
-        echo json_encode($data);
-    }
-
-    // ambil datanya menggunakan form modal
-    function get_walikelas()
-    {
-        $id = $this->input->get('id');
-        $data = $this->Walikelas_model->get_walikelas($id);
-        echo json_encode($data);
-    }
-
-    // simpan update
-    function update()
-    {
-        
-    }
 }

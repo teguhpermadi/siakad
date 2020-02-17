@@ -8,8 +8,7 @@
 
 	<div class="row mb-4">
 		<div class="col">
-			<button type='button' data-toggle="modal" data-target="#modal-tambah-walikelas"
-				class="btn btn-info btn-icon-split">
+			<button type='button' data-toggle="modal" data-target="#add" class="btn btn-info btn-icon-split">
 				<span class="icon text-white-50">
 					<i class="fas fa-user-plus"></i>
 				</span>
@@ -18,25 +17,7 @@
 		</div>
 	</div>
 
-	<!-- flash data -->
-	<?php if($this->session->flashdata('berhasil')) { ?>
-	<div class="alert alert-success alert-dismissible fade show" role="alert">
-		<?= $this->session->flashdata('berhasil'); ?>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	<?php } ?>
-
-	<!-- flash data -->
-	<?php if($this->session->flashdata('hapus')) { ?>
-	<div class="alert alert-danger alert-dismissible fade show" role="alert">
-		<?= $this->session->flashdata('hapus'); ?>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	<?php } ?>
+	<div id='show_alert'></div>
 
 	<div class="row">
 		<div class='col-md-12'>
@@ -94,117 +75,43 @@
 	<i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Modal tambah walikelas -->
-<div class="modal fade" id="modal-tambah-walikelas" tabindex="-1" role="dialog" aria-labelledby="modal-tambah-walikelas"
-	aria-hidden="true">
+
+<!-- modal tambah walikelas -->
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="add" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tambah Walikelas</h5>
+				<h5 class="modal-title" id="add">Tambah Walikelas</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form class="form-horizontal">
-				<div class="modal-body">
-					<div class="form-group">
-						<label for="id_guru" class="col-md-12 control-label"><span
-								class="text-danger">*</span>Guru</label>
-						<div class="col-md-12">
-							<select name="id_guru" id='id_guru' class="form-control" require>
-								<option value="">select guru</option>
-								<?php 
-				foreach($all_guru as $guru)
-				{
-					$selected = ($guru['id'] == $this->input->post('id_guru')) ? ' selected="selected"' : "";
-
-					echo '<option value="'.$guru['id'].'" '.$selected.'>'.$guru['nama_lengkap'].'</option>';
-				} 
-				?>
-							</select>
-							<span class="text-danger"><?php echo form_error('id_guru');?></span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="id_kelas" class="col-md-12 control-label"><span
-								class="text-danger">*</span>Kelas</label>
-						<div class="col-md-12">
-							<select name="id_kelas" id='id_kelas' class="form-control" require>
-								<option value="">select kelas</option>
-								<?php 
-				foreach($all_kelas as $kelas)
-				{
-					$selected = ($kelas['id'] == $this->input->post('id_kelas')) ? ' selected="selected"' : "";
-
-					echo '<option value="'.$kelas['id'].'" '.$selected.'>'.$kelas['nama'].'</option>';
-				} 
-				?>
-							</select>
-							<span class="text-danger"><?php echo form_error('id_kelas');?></span>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-					<button type="submit" class="btn btn-primary" id='btn_simpan'>Simpan</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-<!-- modal edit walikelas -->
-<div class="modal fade" id="modal-edit-walikelas" tabindex="-1" role="dialog" aria-labelledby="modal-edit-walikelas"
-	aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="modal-edit-walikelas">Edit Walikelas</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
+			<form name='add_form'>
 			<div class="modal-body">
-				<div class="form-group">
-					<label for="id_guru" class="col-md-12 control-label"><span class="text-danger">*</span>Guru</label>
-					<div class="col-md-12">
-						<select name="update_id_guru" id='update_id_guru' class="form-control" require>
-							<option value="">select guru</option>
-							<?php 
-				foreach($all_guru as $guru)
-				{
-					$selected = ($guru['id'] == $this->input->post('id_guru')) ? ' selected="selected"' : "";
-
-					echo '<option value="'.$guru['id'].'" '.$selected.'>'.$guru['nama_lengkap'].'</option>';
-				} 
-				?>
+					<div class="form-group">
+						<label for="">Nama Guru</label>
+						<select name="add_id_guru" id="add_id_guru" class="custom-select" require>
+							<option selected>Pilih salah satu</option>
+							<?php foreach($guru as $g){ ?>
+							<option value="<?= $g['id']; ?>"><?= $g['nama_lengkap']; ?></option>
+							<?php } ?>
 						</select>
-						<span class="text-danger"><?php echo form_error('id_guru');?></span>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="id_kelas" class="col-md-12 control-label"><span
-							class="text-danger">*</span>Kelas</label>
-					<div class="col-md-12">
-						<select name="update_id_kelas" id='update_id_kelas' class="form-control" require>
-							<option value="">select kelas</option>
-							<?php 
-				foreach($all_kelas as $kelas)
-				{
-					$selected = ($kelas['id'] == $this->input->post('id_kelas')) ? ' selected="selected"' : "";
-
-					echo '<option value="'.$kelas['id'].'" '.$selected.'>'.$kelas['nama'].'</option>';
-				} 
-				?>
+					<div class="form-group">
+						<label for="">Kelas</label>
+						<select name="add_id_kelas" id="add_id_kelas" class="custom-select" require>
+							<option selected>Pilih salah satu</option>
+							<?php foreach($kelas as $k){ ?>
+							<option value="<?= $k['id']; ?>"><?= $k['nama']; ?></option>
+							<?php } ?>
 						</select>
-						<span class="text-danger"><?php echo form_error('id_kelas');?></span>
 					</div>
-				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-				<button type="submit" class="btn btn-primary" id='btn_update'>Simpan</button>
+				<button class="btn btn-primary" id='btn_add'>Simpan</button>
 			</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -220,8 +127,7 @@
 		function tampil_data() {
 			$.ajax({
 				type: 'GET',
-				url: '<?php echo base_url('
-				walikelas / tampilkan_semua_data ')?>',
+				url: '<?= base_url('walikelas/get_all_walikelas')?>',
 				async: true,
 				dataType: 'json',
 				success: function (data) {
@@ -229,8 +135,8 @@
 					var i;
 					for (i = 0; i < data.length; i++) {
 						html += '<tr>' +
-							'<td>' + data[i].id_kelas + '</td>' +
-							'<td>' + data[i].id_guru + '</td>' +
+							'<td>' + data[i].nama_kelas + '</td>' +
+							'<td>' + data[i].nama_guru + '</td>' +
 							'<td>' +
 							'<a href="javascript:;" class="btn btn-info btn-icon-split btn-sm item_edit" data="' +
 							data[i].id +
@@ -244,75 +150,35 @@
 			});
 		}
 
-		// Simpan data
-		$('#btn_simpan').on('click', function () {
-			var id_guru = $('#id_guru').val();
-			var id_kelas = $('#id_kelas').val();
+		// simpan data
+		$('#btn_add').on('click',function(){
+			var id_kelas = $('#add_id_kelas').val();
+			var id_guru = $('#add_id_guru').val();
 			$.ajax({
-				type: "POST",
-				url: "<?php echo base_url('walikelas/simpan'); ?>",
-				dataType: "JSON",
-				data: {
-					id_guru: id_guru,
-					id_kelas: id_kelas
-				},
-				success: function (data) {
-					$('[name="id_guru"]').val("");
-					$('[name="id_kelas"]').val("");
-					$('#modal-tambah-walikelas').modal('hide');
-					$('.modal-backdrop').remove();
-					tampil_data();
-				}
-			});
-			return false;
+			type : "POST",
+			url  : "<?php echo base_url('walikelas/add')?>",
+			dataType : "JSON",
+			data : {id_kelas:id_kelas, id_guru:id_guru},
+			success: function(data){
+				$('[name = "add_id_kelas"]').val("");
+				$('[name = "add_id_guru"]').val("");
+				$(".modal-backdrop").remove();
+				$('#add').modal('hide');
+				// tampilkan datanya
+				tampil_data();
+				// tampilkan 
+				var html = '';
+				html += '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+						'Data walikelas berhasil ditambahkan' +
+						'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+							'<span aria-hidden="true">&times;</span>'+
+						'</button>' +
+						'</div>';
+				$('#show_alert').html(html);
+			}
 		});
-
-		//GET UPDATE
-		$('#show_data').on('click', '.item_edit', function () {
-			var id = $(this).attr('data');
-			$.ajax({
-				type: "GET",
-				url: "<?php echo base_url('walikelas/get_walikelas')?>",
-				dataType: "JSON",
-				data: {
-					id: id
-				},
-				success: function (data) {
-					$.each(data, function (id_kelas, id_guru) {
-						$('#modal-edit-walikelas').modal('show');
-						$('[name="update_id_kelas"]').val(data.id_kelas);
-						$('[name="update_id_guru"]').val(data.id_guru);
-					});
-				}
-			});
-			return false;
+		return false;
 		});
-
-		//Update Barang
-		$('#btn_update').on('click', function () {
-			var id_guru = $('#update_id_guru').val();
-			var id_kelas = $('#update_id_kelas').val();
-
-			$.ajax({
-				type: "POST",
-				url: "<?php echo base_url('walikelas/update')?>",
-				dataType: "JSON",
-				data: {
-					id_kelas,
-					id_guru
-				},
-				success: function (data) {
-					$('[name="update_id_kelas"]').val("");
-					$('[name="update_id_guru"]').val("");
-					$('#modal-tambah-walikelas').modal('hide');
-					$('.modal-backdrop').remove();
-					tampil_data();
-
-				}
-			});
-			return false;
-		});
-
 	});
 
 </script>

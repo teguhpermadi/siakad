@@ -37,3 +37,4 @@ sistem informasi akademik dengan codeigniter
 * 9.11.0 : membuat halaman walikelas
   * 9.11.1 : edit halaman walikelas dengan fungsi javascript squery ajax
   * 9.11.2 : menampilkan data dengan ajax, dan menampilkan data by id dengan ajax
+  * 9.11.3 : merapikan function pada 9.11.2

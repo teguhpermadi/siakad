@@ -116,6 +116,63 @@
 	</div>
 </div>
 
+<!-- modal hapus walikelas -->
+<div class="modal fade" id="modal-hapus-walikelas" tabindex="-1" role="dialog" aria-labelledby="modal-edit-walikelas"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal-hapus-walikelas">Hapus Walikelas</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="id_guru" class="col-md-12 control-label"><span class="text-danger">*</span>Guru</label>
+					<div class="col-md-12">
+						<select name="update_id_guru" id='update_id_guru' class="form-control" disable>
+							<option value="">select guru</option>
+							<?php 
+				foreach($all_guru as $guru)
+				{
+					$selected = ($guru['id'] == $this->input->post('id_guru')) ? ' selected="selected"' : "";
+
+					echo '<option value="'.$guru['id'].'" '.$selected.'>'.$guru['nama_lengkap'].'</option>';
+				} 
+				?>
+						</select>
+						<span class="text-danger"><?php echo form_error('id_guru');?></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="id_kelas" class="col-md-12 control-label"><span
+							class="text-danger">*</span>Kelas</label>
+					<div class="col-md-12">
+						<select name="hapus_id_kelas" id='hapus_id_kelas' class="form-control" disable>
+							<option value="">select kelas</option>
+							<?php 
+				foreach($all_kelas as $kelas)
+				{
+					$selected = ($kelas['id'] == $this->input->post('id_kelas')) ? ' selected="selected"' : "";
+
+					echo '<option value="'.$kelas['id'].'" '.$selected.'>'.$kelas['nama'].'</option>';
+				} 
+				?>
+						</select>
+						<span class="text-danger"><?php echo form_error('id_kelas');?></span>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+				<button type="submit" class="btn btn-primary" id='btn_hapus'>Simpan</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <script src="<?= base_url()?>assets/vendor/jquery/jquery.js"></script>
 <script src="<?= base_url()?>assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 

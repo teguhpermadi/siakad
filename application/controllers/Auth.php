@@ -753,7 +753,11 @@ class Auth extends CI_Controller
 			'type' => 'password'
 		];
 
+		$this->_render_page('template/header', $this->data);
+		$this->_render_page('template/sidebar', $this->data);
 		$this->_render_page('auth/edit_user', $this->data);
+		$this->_render_page('template/footer', $this->data);
+
 	}
 
 	/**

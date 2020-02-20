@@ -4,8 +4,8 @@ $(document).ready(function() {
     $('#datatable-guru').DataTable();
     $('#datatable-siswa').DataTable();
     $('#datatable-mapel').DataTable();
+    $('#datatable-walikelas').DataTable();
     $('#datatable-tahun-pelajaran').DataTable({
         "order": [[ 1, "asc" ]]
     });
-    // $('#datatable-walikelas').DataTable();
 } );

@@ -57,4 +57,11 @@ class Walikelas_model extends CI_Model
     {
         return $this->db->delete('walikelas',array('id'=>$id));
     }
+
+    function get_all_kelas()
+    {
+        // dapatkan kelas yang belum memiliki walikelas
+        return $this->db->query("SELECT * FROM kelas WHERE NOT EXISTS (SELECT * FROM walikelas WHERE kelas.id = walikelas.id_kelas AND walikelas.id_tahun = ".$_SESSION['id_tahun_pelajaran'].")")->result_array();
+        
+    }
 }

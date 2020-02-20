@@ -20,11 +20,12 @@ class Walikelas extends CI_Controller{
     {
         $data['guru'] = $this->Guru_model->get_all_guru();
         $data['kelas'] = $this->Kelas_model->get_all_kelas();
-
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
+        $data['walikelas'] = $this->Walikelas_model->get_all_walikelas();
+        
+        $this->load->view('template/header', $data);
+        $this->load->view('template/sidebar', $data);
         $this->load->view('walikelas/index', $data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer', $data);
     }
 
     function get_all_walikelas()
@@ -45,7 +46,6 @@ class Walikelas extends CI_Controller{
         if($params['id_kelas'] == 0 || $params['id_guru'] == 0){
             echo json_encode($data);
         } else {
-            $data = $this->session->set_flashdata('message', 'Anda berhasil menambahkan data walikelas.');
             $this->Walikelas_model->add_walikelas($params);
             echo json_encode($data);
         }

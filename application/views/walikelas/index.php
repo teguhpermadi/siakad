@@ -135,14 +135,13 @@
 					var i;
 					for (i = 0; i < data.length; i++) {
 						html += '<tr>' +
-							'<td>' + data[i].nama_kelas + '</td>' +
-							'<td>' + data[i].nama_guru + '</td>' +
-							'<td>' +
-							'<a href="javascript:;" class="btn btn-info btn-icon-split btn-sm item_edit" data="' +
-							data[i].id +
-							'"> <span class="icon text-white-50"><i class="fas fa-book"></i></span><span class="text">Edit</span></a>' +
-							'</td>' +
-							'</tr>';
+									'<td>' + data[i].nama_kelas + '</td>' +
+									'<td>' + data[i].nama_guru + '</td>' +
+									'<td>' +
+										'<a href="javascript:;" class="btn btn-info btn-icon-split btn-sm item_edit" data="' +
+										data[i].id +'"> <span class="icon text-white-50"><i class="fas fa-book"></i></span><span class="text">Edit</span></a>' +
+									'</td>' +
+								'</tr>';
 					}
 					$('#show_data').html(html);
 				}

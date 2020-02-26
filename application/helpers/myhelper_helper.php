@@ -46,6 +46,7 @@ function check_login()
 						'profil',
 						'tahun_pelajaran',
 					];
+
 				break;
 
 				case 'siswa':

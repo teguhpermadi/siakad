@@ -42,3 +42,4 @@ sistem informasi akademik dengan codeigniter
 * user_auth_rules : cabang baru
   * 9.13.0 : menambahkan helper dan fungsi cek user pada semua controller
   * 9.13.1 : edit list menu pada berdasarkan user role
+  * 9.13.2 : edit fungsi tambahkan guru sebagai user

@@ -91,10 +91,25 @@
 							<a href="<?= base_url('guru/remove/'.$g['id']); ?>"
 								class="btn btn-danger btn-icon-split btn-sm">
 								<span class="icon text-white-50">
-									<i class="fas fa-user"></i>
+									<i class="fas fa-user-minus"></i>
 								</span>
 								<span class="text">Hapus</span>
 							</a>
+
+							<?php
+								$user_id = $this->db->get_where('users', ['username' => $g['email']])->num_rows();
+								if($user_id < 1) {
+							?>
+
+							<a href="<?= base_url('guru/add_to_user/'.$g['id']); ?>"
+								class="btn btn-warning btn-icon-split btn-sm">
+								<span class="icon text-white-50">
+									<i class="fas fa-user-plus"></i>
+								</span>
+								<span class="text">Jadikan user</span>
+							</a>
+
+								<?php } ?>
 						</td>
 					</tr>
 					<?php } ?>

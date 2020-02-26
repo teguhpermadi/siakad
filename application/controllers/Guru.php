@@ -227,4 +227,51 @@ class Guru extends CI_Controller{
         redirect('guru');
     }
     
+    function add_to_user($id)
+    {
+        $guru = $this->Guru_model->get_guru($id);
+        $name = trim($guru['nama_lengkap']);
+
+        $last_name = (strpos($name, ' ') === false) ? '' : preg_replace('#.*\s([\w-]*)$#', '$1', $name);
+        $first_name = trim( preg_replace('#'.$last_name.'#', '', $name ) );
+
+        // setting password default
+        $password_default = '12345678';
+
+        // create_on
+        $now = time();
+        $human = unix_to_human($now);
+
+        // get ip address
+        $ip = $this->input->ip_address();
+
+        // print_r($guru);
+        $data = array(
+            'ip_address' => $ip,
+            'username' => $guru['email'],
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'phone' => $guru['telp'],
+            'email' => $guru['email'],
+            'password' => password_hash($password_default, PASSWORD_DEFAULT),
+            'created_on' => human_to_unix($human),
+            'active' => '1',
+        );
+
+        // print_r($data);
+        // exit;
+        $this->db->insert('users', $data);
+
+        // id yang baru saja diinputkan
+        $insert_id = $this->db->insert_id();
+
+        $data_users = array(
+            'user_id' => $insert_id,
+            // group guru = 3
+            'group_id' => 3, 
+        );
+        $this->db->insert('users_groups', $data_users);
+        $this->session->set_flashdata('berhasil', 'Anda berhasil menambahkan data <strong>'.$guru['nama_lengkap'].'</strong> sebagai user. <br>Username : <strong>'.$guru['email'].'</strong> Password default : <strong>'.$password_default.'</strong>');
+        redirect('guru');
+    }
 }

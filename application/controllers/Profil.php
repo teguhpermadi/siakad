@@ -9,6 +9,7 @@ class Profil extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Profil_model');
+        
     } 
 
     /*

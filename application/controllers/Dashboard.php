@@ -5,15 +5,12 @@ class Dashboard extends CI_Controller {
 
     public function __construct(){
         parent::__construct();
-        $this->load->library('ion_auth');
         $this->load->model('Profil_model');
         $this->load->model('Guru_model');
         $this->load->model('Siswa_model');
-        
-        if (!$this->ion_auth->logged_in())
-		{
-			redirect('auth/login');
-        }
+
+        // cek user login
+        check_login();
 
         // cek session dan buat session
         if(empty($_SESSION['id_tahun_pelajaran'])){

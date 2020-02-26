@@ -9,6 +9,9 @@ class Kelas extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Kelas_model');
+
+        // cek user login
+        check_login();
     } 
 
     /*

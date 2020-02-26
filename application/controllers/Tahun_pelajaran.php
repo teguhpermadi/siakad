@@ -9,6 +9,9 @@ class Tahun_pelajaran extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Tahun_pelajaran_model');
+
+        // cek user login
+        check_login();
     } 
 
     /*

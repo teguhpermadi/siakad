@@ -9,6 +9,9 @@ class Walikelas extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Walikelas_model');
+        
+        // cek user login
+        check_login();
     } 
 
     /*

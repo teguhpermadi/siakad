@@ -11,6 +11,10 @@ class Guru extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Guru_model');
+        
+        // cek user login
+        check_login();
+
     } 
 
     /*

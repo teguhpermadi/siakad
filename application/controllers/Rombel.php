@@ -9,6 +9,9 @@ class Rombel extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Rombel_model');
+
+        // cek user login
+        check_login();
     } 
 
     /*

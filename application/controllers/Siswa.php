@@ -12,6 +12,9 @@ class Siswa extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Siswa_model');
+        
+        // cek user login
+        check_login();
     } 
 
     /*

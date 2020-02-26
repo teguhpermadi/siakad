@@ -97,4 +97,20 @@ function user_menu()
 {
 	// penganti $this
 	$ci =& get_instance();
+
+	// periksa usernya
+	$user = $ci->ion_auth->user()->row(); // informasi data user
+	$user_groups = $ci->ion_auth->get_users_groups($user->id)->row(); // informasi group user
+
+	switch($user_groups->name)
+	{
+		case 'admin':
+			$menu = 'tes';
+			echo ($menu);
+		break;
+		case 'guru':
+		break;
+		case 'siswa':
+		break;
+	}
 }

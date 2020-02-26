@@ -16,19 +16,8 @@ class Dashboard extends CI_Controller {
         if(empty($_SESSION['id_tahun_pelajaran'])){
             // setting tahun pelajarannya secara default
             $tahun_pelajaran = $this->db->query('SELECT * FROM tahun_pelajaran ORDER BY tahun DESC LIMIT 1')->row_array();
-            $user = $this->ion_auth->user()->row();
    
             $userData = array(
-                'id' => $user->id,
-                'ip_address' => $user->ip_address,
-                'username' => $user->username,
-                'password' => $user->password,
-                'email' => $user->email,
-                'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'company' => $user->company,
-                'phone' => $user->phone,
-                'user_id' => $user->id,
                 'id_tahun_pelajaran' => $tahun_pelajaran['id'],
                 'tahun' => $tahun_pelajaran['tahun'],
                 'semester' => $tahun_pelajaran['semester'],

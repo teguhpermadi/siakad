@@ -11,22 +11,10 @@ class Dashboard extends CI_Controller {
 
         // cek user login
         check_login();
-
+        set_tahun_aktif();
+        
         print_r(user_info());
-        // cek session dan buat session
-        if(empty($_SESSION['id_tahun_pelajaran'])){
-            // setting tahun pelajarannya secara default
-            $tahun_pelajaran = $this->db->query('SELECT * FROM tahun_pelajaran ORDER BY tahun DESC LIMIT 1')->row_array();
-   
-            $userData = array(
-                'id_tahun_pelajaran' => $tahun_pelajaran['id'],
-                'tahun' => $tahun_pelajaran['tahun'],
-                'semester' => $tahun_pelajaran['semester'],
-                'id_kepsek' => $tahun_pelajaran['id_kepsek'],
-                'tanggal_rapor' => $tahun_pelajaran['tanggal_rapor']
-            );
-            $this->session->set_userdata($userData);
-        }
+        
     }
 
     public function index ()

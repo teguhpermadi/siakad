@@ -78,7 +78,7 @@ function user_info()
 	$user = $ci->ion_auth->user()->row(); // informasi data user
 	$user_groups = $ci->ion_auth->get_users_groups($user->id)->row(); // informasi group user
 
-	return $data = array(
+	$data = array(
 		'id' => $user->id,
 		'ip_address' => $user->ip_address,
 		'username' => $user->username,
@@ -90,6 +90,32 @@ function user_info()
 		'phone' => $user->phone,
 		'user_id' => $user->id
 	);
+
+	switch($user_groups->name)
+	{
+		case 'admin' :
+			$add_array = array('user_role' => 'administrator');
+			return array_merge($data, $add_array);
+		break;
+		case 'guru' :
+			// periksa apakah user tersebut sebagai guru dan walikelas pada tahun pelajaran yang aktif
+			$ci->db->select('guru.nama_lengkap as nama_guru, kelas.nama as nama_walikelas');
+			$ci->db->from('walikelas');
+			$ci->db->where('walikelas.id_tahun', $_SESSION['id_tahun_pelajaran']);
+			$ci->db->join('guru', 'guru.id = walikelas.id_guru');
+			$ci->db->join('users', 'users.email = guru.email', 'inner');
+			$ci->db->join('kelas', 'kelas.id = walikelas.id_kelas');
+			$ci->db->where('users.email', $user->email);
+			$db = $ci->db->get()->result_array();
+
+			$add_array = array('user_role' => 'guru');
+			return array_merge($data, $add_array, $db);
+		break;
+		case 'siswa':
+			$add_array = array('user_role' => 'siswa');
+			return array_merge($data, $add_array);
+		break;
+	}
 	
 }
 
@@ -101,19 +127,30 @@ function user_menu()
 	// periksa usernya
 	$user = $ci->ion_auth->user()->row(); // informasi data user
 	$user_groups = $ci->ion_auth->get_users_groups($user->id)->row(); // informasi group user
-
-	// periksa apakah user tersebut sebagai guru dan walikelas pada tahun pelajaran yang aktif
-	$this->db->select('*');
 	
-
 	switch($user_groups->name)
 	{
 		case 'admin':
 			$ci->load->view('template/menu_admin');
 		break;
 		case 'guru':
-			$ci->load->view('template/menu_guru');
-			$ci->load->view('template/menu_walikelas');
+			// periksa apakah user tersebut sebagai guru dan walikelas pada tahun pelajaran yang aktif
+			$ci->db->select('guru.nama_lengkap as nama_guru, kelas.nama as nama_walikelas');
+			$ci->db->from('walikelas');
+			$ci->db->where('walikelas.id_tahun', $_SESSION['id_tahun_pelajaran']);
+			$ci->db->join('guru', 'guru.id = walikelas.id_guru');
+			$ci->db->join('users', 'users.email = guru.email', 'inner');
+			$ci->db->join('kelas', 'kelas.id = walikelas.id_kelas');
+			$ci->db->where('users.email', $user->email);
+			$db = $ci->db->get();
+			$cek_walikelas = $db->num_rows();
+
+			if($cek_walikelas > 0) {
+				$ci->load->view('template/menu_guru');
+				$ci->load->view('template/menu_walikelas');
+			} else {
+				$ci->load->view('template/menu_guru');
+			}
 		break;
 		case 'siswa':
 		break;

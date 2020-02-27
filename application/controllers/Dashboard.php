@@ -12,6 +12,7 @@ class Dashboard extends CI_Controller {
         // cek user login
         check_login();
 
+        print_r(user_info());
         // cek session dan buat session
         if(empty($_SESSION['id_tahun_pelajaran'])){
             // setting tahun pelajarannya secara default

@@ -105,10 +105,10 @@ function user_menu()
 	switch($user_groups->name)
 	{
 		case 'admin':
-			$menu = 'tes';
-			echo ($menu);
+			$ci->load->view('template/menu_admin');
 		break;
 		case 'guru':
+			$ci->load->view('template/menu_guru');
 		break;
 		case 'siswa':
 		break;

@@ -5,9 +5,27 @@
 
 		<!-- Sidebar -->
 		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+			<!-- Sidebar - Brand -->
+			<a class="sidebar-brand d-flex align-items-center justify-content-center"
+				href="<?= base_url('dashboard'); ?>">
+				<div class="sidebar-brand-icon">
+					<i class="fas fa-school"></i>
+				</div>
+				<div class="sidebar-brand-text mx-3">SIAKAD</div>
+			</a>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0">
 
 			<?php user_menu(); ?>
 
+			<!-- Divider -->
+			<hr class="sidebar-divider d-none d-md-block">
+
+			<!-- Sidebar Toggler (Sidebar) -->
+			<div class="text-center d-none d-md-inline">
+				<button class="rounded-circle border-0" id="sidebarToggle"></button>
+			</div>
 		</ul>
 		<!-- End of Sidebar -->
 
@@ -69,8 +87,8 @@
 								<i class="far fa-calendar-alt"></i>
 								<span class="ml-2">Ubah Tahun Pelajaran</span>
 							</a> -->
-							<!-- Dropdown - Alerts -->
-							<!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+						<!-- Dropdown - Alerts -->
+						<!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="alertsDropdown">
 								<h6 class="dropdown-header">
 									Pilih tahun pelajaran
@@ -90,9 +108,9 @@
 						<li class="nav-item dropdown no-arrow">
 							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
 								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= user_info()['first_name']; ?></span>
-								<!-- <img class="img-profile rounded-circle"
-									src="https://picsum.photos/200"> -->
+								<span
+									class="mr-2 d-none d-lg-inline text-gray-600 small"><?= user_info()['first_name']; ?></span>
+								<img class="img-profile rounded-circle" src="https://picsum.photos/200">
 							</a>
 							<!-- Dropdown - User Information -->
 							<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

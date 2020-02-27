@@ -1,17 +1,3 @@
-<!-- Sidebar - Brand -->
-<a class="sidebar-brand d-flex align-items-center justify-content-center"
-href="<?= base_url('dashboard'); ?>">
-<div class="sidebar-brand-icon">
-<i class="fas fa-school"></i>
-</div>
-<div class="sidebar-brand-text mx-3">SIAKAD</div>
-</a>
-
-<!-- Divider -->
-<hr class="sidebar-divider my-0">
-
-<?php user_menu(); ?>
-
 <!-- Nav Item - Dashboard -->
 <li class="nav-item active">
 	<a class="nav-link" href="<?= base_url('dashboard'); ?>">
@@ -43,8 +29,8 @@ href="<?= base_url('dashboard'); ?>">
 
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
-	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-		aria-expanded="true" aria-controls="collapseTwo">
+	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+		aria-controls="collapseTwo">
 		<i class="fas fa-database"></i>
 		<span>Data Akademik</span>
 	</a>
@@ -78,8 +64,8 @@ href="<?= base_url('dashboard'); ?>">
 
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
-	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-		aria-expanded="true" aria-controls="collapsePages">
+	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+		aria-controls="collapsePages">
 		<i class="fas fa-folder-open"></i>
 		<span>Hasil Penilaian</span>
 	</a>
@@ -102,8 +88,8 @@ href="<?= base_url('dashboard'); ?>">
 
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
-	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
-		aria-expanded="true" aria-controls="collapsePages">
+	<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true"
+		aria-controls="collapsePages">
 		<i class="fas fa-award"></i>
 		<span>Penilaian</span>
 	</a>
@@ -116,10 +102,4 @@ href="<?= base_url('dashboard'); ?>">
 </li>
 
 
-<!-- Divider -->
-<hr class="sidebar-divider d-none d-md-block">
 
-<!-- Sidebar Toggler (Sidebar) -->
-<div class="text-center d-none d-md-inline">
-	<button class="rounded-circle border-0" id="sidebarToggle"></button>
-</div>

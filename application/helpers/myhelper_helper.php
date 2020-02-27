@@ -102,6 +102,10 @@ function user_menu()
 	$user = $ci->ion_auth->user()->row(); // informasi data user
 	$user_groups = $ci->ion_auth->get_users_groups($user->id)->row(); // informasi group user
 
+	// periksa apakah user tersebut sebagai guru dan walikelas pada tahun pelajaran yang aktif
+	$this->db->select('*');
+	
+
 	switch($user_groups->name)
 	{
 		case 'admin':
@@ -109,6 +113,7 @@ function user_menu()
 		break;
 		case 'guru':
 			$ci->load->view('template/menu_guru');
+			$ci->load->view('template/menu_walikelas');
 		break;
 		case 'siswa':
 		break;

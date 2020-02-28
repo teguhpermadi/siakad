@@ -16,9 +16,9 @@
 	</a>
 	<div id="collapseThree" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
 		<div class="bg-white py-2 collapse-inner rounded">
-			<a class="collapse-item" href="#">Absensi</a>
-			<a class="collapse-item" href="#">Catatan</a>
-			<a class="collapse-item" href="#">Rapor</a>
+			<a class="collapse-item" href="<?= base_url('absensi'); ?>">Absensi</a>
+			<a class="collapse-item" href="<?= base_url('catatan'); ?>">Catatan</a>
+			<a class="collapse-item" href="<?= base_url('rapor'); ?>">Rapor</a>
 		</div>
 	</div>
 </li>

@@ -45,6 +45,7 @@ function check_login()
 						'dashboard',
 						'profil',
 						'tahun_pelajaran',
+						// 'rombel',
 					];
 
 				break;
@@ -114,7 +115,7 @@ function user_info()
 	);
 
 	// periksa apakah user tersebut sebagai guru dan walikelas pada tahun pelajaran yang aktif
-	$ci->db->select('guru.id as id_guru, kelas.id as id_kelas');
+	$ci->db->select('guru.id as id_guru, kelas.id as id_kelas, kelas.nama as nama_kelas');
 	$ci->db->from('walikelas');
 	$ci->db->where('walikelas.id_tahun', $_SESSION['id_tahun_pelajaran']);
 	$ci->db->join('guru', 'guru.id = walikelas.id_guru');

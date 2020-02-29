@@ -45,6 +45,7 @@ function check_login()
 						'dashboard',
 						'profil',
 						'tahun_pelajaran',
+						'catatan',
 						// 'rombel',
 					];
 

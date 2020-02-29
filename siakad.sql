@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2020 at 08:14 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.1
+-- Generation Time: Feb 29, 2020 at 04:28 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,6 +25,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `absensi`
+--
+
+CREATE TABLE `absensi` (
+  `id` int(255) NOT NULL,
+  `id_tahun` int(255) NOT NULL,
+  `id_siswa` int(255) NOT NULL,
+  `sakit` int(255) NOT NULL,
+  `izin` int(255) NOT NULL,
+  `alpa` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `groups`
 --
 
@@ -33,6 +48,16 @@ CREATE TABLE `groups` (
   `name` varchar(20) NOT NULL,
   `description` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `groups`
+--
+
+INSERT INTO `groups` (`id`, `name`, `description`) VALUES
+(1, 'admin', 'Administrator'),
+(2, 'members', 'General User'),
+(3, 'guru', 'Guru'),
+(4, 'siswa', 'Siswa');
 
 -- --------------------------------------------------------
 
@@ -64,10 +89,10 @@ CREATE TABLE `guru` (
 --
 
 CREATE TABLE `kelas` (
-  `id` int(255) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `kode_kelas` varchar(255) NOT NULL,
-  `tingkat` varchar(255) NOT NULL
+  `id` int(100) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `tingkat` varchar(255) NOT NULL,
+  `kode_kelas` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -93,7 +118,7 @@ CREATE TABLE `mapel` (
   `id` int(255) NOT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `kode` varchar(255) DEFAULT NULL,
-  `kelompok` varchar(255) DEFAULT NULL
+  `kelompok` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -141,7 +166,7 @@ CREATE TABLE `profil` (
 --
 
 CREATE TABLE `rombel` (
-  `id` int(255) NOT NULL,
+  `id` int(100) NOT NULL,
   `id_tahun` int(255) NOT NULL,
   `id_kelas` int(255) NOT NULL,
   `id_siswa` int(255) NOT NULL
@@ -230,6 +255,14 @@ CREATE TABLE `users` (
   `phone` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
+(1, '127.0.0.1', 'administrator', '$2y$12$EXgZ3Jar14KxBIdOzZohX.bsAUcSxqUCFijg5G/UMknKa8ndWoHPy', 'admin@admin.com', NULL, '', NULL, NULL, NULL, 'b70fba9e7459695f4ef467bd215edba8c0cd66f8', '$2y$10$Kx9WqnKnBf7/1XACqjQAve/ghv6159rz8/3mFsKQKjFLCfD5kQRHq', 1268889823, 1582935994, 1, 'Admin', 'istrator', 'ADMIN', '0'),
+(29, '::1', 'aricci5@mapquest.com', '$2y$10$9yb/xisNiVh.A/BhF4oyv.ckIE6X91Cmqh96rhL.TB94gidMU1mnK', 'aricci5@mapquest.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1582853580, 1582936078, 1, 'Aggie', 'Ricci', NULL, '3291000251');
+
 -- --------------------------------------------------------
 
 --
@@ -241,6 +274,15 @@ CREATE TABLE `users_groups` (
   `user_id` int(11) UNSIGNED NOT NULL,
   `group_id` mediumint(8) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users_groups`
+--
+
+INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(10, 29, 3);
 
 -- --------------------------------------------------------
 
@@ -258,6 +300,13 @@ CREATE TABLE `walikelas` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `absensi`
+--
+ALTER TABLE `absensi`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_tahun` (`id_tahun`,`id_siswa`);
 
 --
 -- Indexes for table `groups`
@@ -349,10 +398,16 @@ ALTER TABLE `walikelas`
 --
 
 --
+-- AUTO_INCREMENT for table `absensi`
+--
+ALTER TABLE `absensi`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `guru`
@@ -364,7 +419,7 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `login_attempts`
@@ -394,7 +449,7 @@ ALTER TABLE `profil`
 -- AUTO_INCREMENT for table `rombel`
 --
 ALTER TABLE `rombel`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `siswa`
@@ -412,13 +467,13 @@ ALTER TABLE `tahun_pelajaran`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `walikelas`

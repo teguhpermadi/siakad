@@ -44,3 +44,4 @@ sistem informasi akademik dengan codeigniter
   * 9.13.1 : edit list menu pada berdasarkan user role
   * 9.13.2 : edit fungsi tambahkan guru sebagai user
   * 9.13.3 : membuat halaman absensi
+  * 9.13.4 : membenahi fungsi create dan update pada absensi menggunakan perintah INSERT ... ON DUPLICATE KEY UPDATE Statement

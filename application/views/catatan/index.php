@@ -23,7 +23,7 @@
 
 				<?php foreach($catatan as $c){ ?>
 				<tr>
-					<td><?php echo $c['nama_siswa']; ?><input type="text" name='id_siswa[]' value='<?= $c['id_siswa']; ?>'></td>
+					<td><?php echo $c['nama_siswa']; ?><input type="text" name='id_siswa[]' value='<?= $c['id_siswa']; ?>' hidden></td>
 					<td>
                         <select name="keterangan[]" class="custom-select">
                             <!-- <option selected>Pilih...</option> -->

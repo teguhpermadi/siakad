@@ -47,3 +47,4 @@ sistem informasi akademik dengan codeigniter
   * 9.13.4 : membenahi fungsi create dan update pada absensi menggunakan perintah INSERT ... ON DUPLICATE KEY UPDATE Statement
   * 9.13.5 : update database
   * 9.13.6 : membuat halaman catatan
+  * 9.13.7 : tambah file loader baru untuk fungsi insert into on duplicate update dan membenahi halaman absensi dan catatan

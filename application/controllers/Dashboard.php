@@ -12,7 +12,6 @@ class Dashboard extends CI_Controller {
         // cek user login
         check_login();
         set_tahun_aktif();
-        
     }
 
     public function index ()

@@ -6,7 +6,7 @@ function check_login()
     // penganti $ci
     $ci =& get_instance();
 
-    if (!$ci->ion_auth->logged_in())
+    if (empty($ci->ion_auth->logged_in()))
 		{
 			// redirect them to the login page
 			redirect('auth/login', 'refresh');
@@ -46,7 +46,9 @@ function check_login()
 						'profil',
 						'tahun_pelajaran',
 						'catatan',
-						// 'rombel',
+						'nilai_sikap',
+						'nilai_pengetahuan',
+						'nilai_keterampilan',
 					];
 
 				break;
@@ -103,29 +105,23 @@ function user_info()
 	$user_groups = $ci->ion_auth->get_users_groups($user->id)->row(); // informasi group user
 
 	$data = array(
-		'id' => $user->id,
-		'ip_address' => $user->ip_address,
+		// 'id' => $user->id,
+		// 'ip_address' => $user->ip_address,
 		'username' => $user->username,
-		'password' => $user->password,
+		// 'password' => $user->password,
 		'email' => $user->email,
 		'first_name' => $user->first_name,
 		'last_name' => $user->last_name,
-		'company' => $user->company,
-		'phone' => $user->phone,
+		// 'company' => $user->company,
+		// 'phone' => $user->phone,
 		'user_id' => $user->id
 	);
 
-	// periksa apakah user tersebut sebagai guru dan walikelas pada tahun pelajaran yang aktif
-	$ci->db->select('guru.id as id_guru, kelas.id as id_kelas, kelas.nama as nama_kelas');
-	$ci->db->from('walikelas');
-	$ci->db->where('walikelas.id_tahun', $_SESSION['id_tahun_pelajaran']);
-	$ci->db->join('guru', 'guru.id = walikelas.id_guru');
-	$ci->db->join('users', 'users.email = guru.email', 'inner');
-	$ci->db->join('kelas', 'kelas.id = walikelas.id_kelas');
-	$ci->db->where('users.email', $user->email);
-	$db = $ci->db->get();
-	$data_guru = $db->result_array();
-	$count_data = $db->num_rows();
+	// periksa user tersebut sebagai guru
+	$ci->db->select('guru.id as id_guru');
+	$ci->db->from('guru');
+	$ci->db->where('email', $user->email);
+	$data_guru = $ci->db->get()->row();
 
 	// tambahkan keterangan tentang group user
 	switch($user_groups->name)
@@ -135,16 +131,31 @@ function user_info()
 			return array_merge($data, $user_role);
 		break;
 		case 'guru' :
+			// periksa guru sebagai walikelas
+			$ci->db->select('walikelas.id_kelas as id_kelas, kelas.nama as nama_kelas');
+			$ci->db->from('walikelas');
+			$ci->db->where('walikelas.id_tahun', $_SESSION['id_tahun_pelajaran']);
+			$ci->db->where('walikelas.id_guru', $data_guru->id_guru);
+			$ci->db->join('kelas', 'kelas.id = walikelas.id_kelas');
+			$data_walikelas = $ci->db->get()->row();
+	
 			$user_role = array('user_role' => 'guru');
 
 			// berikan keterangan tentang walikelas
-			if($count_data > 0) {
-				$is_walikelas = array('is_walikelas' => 'yes');
+			if($data_walikelas) {
+				$is_walikelas = array(
+					'id_guru' => $data_guru->id_guru,
+					'is_walikelas' => 'yes',
+					'id_kelas' => $data_walikelas->id_kelas,
+					'nama_kelas' => $data_walikelas->nama_kelas
+				);
 			} else {
-				$is_walikelas = array('is_walikelas' => 'no');
+				$is_walikelas = array(
+					'is_walikelas' => 'no',
+					'id_guru' => $data_guru->id_guru,
+				);
 			};
-
-			return array_merge($data, $user_role, $is_walikelas, $data_guru);
+			return array_merge($data, $user_role, $is_walikelas);
 		break;
 		case 'siswa':
 			$user_role = array('user_role' => 'siswa');

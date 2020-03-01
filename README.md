@@ -48,3 +48,4 @@ sistem informasi akademik dengan codeigniter
   * 9.13.5 : update database
   * 9.13.6 : membuat halaman catatan
   * 9.13.7 : tambah file loader baru untuk fungsi insert into on duplicate update dan membenahi halaman absensi dan catatan
+  * 9.13.8 : merapikan helper dan membuat nilai sikap

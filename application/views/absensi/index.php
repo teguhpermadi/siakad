@@ -10,7 +10,7 @@
 	<div class="card shadow mb-4">
 		<?php echo form_open('absensi/simpan',array("class"=>"form-horizontal")); ?>
 		<div class="card-header py-3">
-			<h3 class="m-0 font-weight-bold text-primary">Daftar Absensi Siswa Kelas <?php echo(user_info()[0]['nama_kelas']); ?></h6>
+			<h3 class="m-0 font-weight-bold text-primary">Daftar Absensi Siswa Kelas <?php echo(user_info()['nama_kelas']); ?></h6>
 		</div>
 		<div class="card-body">
 			<table class="table table-striped table-bordered" style="width:100%">

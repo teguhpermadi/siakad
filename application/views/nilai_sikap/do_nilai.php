@@ -8,55 +8,48 @@
 
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
-		<?php echo form_open('catatan/simpan',array("class"=>"form-horizontal")); ?>
+		<?php echo form_open('nilai_sikap/simpan',array("class"=>"form-horizontal")); ?>
 		<div class="card-header py-3">
-			<h3 class="m-0 font-weight-bold text-primary">Daftar Catatan Siswa Kelas <?php echo(user_info()['nama_kelas']); ?></h6>
+			<h3 class="m-0 font-weight-bold text-primary">Nilai Sikap Kelas </h6>
 		</div>
 		<div class="card-body">
 			<table class="table table-striped table-bordered" style="width:100%">
 				<thead>
 					<tr>
-						<th>Nama Lengkap</th>
-						<th width='15%'>Keterangan</th>
-						<th width='50%'>Catatan</th>
+						<th width='50%'>Nama Lengkap</th>
+						<th>Nilai</th>
 				</thead>
 
-				<?php foreach($catatan as $c){ ?>
+				<?php foreach($siswa as $s){ ?>
 				<tr>
-					<td><?php echo $c['nama_siswa']; ?><input type="text" name='id_siswa[]' value='<?= $c['id_siswa']; ?>' hidden></td>
+					<td><?php echo $s['nama_siswa']; ?><input type="text" name='id_siswa[]' value='<?= $s['id_siswa']; ?>' hidden></td>
 					<td>
-                        <select name="keterangan[]" class="custom-select">
+                    <select name="nilai[]" class="custom-select">
                             <!-- <option selected>Pilih...</option> -->
                             <?php 
                             $ket = array(
-                                'Yes'=>'Naik',
-                                'No'=>'Tidak',
+                                '4'=> 'Sangat Baik',
+                                '3'=> 'Baik',
+                                '2' => 'Cukup',
+                                '1' => 'Kurang Baik'
                             );
 
                             foreach($ket as $value => $display_text)
                             {
-                                $selected = ($value == $c['keterangan']) ? ' selected="selected"' : "";
+                                $selected = ($value == $s['nilai']) ? ' selected="selected"' : "";
 
                                 echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
                             } 
                             ?>
                         </select>
                     </td>
-					<td><input type="text" name="note[]" class="form-control" placeholder="catatan" value="<?php echo ($c['note'])? $c['note'] : '-'; ?>"></td>
 				</tr>
 				<?php } ?>
-				<!-- <tfoot>
-					<tr>
-                    <th>Nama Lengkap</th>
-						<th>Sakit</th>
-						<th>Izin</th>
-						<th>Alpa</th>
-					</tr>
-				</tfoot> -->
 			</table>
 		</div>
 		<div class="card-footer">
 		<button type="submit" class='btn btn-primary'>Simpan</button>
+        <a href='<?= base_url('nilai_sikap'); ?>' class='btn btn-secondary'>Kembali</a>
 		</div>
 		<?php echo form_close(); ?>
 	</div>

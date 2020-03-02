@@ -359,6 +359,36 @@ ALTER TABLE `users_groups`
   ADD CONSTRAINT `fk_users_groups_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
+--
+-- Table structure for table `nilai_sikap`
+--
+
+CREATE TABLE `nilai_sikap` (
+  `id` int(255) NOT NULL,
+  `id_tahun` int(255) NOT NULL,
+  `id_guru` int(255) NOT NULL,
+  `id_siswa` int(255) NOT NULL,
+  `nilai` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for table `nilai_sikap`
+--
+ALTER TABLE `nilai_sikap`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_tahun` (`id_tahun`,`id_guru`,`id_siswa`) USING BTREE;
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `nilai_sikap`
+--
+ALTER TABLE `nilai_sikap`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -34,7 +34,7 @@ function check_login()
 						'siswa',
 						'tahun_pelajaran',
 						'users',
-						// 'walikelas'
+						'walikelas'
 					];
 				break;
 
@@ -49,6 +49,7 @@ function check_login()
 						'nilai_sikap',
 						'nilai_pengetahuan',
 						'nilai_keterampilan',
+						'pengajar'
 					];
 
 				break;

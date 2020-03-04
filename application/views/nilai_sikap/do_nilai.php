@@ -25,7 +25,7 @@
 					<td><?php echo $s['nama_siswa']; ?><input type="text" name='id_siswa[]' value='<?= $s['id_siswa']; ?>' hidden></td>
 					<td>
                     <select name="nilai[]" class="custom-select">
-                            <!-- <option selected>Pilih...</option> -->
+                            <option value='NULL' selected>Pilih...</option>
                             <?php 
                             $ket = array(
                                 '4'=> 'Sangat Baik',

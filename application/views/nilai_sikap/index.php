@@ -16,13 +16,13 @@
 				if($data['jumlah_siswa_belum_dinilai'] = 0) {
 					// semua siswa sudah dinilai
 					$class = 'bg-primary';
-				} else if($data['jumlah_siswa_belum_dinilai'] > 0 && $data['jumlah_siswa_belum_dinilai'] != $data['jumlah_siswa_rombel']) {
-					// ada siswa yang belum dinilai
-					$class = 'bg-warning';
 				} else if($data['jumlah_siswa_belum_dinilai'] = $data['jumlah_siswa_rombel']) {
 					// semua siswa belum dinilai
 					$class = 'bg-danger';
-				};
+				} else {
+					// ada siswa yang belum dinilai
+					$class = 'bg-warning';
+				}
 		?>
 		<div class='col-md-6'>
 			<div class="card shadow mb-4">

@@ -54,8 +54,14 @@ class Nilai_sikap_model extends CI_Model
             'jumlah_siswa_rombel' => $siswa_rombel->jumlah,
             'jumlah_siswa_sudah_dinilai' => $sudah_dinilai->jumlah,
             'jumlah_siswa_belum_dinilai' => $belum_dinilai,
-        );
+		);
+		
+		$chart = array(
+			'sudah dinilai' => $sudah_dinilai->jumlah,
+			'belum dinilai' => $belum_dinilai
+		);
 
-        return $data;
+		// return $data;
+		return $chart;
     }
 }

@@ -1,6 +1,9 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+// load script
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 	<div class="row">
 		<?php if(empty($kelas)){ ?>
 		<div class="col-md-12">
@@ -36,6 +39,30 @@
 					?>
 				</div>
 				<div class="card-body">
+				<script type="text/javascript">
+					google.charts.load('current', {'packages':['corechart']});
+					google.charts.setOnLoadCallback(drawChart);
+
+					function drawChart() {
+
+						// disini data chart nya di load
+						var chart = '<?php echo json_encode($this->Nilai_sikap_model->cek_nilai_siswa(5)); ?>';
+
+						var data = google.visualization.arrayToDataTable([chart]);
+
+						var options = {
+						title: 'My Daily Activities'
+						};
+
+						var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+						chart.draw(data, options);
+					}
+					</script>
+
+					<div id="piechart" style="width: 900px; height: 500px;"></div>
+
+					
 					<?php 
 						$data = $this->Nilai_sikap_model->cek_nilai_siswa($k['id_kelas']);
 						print_r($data);

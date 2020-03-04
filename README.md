@@ -50,3 +50,4 @@ sistem informasi akademik dengan codeigniter
   * 9.13.7 : tambah file loader baru untuk fungsi insert into on duplicate update dan membenahi halaman absensi dan catatan
   * 9.13.8 : merapikan helper dan membuat nilai sikap
   * 9.13.9 : merapikah tampilan nilai sikap
+  * 9.13.10 : menggunakan google charts

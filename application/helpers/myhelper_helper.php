@@ -49,7 +49,7 @@ function check_login()
 						'nilai_sikap',
 						'nilai_pengetahuan',
 						'nilai_keterampilan',
-						'pengajar'
+						'pengajar',
 					];
 
 				break;

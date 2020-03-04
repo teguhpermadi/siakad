@@ -51,17 +51,11 @@ class Nilai_sikap_model extends CI_Model
         // hitung selisih yang belum dinilai
         $belum_dinilai = $siswa_rombel->jumlah - $sudah_dinilai->jumlah;
         $data = array(
-            'jumlah_siswa_rombel' => $siswa_rombel->jumlah,
-            'jumlah_siswa_sudah_dinilai' => $sudah_dinilai->jumlah,
-            'jumlah_siswa_belum_dinilai' => $belum_dinilai,
+            'siswa rombel' => $siswa_rombel->jumlah,
+            'sudah dinilai' => $sudah_dinilai->jumlah,
+            'belum dinilai' => $belum_dinilai,
 		);
 		
-		$chart = array(
-			'sudah dinilai' => $sudah_dinilai->jumlah,
-			'belum dinilai' => $belum_dinilai
-		);
-
-		// return $data;
-		return $chart;
+		return $data;
     }
 }

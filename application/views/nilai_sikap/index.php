@@ -1,8 +1,8 @@
+<!-- google charts -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
-// load script
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 	<div class="row">
 		<?php if(empty($kelas)){ ?>
@@ -13,63 +13,52 @@
 		</div>
 		<?php } else { 
             foreach($kelas as $k) { 
-				$data = $this->Nilai_sikap_model->cek_nilai_siswa($k['id_kelas']);
-
-				// cek jumlah yang sudah dinilai
-				if($data['jumlah_siswa_belum_dinilai'] = 0) {
-					// semua siswa sudah dinilai
-					$class = 'bg-primary';
-				} else if($data['jumlah_siswa_belum_dinilai'] = $data['jumlah_siswa_rombel']) {
-					// semua siswa belum dinilai
-					$class = 'bg-danger';
-				} else {
-					// ada siswa yang belum dinilai
-					$class = 'bg-warning';
-				}
 		?>
 		<div class='col-md-6'>
 			<div class="card shadow mb-4">
-				<div class="card-header text-white <?= $class; ?>">
+				<div class="card-header text-uppercase">
 					<?=$k['nama_kelas'] ?>
-					<?php
-					if($k['id_kelas'] == user_info()['id_walikelas']) {
+					<?php 
+					if($k['id_kelas'] == user_info()['id_kelas']) {
 						// jika anda walikelas pada kelas ini
-						echo '<span class="badge badge-light">Walikelas</span>';
+						echo '<span class="badge badge-primary float-right">Walikelas</span>';
 					}
 					?>
 				</div>
 				<div class="card-body">
-				<script type="text/javascript">
-					google.charts.load('current', {'packages':['corechart']});
-					google.charts.setOnLoadCallback(drawChart);
-
-					function drawChart() {
-
-						// disini data chart nya di load
-						var chart = '<?php echo json_encode($this->Nilai_sikap_model->cek_nilai_siswa(5)); ?>';
-
-						var data = google.visualization.arrayToDataTable([chart]);
-
-						var options = {
-						title: 'My Daily Activities'
-						};
-
-						var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-						chart.draw(data, options);
-					}
-					</script>
-
-					<div id="piechart" style="width: 900px; height: 500px;"></div>
-
-					
 					<?php 
-						$data = $this->Nilai_sikap_model->cek_nilai_siswa($k['id_kelas']);
-						print_r($data);
+						$datas = $this->Nilai_sikap_model->cek_nilai_siswa($k['id_kelas']);
+						print_r(json_encode($datas));
 					 ?>
+					<script type="text/javascript">
+						google.charts.load('current', {
+							'packages': ['corechart']
+						});
+						google.charts.setOnLoadCallback(drawChart);
+
+						function drawChart() {
+
+							var data = google.visualization.arrayToDataTable([
+								['Task', 'Hours per Day'],
+								['Work', 11],
+								['Eat', 2]
+							]);
+
+
+							var options = {
+								title: 'My Daily Activities'
+							};
+
+							var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+							chart.draw(data, options);
+						}
+					</script>
+					<div id="piechart"></div>
 				</div>
 				<div class="card-footer">
-				<a href="<?= base_url('nilai_sikap/do_nilai/'.$k['id_kelas']); ?>" class='btn btn-primary'>Lakukan Penilaian</a>
+					<a href="<?= base_url('nilai_sikap/do_nilai/'.$k['id_kelas']); ?>" class='btn btn-primary'>Lakukan
+						Penilaian</a>
 				</div>
 			</div>
 		</div>

@@ -22,7 +22,12 @@
 
 				<?php foreach($siswa as $s){ ?>
 				<tr>
-					<td><?php echo $s['nama_siswa']; ?><input type="text" name='id_siswa[]' value='<?= $s['id_siswa']; ?>' hidden></td>
+					<td><?php echo $s['nama_siswa']; ?><input type="text" name='id_siswa[]' value='<?= $s['id_siswa']; ?>' hidden>
+					<?php if( $s['nilai'] == NULL){
+						// jika siswa tersebut belum memiliki nilai
+						echo '<span class="badge badge-danger">Belum dinilai.</span>';
+					} ?>
+					</td>
 					<td>
                     <select name="nilai[]" class="custom-select">
                             <option value='NULL' selected>Pilih...</option>

@@ -28,6 +28,12 @@
 			<div class="card shadow mb-4">
 				<div class="card-header text-white <?= $class; ?>">
 					<?=$k['nama_kelas'] ?>
+					<?php
+					if($k['id_kelas'] == user_info()['id_walikelas']) {
+						// jika anda walikelas pada kelas ini
+						echo '<span class="badge badge-light">Walikelas</span>';
+					}
+					?>
 				</div>
 				<div class="card-body">
 					<?php 

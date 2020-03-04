@@ -13,13 +13,13 @@
 				$data = $this->Nilai_sikap_model->cek_nilai_siswa($k['id_kelas']);
 
 				// cek jumlah yang sudah dinilai
-				if($data['jumlah_siswa_belum_dinilai'] > 0) {
+				if($data['jumlah_siswa_belum_dinilai'] = 0) {
+					// semua siswa sudah dinilai
+					$class = 'bg-primary';
+				} else if($data['jumlah_siswa_belum_dinilai'] > 0 && $data['jumlah_siswa_belum_dinilai'] != $data['jumlah_siswa_rombel']) {
 					// ada siswa yang belum dinilai
 					$class = 'bg-warning';
-				} else if($data['jumlah_siswa_rombel'] = $data['jumlah_siswa_sudah_dinilai']) {
-					// semua siswa telah dinilai
-					$class = 'bg-primary';
-				} else if($data['jumlah_siswa_sudah_dinilai'] = 0) {
+				} else if($data['jumlah_siswa_belum_dinilai'] = $data['jumlah_siswa_rombel']) {
 					// semua siswa belum dinilai
 					$class = 'bg-danger';
 				};

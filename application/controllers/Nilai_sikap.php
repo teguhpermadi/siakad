@@ -9,6 +9,8 @@ class Nilai_sikap extends CI_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('Nilai_sikap_model');
+        $this->load->model('Kelas_model');
+
     }
     
     public function index()
@@ -104,10 +106,7 @@ class Nilai_sikap extends CI_Controller {
     // download file excel
     public function download($id_kelas)
     {
-        $data_siswa = $this->Nilai_sikap_model->get_siswa($id_kelas);
-        print_r($data_siswa);
         
-        exit;
         $filename = '"01simple.xlsx"';
         $nama_user = user_info()['first_name'];
         $id_guru = user_info()['id_guru'];
@@ -130,22 +129,35 @@ class Nilai_sikap extends CI_Controller {
             ->setCategory('Siakad Excel');
 
         // Add some data
+        $data_siswa = $this->Nilai_sikap_model->get_siswa($id_kelas);
+        $data_kelas = $this->Kelas_model->get_kelas($id_kelas);
+
         ## Setting a range of cells from an array
-        $arrayData = [
-            [NULL, 2010, 2011, 2012],
-            ['Q1',   12,   15,   21],
-            ['Q2',   56,   73,   86],
-            ['Q3',   52,   61,   69],
-            ['Q4',   30,   32,    0],
+        $data = [
+            // tulis identitas tahun pelajaran, guru, dan kelas
+            ['Tahun Pelajaran', $_SESSION['tahun']],
+            ['Semester', $_SESSION['semester']],
+            ['Nama Guru', user_info()['first_name'].' '.user_info()['last_name']],
+            ['Kelas yang dinilai', $data_kelas['nama']],
+            ['Jenis Penilaian', 'Penilaian Sikap'],
+            [null, null],
+            // tulis nama kolom identitas siswa
+            ['Nama Siswa', 'Nilai'],
+            [$data_siswa]
         ];
+
+        print_r($data);
+        exit;
 
         $spreadsheet->getActiveSheet()
             ->fromArray(
-                $data_siswa,  // The data to set
+                $data,  // The data to set
                 NULL,        // Array values with this value will not be set
                 'A1'         // Top left coordinate of the worksheet range where
                              //    we want to set these values (default is A1)
             );
+
+        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
 
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle('Nilai Sikap');

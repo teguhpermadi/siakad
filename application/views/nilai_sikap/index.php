@@ -23,13 +23,15 @@
 				<div class="card-footer">
 					<a href="<?= base_url('nilai_sikap/do_nilai/'.$w['id_kelas']); ?>" class='btn btn-primary'>Lakukan
 						Penilaian</a>
+					<a href="<?= base_url('nilai_sikap/download/'.$w['id_kelas']); ?>" class='btn btn-primary float-right'>Download
+						Penilaian</a>
 				</div>
 			</div>
 		</div>
 		<?php }} ?>
 	</div>
 
-	
+
 	<div class="row">
 		<?php if(empty($kelas)){ ?>
 		<div class="col-md-12">
@@ -57,7 +59,9 @@
 					<canvas id="myChart-id_kelas-<?=$k['id_kelas'] ?>"></canvas>
 				</div>
 				<div class="card-footer">
-					<a href="<?= base_url('nilai_sikap/do_nilai/'.$k['id_kelas']); ?>" class='btn btn-primary'>Lakukan
+					<a href="<?= base_url('nilai_sikap/do_nilai/'.$k['id_kelas']); ?>" class='btn btn-primary btn-sm'>Lakukan
+						Penilaian</a>
+						<a href="<?= base_url('nilai_sikap/download/'.$w['id_kelas']); ?>" class='btn btn-primary btn-sm float-right'>Download
 						Penilaian</a>
 				</div>
 			</div>
@@ -107,9 +111,9 @@
 					var jml_siswa = data[id_kelas]['datanya']['jumlah'];
 					var sudah_dinilai = data[id_kelas]['datanya']['sudah_dinilai'];
 					var belum_dinilai = data[id_kelas]['datanya']['belum_dinilai'];
-					console.log('total: '+jml_siswa+', sudah: '+sudah_dinilai+', belum :'+belum_dinilai);
+					console.log('total: ' + jml_siswa + ', sudah: ' + sudah_dinilai + ', belum :' + belum_dinilai);
 
-					var ctx = document.getElementById('myChart-id_walikelas-'+id_kelasnya).getContext('2d');
+					var ctx = document.getElementById('myChart-id_walikelas-' + id_kelasnya).getContext('2d');
 					var myPieChart = new Chart(ctx, {
 						type: 'doughnut',
 						data: {
@@ -122,8 +126,8 @@
 							}],
 						},
 						options: {
-							legend : {
-								position : 'bottom'
+							legend: {
+								position: 'bottom'
 							}
 						},
 					});
@@ -134,7 +138,7 @@
 			(console.error())
 		);
 
-		// tampilkan data nilainya tiap kelas yang diajar
+	// tampilkan data nilainya tiap kelas yang diajar
 	$.get('<?= base_url("nilai_sikap/cek_nilai"); ?>')
 		.done((data) => {
 			// jika datanya berhasil di load
@@ -144,9 +148,9 @@
 					var jml_siswa = data[id_kelas]['datanya']['jumlah'];
 					var sudah_dinilai = data[id_kelas]['datanya']['sudah_dinilai'];
 					var belum_dinilai = data[id_kelas]['datanya']['belum_dinilai'];
-					console.log('total: '+jml_siswa+', sudah: '+sudah_dinilai+', belum :'+belum_dinilai);
+					console.log('total: ' + jml_siswa + ', sudah: ' + sudah_dinilai + ', belum :' + belum_dinilai);
 
-					var ctx = document.getElementById('myChart-id_kelas-'+id_kelasnya).getContext('2d');
+					var ctx = document.getElementById('myChart-id_kelas-' + id_kelasnya).getContext('2d');
 					var myPieChart = new Chart(ctx, {
 						type: 'doughnut',
 						data: {
@@ -159,8 +163,8 @@
 							}],
 						},
 						options: {
-							legend : {
-								position : 'bottom'
+							legend: {
+								position: 'bottom'
 							}
 						},
 					});

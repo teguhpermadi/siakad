@@ -6,7 +6,7 @@ function check_login()
     // penganti $ci
     $ci =& get_instance();
 
-    if (empty($ci->ion_auth->logged_in()))
+    if (!$ci->ion_auth->logged_in())
 		{
 			// redirect them to the login page
 			redirect('auth/login', 'refresh');

@@ -53,3 +53,4 @@ sistem informasi akademik dengan codeigniter
   * 9.13.10 : menggunakan google charts
   * 9.13.11 : merapikan file-file yang telah lalu
   * 9.13.12 : berhasil menampilkan data dengan chart js
+  * 9.13.13 : download nilai sikap dalam excel

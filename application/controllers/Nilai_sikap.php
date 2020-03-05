@@ -11,6 +11,8 @@ class Nilai_sikap extends CI_Controller {
     {
         // print_r(user_info());
         $data['kelas'] = $this->Nilai_sikap_model->get_kelas();
+        $data['walikelas'] = $this->Nilai_sikap_model->get_walikelas();
+        // print_r($data['walikelas']);
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
@@ -51,6 +53,28 @@ class Nilai_sikap extends CI_Controller {
         redirect('nilai_sikap');
     }
 
+    // cek nilai rombel walikelas
+    public function cek_nilai_walikelas()
+    {
+        $data_kelas = [];
+        $kelas = $this->Nilai_sikap_model->get_walikelas();
+        foreach ($kelas as $k) {
+            $cek = $this->Nilai_sikap_model->cek_nilai_siswa($k['id_kelas']);
+            $data_nya = array(
+                'id_kelas' => $k['id_kelas'],
+                'datanya' => [
+                    'jumlah' => $cek['jumlah'],
+                    'sudah_dinilai' => $cek['sudah_dinilai'],
+                    'belum_dinilai' => $cek['belum_dinilai'],
+                ]
+            );
+            array_push($data_kelas, $data_nya);
+        }
+        header('Content-Type: application/json');
+        echo json_encode($data_kelas);
+    }
+
+    // cek nilai kelas yang diajar
     public function cek_nilai()
     {
         $data_kelas = [];

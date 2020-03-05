@@ -2,6 +2,35 @@
 <div class="container-fluid">
 
 	<div class="row">
+		<?php foreach($walikelas as $w) {?>
+		<div class='col-md-6'>
+			<div class="card shadow mb-4">
+				<div class="card-header text-uppercase">
+					<?=$w['nama_kelas'] ?>
+					<?php 
+					if($w['id_kelas'] == user_info()['id_kelas']) {
+						// jika anda walikelas pada kelas ini
+						echo '<span class="badge badge-primary float-right">Walikelas</span>';
+					}
+					?>
+				</div>
+				<div class="card-body">
+					<!-- PIE CHART -->
+					<canvas id="myChart-id_walikelas-<?=$w['id_kelas'] ?>"></canvas>
+				</div>
+				<div class="card-footer">
+					<a href="<?= base_url('nilai_sikap/do_nilai/'.$w['id_kelas']); ?>" class='btn btn-primary'>Lakukan
+						Penilaian</a>
+				</div>
+			</div>
+		</div>
+		<?php } ?>
+	</div>
+
+	<!-- Divider -->
+	<hr class="sidebar-divider">
+
+	<div class="row">
 		<?php if(empty($kelas)){ ?>
 		<div class="col-md-12">
 			<div class="alert alert-danger fade show" role="alert">
@@ -11,6 +40,7 @@
 		<?php } else { 
             foreach($kelas as $k) { 
 		?>
+
 		<div class='col-md-6'>
 			<div class="card shadow mb-4">
 				<div class="card-header text-uppercase">
@@ -67,7 +97,44 @@
 <script src="<?= base_url('assets/vendor/chart.js/Chart.js'); ?>"></script>
 <script src="<?= base_url()?>assets/vendor/jquery/jquery.js"></script>
 <script>
-	// coba json
+	// tampilkan data nilainya rombel_walikelas
+	$.get('<?= base_url("nilai_sikap/cek_nilai_walikelas"); ?>')
+		.done((data) => {
+			// jika datanya berhasil di load
+			Object.keys(data).forEach(
+				id_kelas => {
+					var id_kelasnya = data[id_kelas]['id_kelas']
+					var jml_siswa = data[id_kelas]['datanya']['jumlah'];
+					var sudah_dinilai = data[id_kelas]['datanya']['sudah_dinilai'];
+					var belum_dinilai = data[id_kelas]['datanya']['belum_dinilai'];
+					console.log('total: '+jml_siswa+', sudah: '+sudah_dinilai+', belum :'+belum_dinilai);
+
+					var ctx = document.getElementById('myChart-id_walikelas-'+id_kelasnya).getContext('2d');
+					var myPieChart = new Chart(ctx, {
+						type: 'doughnut',
+						data: {
+							labels: ["Sudah dinilai", "Belum dinilai"],
+							datasets: [{
+								data: [sudah_dinilai, belum_dinilai],
+								backgroundColor: ['#4e73df', '#1cc88a'],
+								hoverBackgroundColor: ['#2e59d9', '#17a673'],
+								hoverBorderColor: "rgba(234, 236, 244, 1)",
+							}],
+						},
+						options: {
+							legend : {
+								position : 'bottom'
+							}
+						},
+					});
+				}
+			)
+		})
+		.fail(
+			(console.error())
+		);
+
+		// tampilkan data nilainya tiap kelas yang diajar
 	$.get('<?= base_url("nilai_sikap/cek_nilai"); ?>')
 		.done((data) => {
 			// jika datanya berhasil di load

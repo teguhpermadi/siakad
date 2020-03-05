@@ -17,7 +17,27 @@ class Nilai_sikap_model extends CI_Model
         $this->db->from('pengajar');
         $this->db->where('pengajar.id_tahun', $_SESSION['id_tahun_pelajaran']);
         $this->db->where('pengajar.id_guru', $id_guru);
+        $this->db->where('pengajar.id_guru', $id_guru);
         $this->db->join('kelas', 'kelas.id = pengajar.id_kelas');
+        $this->db->order_by('kelas.tingkat', 'asc');
+        $data = $this->db->get()->result_array();
+
+        return $data;
+    }
+
+    // dapatkan rombel walikelasnya jika guru tersebut walikelas
+    public function get_walikelas()
+    {
+        $id_guru = user_info()['id_guru'];
+        $id_kelas = user_info()['id_kelas'];
+        
+        // dapatkan semua kelas yang diajar
+        $this->db->select('walikelas.*, kelas.nama as nama_kelas');
+        $this->db->from('walikelas');
+        $this->db->where('walikelas.id_tahun', $_SESSION['id_tahun_pelajaran']);
+        $this->db->where('walikelas.id_guru', $id_guru);
+        $this->db->where('walikelas.id_kelas', $id_kelas);
+        $this->db->join('kelas', 'kelas.id = walikelas.id_kelas');
         $this->db->order_by('kelas.tingkat', 'asc');
         $data = $this->db->get()->result_array();
 
@@ -38,6 +58,7 @@ class Nilai_sikap_model extends CI_Model
         return $db->result_array();
     }
 
+    // untuk menampilkan data dalam chart js
     function cek_nilai_siswa($id_kelas)
     {
         $id_guru = user_info()['id_guru'];

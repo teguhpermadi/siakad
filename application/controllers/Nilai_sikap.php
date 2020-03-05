@@ -9,9 +9,11 @@ class Nilai_sikap extends CI_Controller {
     
     public function index()
     {
-        // print_r(user_info());
         $data['kelas'] = $this->Nilai_sikap_model->get_kelas();
-        $data['walikelas'] = $this->Nilai_sikap_model->get_walikelas();
+        // cek apakah guru tersebut walikelas
+        if(user_info()['is_walikelas'] == 'yes'){
+            $data['walikelas'] = $this->Nilai_sikap_model->get_walikelas();
+        }
         // print_r($data['walikelas']);
 
         $this->load->view('template/header');

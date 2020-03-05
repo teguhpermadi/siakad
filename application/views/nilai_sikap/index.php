@@ -2,11 +2,13 @@
 <div class="container-fluid">
 
 	<div class="row">
-		<?php foreach($walikelas as $w) {?>
+		<?php
+		if(user_info()['is_walikelas'] == 'yes'){
+		foreach($walikelas as $w) {?>
 		<div class='col-md-6'>
 			<div class="card shadow mb-4">
 				<div class="card-header text-uppercase">
-					<?=$w['nama_kelas'] ?>
+					Kelas <?=$w['nama_kelas'] ?>
 					<?php 
 					if($w['id_kelas'] == user_info()['id_kelas']) {
 						// jika anda walikelas pada kelas ini
@@ -24,12 +26,10 @@
 				</div>
 			</div>
 		</div>
-		<?php } ?>
+		<?php }} ?>
 	</div>
 
-	<!-- Divider -->
-	<hr class="sidebar-divider">
-
+	
 	<div class="row">
 		<?php if(empty($kelas)){ ?>
 		<div class="col-md-12">
@@ -41,10 +41,10 @@
             foreach($kelas as $k) { 
 		?>
 
-		<div class='col-md-6'>
+		<div class='col-md-4'>
 			<div class="card shadow mb-4">
 				<div class="card-header text-uppercase">
-					<?=$k['nama_kelas'] ?>
+					Kelas <?=$k['nama_kelas'] ?>
 					<?php 
 					if($k['id_kelas'] == user_info()['id_kelas']) {
 						// jika anda walikelas pada kelas ini

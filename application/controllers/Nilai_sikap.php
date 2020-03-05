@@ -107,7 +107,7 @@ class Nilai_sikap extends CI_Controller {
     public function download($id_kelas)
     {
         
-        $filename = '"01simple.xlsx"';
+        $filename = '"tes.xlsx"';
         $nama_user = user_info()['first_name'];
         $id_guru = user_info()['id_guru'];
         
@@ -132,23 +132,31 @@ class Nilai_sikap extends CI_Controller {
         $data_siswa = $this->Nilai_sikap_model->get_siswa($id_kelas);
         $data_kelas = $this->Kelas_model->get_kelas($id_kelas);
 
+        // rapikan dulu datanya
+        $siswa = [];
+        foreach($data_siswa as $ds){
+            array_push($siswa, [
+                'nama_siswa' => $ds['nama_siswa'],
+                'id_tahun' => $_SESSION['id_tahun_pelajaran'],
+                'id_guru' => user_info()['id_guru'],
+                'id_siswa' => $ds['id_siswa'],
+                'nilai' => $ds['nilai']
+            ]);
+        }
         ## Setting a range of cells from an array
-        $data = [
+        $identitas = [
             // tulis identitas tahun pelajaran, guru, dan kelas
-            ['Tahun Pelajaran', $_SESSION['tahun']],
-            ['Semester', $_SESSION['semester']],
-            ['Nama Guru', user_info()['first_name'].' '.user_info()['last_name']],
-            ['Kelas yang dinilai', $data_kelas['nama']],
-            ['Jenis Penilaian', 'Penilaian Sikap'],
-            [null, null],
-            // tulis nama kolom identitas siswa
-            ['Nama Siswa', 'Nilai'],
-            [$data_siswa]
+            ['Tahun Pelajaran', null, null, null, $_SESSION['tahun']],
+            ['Semester', null, null, null, $_SESSION['semester']],
+            ['Nama Guru', null, null, null,  user_info()['first_name'].' '.user_info()['last_name']],
+            ['Kelas yang dinilai',  null, null, null, $data_kelas['nama']],
+            ['Jenis Penilaian',  null, null, null, 'Penilaian Sikap'],
+            [null,  null, null, null, null],
+            ['Nama Siswa', 'id_tahun', 'id_guru', 'id_siswa', 'Nilai']
         ];
 
-        print_r($data);
-        exit;
-
+        $data = array_merge($identitas, $siswa);
+        
         $spreadsheet->getActiveSheet()
             ->fromArray(
                 $data,  // The data to set
@@ -157,7 +165,13 @@ class Nilai_sikap extends CI_Controller {
                              //    we want to set these values (default is A1)
             );
 
+        // rubah ukuran kolom A
         $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+
+        // sembunyikan kolom 
+        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setVisible(false);
+        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setVisible(false);
+        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setVisible(false);
 
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle('Nilai Sikap');

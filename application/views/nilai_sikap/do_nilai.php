@@ -30,7 +30,7 @@
 					</td>
 					<td>
                     <select name="nilai[]" class="custom-select">
-                            <!-- <option value='0' selected>Pilih...</option> -->
+                            <option value='0' selected>Pilih...</option>
                             <?php 
                             $ket = array(
                                 '4'=> 'Sangat Baik',

@@ -50,4 +50,24 @@ class Nilai_sikap extends CI_Controller {
         $this->db->insert_on_duplicate_update_batch('nilai_sikap', $data);
         redirect('nilai_sikap');
     }
+
+    public function cek_nilai()
+    {
+        $data_kelas = [];
+        $kelas = $this->Nilai_sikap_model->get_kelas();
+        foreach ($kelas as $k) {
+            $cek = $this->Nilai_sikap_model->cek_nilai_siswa($k['id_kelas']);
+            $data_nya = array(
+                'id_kelas' => $k['id_kelas'],
+                'datanya' => [
+                    'jumlah' => $cek['jumlah'],
+                    'sudah_dinilai' => $cek['sudah_dinilai'],
+                    'belum_dinilai' => $cek['belum_dinilai'],
+                ]
+            );
+            array_push($data_kelas, $data_nya);
+        }
+        header('Content-Type: application/json');
+        echo json_encode($data_kelas);
+    }
 }

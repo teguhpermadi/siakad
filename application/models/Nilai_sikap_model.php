@@ -46,14 +46,14 @@ class Nilai_sikap_model extends CI_Model
         $siswa_rombel = $this->db->query('SELECT COUNT(rombel.id_siswa) as jumlah FROM rombel WHERE rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' AND rombel.id_kelas = '.$id_kelas)->row();
 
         // hitung siswa rombel yang sudah di nilai
-        $sudah_dinilai = $this->db->query('SELECT COUNT(nilai_sikap.nilai) as jumlah FROM rombel LEFT JOIN nilai_sikap ON rombel.id_siswa = nilai_sikap.id_siswa WHERE rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' AND rombel.id_kelas = '.$id_kelas.' AND nilai_sikap.id_guru ='.$id_guru)->row();
+        $sudah_dinilai = $this->db->query('SELECT COUNT(nilai_sikap.nilai) as jumlah FROM rombel LEFT JOIN nilai_sikap ON rombel.id_siswa = nilai_sikap.id_siswa WHERE rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' AND rombel.id_kelas = '.$id_kelas.' AND nilai_sikap.id_guru ='.$id_guru.' AND nilai_sikap.nilai != 0')->row();
 
         // hitung selisih yang belum dinilai
         $belum_dinilai = $siswa_rombel->jumlah - $sudah_dinilai->jumlah;
         $data = array(
-            'siswa rombel' => $siswa_rombel->jumlah,
-            'sudah dinilai' => $sudah_dinilai->jumlah,
-            'belum dinilai' => $belum_dinilai,
+            'jumlah' => $siswa_rombel->jumlah,
+            'sudah_dinilai' => $sudah_dinilai->jumlah,
+            'belum_dinilai' => $belum_dinilai,
 		);
 		
 		return $data;

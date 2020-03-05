@@ -65,7 +65,7 @@
 						<label for="tanggal_rapor" class="col-md-4 control-label"><span
 								class="text-danger">*</span>Tanggal Rapor</label>
 						<div class="col-md-8">
-							<input type="text" name="tanggal_rapor"
+							<input type="date" name="tanggal_rapor"
 								value="<?php echo ($this->input->post('tanggal_rapor') ? $this->input->post('tanggal_rapor') : $tahun_pelajaran['tanggal_rapor']); ?>"
 								class="form-control" id="tanggal_rapor" />
 							<span class="text-danger"><?php echo form_error('tanggal_rapor');?></span>

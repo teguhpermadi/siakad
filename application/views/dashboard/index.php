@@ -16,6 +16,13 @@
 				<p>Anda belum memasukan profil sekolah.</p><a href='<?= base_url('profil/add'); ?>' class='btn btn-primary'>Profil Sekolah</a>
 			</div>
 			<?php endif; ?>
+
+			<!-- cek data tahun pelajaran -->
+			<?php if($tahun_pelajaran == null): ?>
+			<div class="alert alert-danger" role="alert">
+				<p>Anda belum memasukan data Tahun Pelajaran.</p><a href='<?= base_url('tahun_pelajaran'); ?>' class='btn btn-primary'>Tahun Pelajaran</a>
+			</div>
+			<?php endif; ?>
 			<?php foreach($profil as $p) {?>
 			<div class="card">
 				<div class="card-body">

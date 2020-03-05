@@ -69,8 +69,8 @@
 						$jml_siswa_laki = $this->Rombel_model->count_siswa_laki_by_id_kelas($k['id_kelas']);
 						$jml_siswa_perempuan = $this->Rombel_model->count_siswa_perempuan_by_id_kelas($k['id_kelas']);
 					?>
-					<p class="card-text">Jumlah seluruh siswa: <?= $jml_siswa; ?> orang.<br>Jumlah siswa laki-laki:
-						<?= $jml_siswa_laki; ?> orang<br>Jumlah siswa perempuan: <?= $jml_siswa_perempuan; ?> orang.</p>
+					<p class="card-text">Jumlah siswa: <?= $jml_siswa; ?> orang.<br>Laki-laki:
+						<?= $jml_siswa_laki; ?> orang<br>Perempuan: <?= $jml_siswa_perempuan; ?> orang.</p>
 					<ul class="list-group mb-3 area">
 						<?php foreach($siswa as $s) { ?>
 						<li class="list-group-item d-flex justify-content-between align-items-center">

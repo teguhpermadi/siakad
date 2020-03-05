@@ -125,7 +125,7 @@
 						</div>
 					</div>
 					<div class="box-footer">
-						<button type="submit" class="btn btn-success">
+						<button type="submit" class="btn btn-primary">
 							<i class="fa fa-check"></i> Save
 						</button>
 					</div>

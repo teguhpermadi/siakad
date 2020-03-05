@@ -51,3 +51,4 @@ sistem informasi akademik dengan codeigniter
   * 9.13.8 : merapikan helper dan membuat nilai sikap
   * 9.13.9 : merapikah tampilan nilai sikap
   * 9.13.10 : menggunakan google charts
+  * 9.13.11 : merapikan file-file yang telah lalu

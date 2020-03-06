@@ -3,7 +3,7 @@
 
 	<!-- page heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
-		<h1 class="h3 mb-0 text-gray-800">Catatan</h1>
+		<h1 class="h3 mb-0 text-gray-800">Nilai Sikap</h1>
 	</div>
 
 	<!-- DataTales Example -->
@@ -22,16 +22,17 @@
 
 				<?php foreach($siswa as $s){ ?>
 				<tr>
-					<td><?php echo $s['nama_siswa']; ?><input type="text" name='id_siswa[]' value='<?= $s['id_siswa']; ?>' hidden>
-					<?php if( $s['nilai'] == 0){
+					<td><?php echo $s['nama_siswa']; ?><input type="text" name='id_siswa[]'
+							value='<?= $s['id_siswa']; ?>' hidden>
+						<?php if( $s['nilai'] == 0){
 						// jika siswa tersebut belum memiliki nilai
 						echo '<span class="badge badge-danger float-right">Belum dinilai.</span>';
 					} ?>
 					</td>
 					<td>
-                    <select name="nilai[]" class="custom-select">
-                            <option value='0' selected>Pilih...</option>
-                            <?php 
+						<select name="nilai[]" class="custom-select">
+							<option value='0' selected>Pilih...</option>
+							<?php 
                             $ket = array(
                                 '4'=> 'Sangat Baik',
                                 '3'=> 'Baik',
@@ -46,15 +47,15 @@
                                 echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
                             } 
                             ?>
-                        </select>
-                    </td>
+						</select>
+					</td>
 				</tr>
 				<?php } ?>
 			</table>
 		</div>
 		<div class="card-footer">
-		<button type="submit" class='btn btn-primary'>Simpan</button>
-        <a href='<?= base_url('nilai_sikap'); ?>' class='btn btn-secondary'>Kembali</a>
+			<button type="submit" class='btn btn-primary'>Simpan</button>
+			<a href='<?= base_url('nilai_sikap'); ?>' class='btn btn-secondary'>Kembali</a>
 		</div>
 		<?php echo form_close(); ?>
 	</div>

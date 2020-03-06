@@ -8,9 +8,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 class Nilai_sikap extends CI_Controller {
     public function __construct(){
         parent::__construct();
+        
         $this->load->model('Nilai_sikap_model');
         $this->load->model('Kelas_model');
-
+        // cek user login
+        check_login();
     }
     
     public function index()
@@ -107,7 +109,6 @@ class Nilai_sikap extends CI_Controller {
     public function download($id_kelas)
     {
         
-        $filename = '"tes.xlsx"';
         $nama_user = user_info()['first_name'];
         $id_guru = user_info()['id_guru'];
         
@@ -131,6 +132,8 @@ class Nilai_sikap extends CI_Controller {
         // Add some data
         $data_siswa = $this->Nilai_sikap_model->get_siswa($id_kelas);
         $data_kelas = $this->Kelas_model->get_kelas($id_kelas);
+
+        $filename = '"Nilai Sikap Kelas '.$data_kelas['nama'].' oleh '.user_info()['first_name'].' '.user_info()['last_name'].'.xlsx"';
 
         // rapikan dulu datanya
         $siswa = [];
@@ -157,11 +160,29 @@ class Nilai_sikap extends CI_Controller {
 
         $data = array_merge($identitas, $siswa);
         
+        // keterangan dalam file excel
+        $data_keterangan = [
+            ['Keterangan'],
+            ['4', 'Sangat Baik'],
+            ['3', 'Baik'],
+            ['2', 'Cukup'],
+            ['1', 'Kurang Baik'],
+        ];
+
+        // tuliskan array ke dalam excel
         $spreadsheet->getActiveSheet()
             ->fromArray(
                 $data,  // The data to set
                 NULL,        // Array values with this value will not be set
                 'A1'         // Top left coordinate of the worksheet range where
+                             //    we want to set these values (default is A1)
+            );
+
+         $spreadsheet->getActiveSheet()
+            ->fromArray(
+                $data_keterangan,  // The data to set
+                NULL,        // Array values with this value will not be set
+                'J1'         // Top left coordinate of the worksheet range where
                              //    we want to set these values (default is A1)
             );
 
@@ -194,5 +215,7 @@ class Nilai_sikap extends CI_Controller {
 
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         $writer->save('php://output');
+
+        redirect('nilai_sikap');
     }
 }

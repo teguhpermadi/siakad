@@ -1,6 +1,15 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+	<!-- page heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800">Nilai Sikap</h1>
+	</div>
+
+	<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#upload">
+		Upload nilai
+	</button>
+
 	<div class="row">
 		<?php
 		if(user_info()['is_walikelas'] == 'yes'){
@@ -23,7 +32,8 @@
 				<div class="card-footer">
 					<a href="<?= base_url('nilai_sikap/do_nilai/'.$w['id_kelas']); ?>" class='btn btn-primary'>Lakukan
 						Penilaian</a>
-					<a href="<?= base_url('nilai_sikap/download/'.$w['id_kelas']); ?>" class='btn btn-primary float-right'>Download
+					<a href="<?= base_url('nilai_sikap/download/'.$w['id_kelas']); ?>"
+						class='btn btn-primary float-right'>Download
 						Penilaian</a>
 				</div>
 			</div>
@@ -59,9 +69,11 @@
 					<canvas id="myChart-id_kelas-<?=$k['id_kelas'] ?>"></canvas>
 				</div>
 				<div class="card-footer">
-					<a href="<?= base_url('nilai_sikap/do_nilai/'.$k['id_kelas']); ?>" class='btn btn-primary btn-sm'>Lakukan
+					<a href="<?= base_url('nilai_sikap/do_nilai/'.$k['id_kelas']); ?>"
+						class='btn btn-primary btn-sm'>Lakukan
 						Penilaian</a>
-						<a href="<?= base_url('nilai_sikap/download/'.$w['id_kelas']); ?>" class='btn btn-primary btn-sm float-right'>Download
+					<a href="<?= base_url('nilai_sikap/download/'.$w['id_kelas']); ?>"
+						class='btn btn-primary btn-sm float-right'>Download
 						Penilaian</a>
 				</div>
 			</div>
@@ -97,6 +109,33 @@
 <a class="scroll-to-top rounded" href="#page-top">
 	<i class="fas fa-angle-up"></i>
 </a>
+
+<!-- Modal -->
+<div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Upload Nilai Sikap</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form method="post" action="nilai_sikap/do_upload" enctype="multipart/form-data">
+				<div class="modal-body">
+					<div class="custom-file">
+							<input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01"
+								name="userfile" size="20">
+							<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+						</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Simpan</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 <script src="<?= base_url('assets/vendor/chart.js/Chart.js'); ?>"></script>
 <script src="<?= base_url()?>assets/vendor/jquery/jquery.js"></script>

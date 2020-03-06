@@ -10,19 +10,22 @@ class Nilai_sikap_model extends CI_Model
 
     function get_kelas()
     {
-        $id_guru = user_info()['id_guru'];
-        $id_kelas = user_info()['id_kelas'];
-        // dapatkan semua kelas yang diajar
-        $this->db->select('pengajar.*, kelas.nama as nama_kelas');
-        $this->db->from('pengajar');
-        $this->db->where('pengajar.id_tahun', $_SESSION['id_tahun_pelajaran']);
-        $this->db->where('pengajar.id_guru', $id_guru);
-        $this->db->where('pengajar.id_kelas !=', $id_kelas);
-        $this->db->join('kelas', 'kelas.id = pengajar.id_kelas');
-        $this->db->order_by('kelas.tingkat', 'asc');
-        $data = $this->db->get()->result_array();
+        // cek jika id kelas nya ada
+        if(array_key_exists("id_kelas",user_info())) {
+            $id_guru = user_info()['id_guru'];
+            $id_kelas = user_info()['id_kelas'];
+            // dapatkan semua kelas yang diajar
+            $this->db->select('pengajar.*, kelas.nama as nama_kelas');
+            $this->db->from('pengajar');
+            $this->db->where('pengajar.id_tahun', $_SESSION['id_tahun_pelajaran']);
+            $this->db->where('pengajar.id_guru', $id_guru);
+            $this->db->where('pengajar.id_kelas !=', $id_kelas);
+            $this->db->join('kelas', 'kelas.id = pengajar.id_kelas');
+            $this->db->order_by('kelas.tingkat', 'asc');
+            $data = $this->db->get()->result_array();
 
-        return $data;
+            return $data;
+        }
     }
 
     // dapatkan rombel walikelasnya jika guru tersebut walikelas

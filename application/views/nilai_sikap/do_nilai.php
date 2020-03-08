@@ -113,6 +113,7 @@
 			<form method="post" action="<?= base_url('nilai_sikap/do_upload'); ?>" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="custom-file">
+					<input type="hidden" name="id_kelas" value="<?= $kelas['id']; ?>">
 						<input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01"
 							name="userfile" size="20">
 						<label class="custom-file-label" for="inputGroupFile01">Choose file</label>

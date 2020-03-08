@@ -147,6 +147,7 @@ class Nilai_sikap extends CI_Controller {
                 'nama_siswa' => $ds['nama_siswa'],
                 'id_tahun' => $_SESSION['id_tahun_pelajaran'],
                 'id_guru' => user_info()['id_guru'],
+                'id_kelas' => $id_kelas,
                 'id_siswa' => $ds['id_siswa'],
                 'nilai' => $ds['nilai']
             ]);
@@ -154,13 +155,13 @@ class Nilai_sikap extends CI_Controller {
         ## Setting a range of cells from an array
         $identitas = [
             // tulis identitas tahun pelajaran, guru, dan kelas
-            ['Tahun Pelajaran', null, null, null, $_SESSION['tahun']],
-            ['Semester', null, null, null, $_SESSION['semester']],
-            ['Nama Guru', null, null, null,  user_info()['first_name'].' '.user_info()['last_name']],
-            ['Kelas yang dinilai',  null, null, null, $data_kelas['nama']],
-            ['Jenis Penilaian',  null, null, null, 'Penilaian Sikap'],
-            [null,  null, null, null, null],
-            ['Nama Siswa', 'id_tahun', 'id_guru', 'id_siswa', 'Nilai']
+            ['Tahun Pelajaran', null, null, null, null, $_SESSION['tahun']],
+            ['Semester', null, null, null, null, $_SESSION['semester']],
+            ['Nama Guru', null, null, null, null, user_info()['first_name'].' '.user_info()['last_name']],
+            ['Kelas yang dinilai',  null, null, null, null, $data_kelas['nama']],
+            ['Jenis Penilaian',  null, null, null, null, 'Penilaian Sikap'],
+            [null,  null, null, null, null, null,],
+            ['Nama Siswa', 'id_tahun', 'id_guru', 'id_kelas', 'id_siswa', 'Nilai']
         ];
 
         $data = array_merge($identitas, $siswa);
@@ -198,13 +199,14 @@ class Nilai_sikap extends CI_Controller {
         $spreadsheet->getActiveSheet()->getColumnDimension('B')->setVisible(false);
         $spreadsheet->getActiveSheet()->getColumnDimension('C')->setVisible(false);
         $spreadsheet->getActiveSheet()->getColumnDimension('D')->setVisible(false);
+        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setVisible(false);
 
         // proteksi cell
         $spreadsheet->getActiveSheet()
             ->getProtection()->setPassword('PhpSpreadsheet');
         $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
         $spreadsheet->getActiveSheet()
-            ->getStyle('E8:E'.$jml_siswa_kelas) // proteksi cell mulai dari baris ke 8 sampai jumlah siswanya + 8
+            ->getStyle('F8:F'.$jml_siswa_kelas) // proteksi cell mulai dari baris ke 8 sampai jumlah siswanya + 8
             ->getProtection()->setLocked(
                 Protection::PROTECTION_UNPROTECTED
             );
@@ -251,48 +253,55 @@ class Nilai_sikap extends CI_Controller {
         }
         else
         {
-                $data = array('upload_data' => $this->upload->data());
-                
-                $helper = new Sample();
-                $inputFileName = 'uploads/nilai_sikap.'.$file_ext;
-                $helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory to identify the format');
-                $spreadsheet = IOFactory::load($inputFileName);
-                $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-                $highestRow = $spreadsheet->getActiveSheet()->getHighestRow();
-                
-                // hitung jumlah data yang di upload
-                $jumlahData = $highestRow - 7;
-                $dataAwal = array();
-                foreach($sheetData as $s) 
-                {
-                    array_push($dataAwal, array(
-                        'id_tahun' => $s['B'],
-                        'id_guru' => $s['C'],
-                        'id_siswa' => $s['D'],
-                        'nilai' => $s['E']
-                    ));
-                }
-                
-                // $dataAwal membaca semua data yang ada di excel termasuk nama kolom
-                // $dataAkhir membaca $dataAwal dari array urutan ke 7
-                $dataAkhir = array_slice($dataAwal, 7);
-
-                // cek dulu isi dari file excel yg di upload
-                // data file excel harus sesuai dengan data tahun pelajaran, data guru
-                $id_tahun = $_SESSION['id_tahun_pelajaran'];
-                $id_guru = user_info()['id_guru'];
-
-                if($dataAkhir[0]['id_tahun'] == $id_tahun && $dataAkhir[0]['id_guru'] == $id_guru){
-                    // $this->session->set_flashdata('berhasil_upload', 'Anda berhasil mengunggah <strong>'.$jumlahData.' data guru.</strong>');
-                    $this->db->insert_on_duplicate_update_batch('nilai_sikap', $dataAkhir);
-                    redirect('nilai_sikap');
-                } else {
-                    echo 'File excel salah!';
-                };
-
-                // hapus jika sudah di upload
-                unlink($inputFileName);
+            $data = array('upload_data' => $this->upload->data());
+            
+            $helper = new Sample();
+            $inputFileName = 'uploads/nilai_sikap.'.$file_ext;
+            $helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory to identify the format');
+            $spreadsheet = IOFactory::load($inputFileName);
+            $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+            $highestRow = $spreadsheet->getActiveSheet()->getHighestRow();
+            
+            // hitung jumlah data yang di upload
+            $jumlahData = $highestRow - 7;
+            $dataAwal = array();
+            foreach($sheetData as $s) 
+            {
+                array_push($dataAwal, array(
+                    'id_tahun' => $s['B'],
+                    'id_guru' => $s['C'],
+                    'id_kelas' => $s['D'],
+                    'id_siswa' => $s['E'],
+                    'nilai' => $s['F']
+                ));
             }
+            
+            // $dataAwal membaca semua data yang ada di excel termasuk nama kolom
+            // $dataAkhir membaca $dataAwal dari array urutan ke 7
+            $dataAkhir = array_slice($dataAwal, 7);
+
+            // cek dulu isi dari file excel yg di upload
+            // data file excel harus sesuai dengan data tahun pelajaran, guru, kelas
+            $id_tahun_diexcel = $dataAkhir[0]['id_tahun'];
+            $id_guru_diexcel = $dataAkhir[0]['id_guru'];
+            $id_kelas_diexcel = $dataAkhir[0]['id_kelas'];
+
+            $id_tahun = $_SESSION['id_tahun_pelajaran'];
+            $id_guru = user_info()['id_guru'];
+            $id_kelas = $_POST['id_kelas'];
+            
+            if($id_tahun_diexcel == $id_tahun && $id_guru_diexcel == $id_guru && $id_kelas_diexcel == $id_kelas){
+                // $this->session->set_flashdata('berhasil_upload', 'Anda berhasil mengunggah <strong>'.$jumlahData.' data guru.</strong>');
+                $this->db->insert_on_duplicate_update_batch('nilai_sikap', $dataAkhir);
+                redirect('nilai_sikap');
+                // echo 'benar';
+            } else {
+                echo 'File excel salah!';
+            };
+
+            // hapus jika sudah di upload
+            unlink($inputFileName);
+        }
     }
 
     // cetak penilaian

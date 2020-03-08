@@ -83,4 +83,9 @@ class Nilai_sikap_model extends CI_Model
 		
 		return $data;
     }
+
+    function get_kelas_by_id($id)
+    {
+        return $this->db->get_where('kelas',array('id'=>$id))->row_array();
+    }
 }

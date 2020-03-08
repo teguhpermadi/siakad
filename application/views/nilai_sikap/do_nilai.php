@@ -6,11 +6,21 @@
 		<h1 class="h3 mb-0 text-gray-800">Nilai Sikap</h1>
 	</div>
 
+	<div class="row mb-3 ml-1 btn-group" role="group" >
+		<a href="<?= base_url('nilai_sikap/download/'.$id_kelas); ?>" class='btn btn-primary'>Download
+			Excel</a>
+			
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#upload">
+			Upload Excel
+		</button>
+
+	</div>
+
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<?php echo form_open('nilai_sikap/simpan',array("class"=>"form-horizontal")); ?>
 		<div class="card-header py-3">
-			<h3 class="m-0 font-weight-bold text-primary">Nilai Sikap Kelas </h6>
+			<h3 class="m-0 font-weight-bold text-primary text-uppercase">Nilai Sikap Kelas <?= $kelas['nama']; ?></h6>
 		</div>
 		<div class="card-body">
 			<table class="table table-striped table-bordered" style="width:100%">
@@ -88,3 +98,30 @@
 <a class="scroll-to-top rounded" href="#page-top">
 	<i class="fas fa-angle-up"></i>
 </a>
+
+<!-- Modal -->
+<div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Upload Nilai Sikap Kelas <?= $kelas['nama']; ?></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form method="post" action="<?= base_url('nilai_sikap/do_upload'); ?>" enctype="multipart/form-data">
+				<div class="modal-body">
+					<div class="custom-file">
+							<input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01"
+								name="userfile" size="20">
+							<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+						</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Simpan</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

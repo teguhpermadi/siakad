@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Protection;
 
 class Nilai_sikap extends CI_Controller {
     public function __construct(){
@@ -34,6 +35,9 @@ class Nilai_sikap extends CI_Controller {
     public function do_nilai($id_kelas)
     {
         $data['siswa'] = $this->Nilai_sikap_model->get_siswa($id_kelas);
+        $data['kelas'] = $this->Nilai_sikap_model->get_kelas_by_id($id_kelas);
+        $data['id_kelas'] = $id_kelas;
+
         // print_r(count($data['siswa']));
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
@@ -106,8 +110,9 @@ class Nilai_sikap extends CI_Controller {
     }
 
     // download file excel
-    public function download($id_kelas)
+    public function download()
     {
+        $id_kelas = $this->uri->segment(3);
         
         $nama_user = user_info()['first_name'];
         $id_guru = user_info()['id_guru'];
@@ -131,8 +136,8 @@ class Nilai_sikap extends CI_Controller {
 
         // Add some data
         $data_siswa = $this->Nilai_sikap_model->get_siswa($id_kelas);
+        $jml_siswa_kelas = count($data_siswa) + 7; // digunakan untuk proteksi cell
         $data_kelas = $this->Kelas_model->get_kelas($id_kelas);
-
         $filename = '"Nilai Sikap Kelas '.$data_kelas['nama'].' oleh '.user_info()['first_name'].' '.user_info()['last_name'].'.xlsx"';
 
         // rapikan dulu datanya
@@ -194,6 +199,16 @@ class Nilai_sikap extends CI_Controller {
         $spreadsheet->getActiveSheet()->getColumnDimension('C')->setVisible(false);
         $spreadsheet->getActiveSheet()->getColumnDimension('D')->setVisible(false);
 
+        // proteksi cell
+        $spreadsheet->getActiveSheet()
+            ->getProtection()->setPassword('PhpSpreadsheet');
+        $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
+        $spreadsheet->getActiveSheet()
+            ->getStyle('E8:E'.$jml_siswa_kelas) // proteksi cell mulai dari baris ke 8 sampai jumlah siswanya + 8
+            ->getProtection()->setLocked(
+                Protection::PROTECTION_UNPROTECTED
+            );
+
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle('Nilai Sikap');
 
@@ -214,8 +229,69 @@ class Nilai_sikap extends CI_Controller {
         header('Pragma: public'); // HTTP/1.0
 
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        ob_end_clean();
         $writer->save('php://output');
+    }
 
-        redirect('nilai_sikap');
+    public function do_upload()
+    {
+        $file_ext = pathinfo($_FILES["userfile"]["name"], PATHINFO_EXTENSION);
+
+        $config['upload_path']          = './uploads/';
+        $config['allowed_types']        = 'xlsx|xls|csv';
+        $config['overwrite']             = true;
+        $config['file_name']             = 'nilai_sikap';
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('userfile'))
+        {
+                $error = array('error' => $this->upload->display_errors());
+                print_r($error);
+        }
+        else
+        {
+                $data = array('upload_data' => $this->upload->data());
+                
+                $helper = new Sample();
+                $inputFileName = 'uploads/nilai_sikap.'.$file_ext;
+                $helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory to identify the format');
+                $spreadsheet = IOFactory::load($inputFileName);
+                $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+                $highestRow = $spreadsheet->getActiveSheet()->getHighestRow();
+                
+                // hitung jumlah data yang di upload
+                $jumlahData = $highestRow - 7;
+                $dataAwal = array();
+                foreach($sheetData as $s) 
+                {
+                    array_push($dataAwal, array(
+                        'id_tahun' => $s['B'],
+                        'id_guru' => $s['C'],
+                        'id_siswa' => $s['D'],
+                        'nilai' => $s['E']
+                    ));
+                }
+                
+                // $dataAwal membaca semua data yang ada di excel termasuk nama kolom
+                // $dataAkhir membaca $dataAwal dari array urutan ke 7
+                $dataAkhir = array_slice($dataAwal, 7);
+
+                // cek dulu isi dari file excel yg di upload
+                // data file excel harus sesuai dengan data tahun pelajaran, data guru
+                $id_tahun = $_SESSION['id_tahun_pelajaran'];
+                $id_guru = user_info()['id_guru'];
+
+                if($dataAkhir[0]['id_tahun'] == $id_tahun && $dataAkhir[0]['id_guru'] == $id_guru){
+                    // $this->session->set_flashdata('berhasil_upload', 'Anda berhasil mengunggah <strong>'.$jumlahData.' data guru.</strong>');
+                    $this->db->insert_on_duplicate_update_batch('nilai_sikap', $dataAkhir);
+                    redirect('nilai_sikap');
+                } else {
+                    echo 'File excel salah!';
+                };
+
+                // hapus jika sudah di upload
+                unlink($inputFileName);
+            }
     }
 }

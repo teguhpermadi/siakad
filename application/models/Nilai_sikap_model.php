@@ -53,7 +53,7 @@ class Nilai_sikap_model extends CI_Model
         // dapatkan semua siswa dalam rombel
         // filter rombel berdasarkan id tahun aktif dan id kelas yang mana user menjadi walikelasnya
         $filter = 'rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' AND rombel.id_kelas = '.$id_kelas;
-        $this->db->select('nilai_sikap.id, nilai_sikap.nilai, siswa.id as id_siswa, siswa.nama_lengkap as nama_siswa');
+        $this->db->select('nilai_sikap.id, nilai_sikap.nilai, siswa.id as id_siswa, siswa.nama_lengkap as nama_siswa, siswa.nis');
         $this->db->from('rombel');
         $this->db->where($filter);
         $this->db->join('siswa', 'rombel.id_siswa = siswa.id');

@@ -6,14 +6,15 @@
 		<h1 class="h3 mb-0 text-gray-800">Nilai Sikap</h1>
 	</div>
 
-	<div class="row mb-3 ml-1 btn-group" role="group" >
-		<a href="<?= base_url('nilai_sikap/download/'.$id_kelas); ?>" class='btn btn-primary'>Download
-			Excel</a>
-			
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#upload">
-			Upload Excel
-		</button>
-
+	<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+		<div class="btn-group mr-2" role="group" aria-label="First group">
+			<a href="<?= base_url('nilai_sikap'); ?>" class="btn btn-secondary">Kembali</a>
+		</div>
+		<div class="btn-group mr-2" role="group" aria-label="Second group">
+			<a href="<?= base_url('nilai_sikap/download/'.$id_kelas); ?>" class='btn btn-primary'>Download Excel</a>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#upload">Upload Excel</button>
+			<a type="button" href="<?= base_url('nilai_sikap/cetak/'.$id_kelas); ?>" target="_blank" class='btn btn-primary'>Cetak Nilai</a>
+		</div>
 	</div>
 
 	<!-- DataTales Example -->
@@ -112,10 +113,10 @@
 			<form method="post" action="<?= base_url('nilai_sikap/do_upload'); ?>" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="custom-file">
-							<input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01"
-								name="userfile" size="20">
-							<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-						</div>
+						<input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01"
+							name="userfile" size="20">
+						<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

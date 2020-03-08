@@ -189,3 +189,25 @@ function user_menu()
 		break;
 	}
 }
+
+function konversi_nilai_sikap($value)
+{
+	switch($value)
+	{
+		case '0' :
+			return 'Belum dinilai';
+		break;
+		case '1' :
+			return 'Kurang Baik';
+		break;
+		case '2' :
+			return 'Cukup Baik';
+		break;
+		case '3' :
+			return 'Baik';
+		break;
+		case '4' :
+			return 'Sangat Baik';
+		break;
+	}
+}

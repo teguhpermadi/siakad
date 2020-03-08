@@ -294,4 +294,17 @@ class Nilai_sikap extends CI_Controller {
                 unlink($inputFileName);
             }
     }
+
+    // cetak penilaian
+    public function cetak($id_kelas)
+    {
+        $data['siswa'] = $this->Nilai_sikap_model->get_siswa($id_kelas);
+        $data['kelas'] = $this->Nilai_sikap_model->get_kelas_by_id($id_kelas);
+        $data['id_kelas'] = $id_kelas;
+
+        // print_r(count($data['siswa']));
+        $this->load->view('template/header');
+        $this->load->view('nilai_sikap/cetak', $data);
+        $this->load->view('template/footer');
+    }
 }

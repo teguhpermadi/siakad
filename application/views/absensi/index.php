@@ -6,6 +6,14 @@
 		<h1 class="h3 mb-0 text-gray-800">Absensi</h1>
 	</div>
 
+	<div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+		<div class="btn-group mr-2" role="group" aria-label="Second group">
+			<a href="<?= base_url('absensi/download/'); ?>" class='btn btn-primary'>Download Excel</a>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#upload">Upload Excel</button>
+			<a type="button" href="<?= base_url('absensi/cetak/'); ?>" target="_blank" class='btn btn-primary'>Cetak Nilai</a>
+		</div>
+	</div>
+
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<?php echo form_open('absensi/simpan',array("class"=>"form-horizontal")); ?>
@@ -74,3 +82,31 @@
 <a class="scroll-to-top rounded" href="#page-top">
 	<i class="fas fa-angle-up"></i>
 </a>
+
+<!-- Modal -->
+<div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Upload Absensi</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form method="post" action="<?= base_url('absensi/do_upload'); ?>" enctype="multipart/form-data">
+				<div class="modal-body">
+					<div class="custom-file">
+					<input type="hidden" name="id_kelas" >
+						<input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01"
+							name="userfile" size="20">
+						<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Simpan</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

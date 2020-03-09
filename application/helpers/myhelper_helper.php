@@ -194,6 +194,9 @@ function konversi_nilai_sikap($value)
 {
 	switch($value)
 	{
+		case null :
+			return 'Belum dinilai';
+		break;
 		case '0' :
 			return 'Belum dinilai';
 		break;

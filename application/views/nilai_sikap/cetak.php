@@ -16,7 +16,9 @@
 	<hr class="divider">
 
 	<div class="row">
-		<p>Oleh: <?= user_info()['first_name'].' '.user_info()['last_name']; ?></p>
+		<p class="text-uppercase">Oleh: <?= user_info()['first_name'].' '.user_info()['last_name']; ?></p>
+		<hr>
+		<p class="text-uppercase">Kelas: <?= $kelas['nama']; ?></p>
 	</div>
 
 	<div class="row">

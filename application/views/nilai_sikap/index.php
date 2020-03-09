@@ -28,7 +28,7 @@
 				<div class="card-footer">
 					<a href="<?= base_url('nilai_sikap/do_nilai/'.$w['id_kelas']); ?>" class='btn btn-primary'>Lakukan
 						Penilaian</a>
-					<a href="<?= base_url('nilai_sikap/cetak/'.$w['id_kelas']); ?>" class='btn btn-primary float-right'>Cetak
+					<a href="<?= base_url('nilai_sikap/cetak/'.$w['id_kelas']); ?>" class='btn btn-primary float-right' target="_blank">Cetak
 						Penilaian</a>
 				</div>
 			</div>
@@ -67,7 +67,7 @@
 					<a href="<?= base_url('nilai_sikap/do_nilai/'.$k['id_kelas']); ?>"
 						class='btn btn-primary btn-sm'>Lakukan
 						Penilaian</a>
-					<a href="<?= base_url('nilai_sikap/cetak/'.$k['id_kelas']); ?>" class='btn btn-primary float-right'>Cetak
+					<a href="<?= base_url('nilai_sikap/cetak/'.$k['id_kelas']); ?>" class='btn btn-primary float-right' target="_blank">Cetak
 						Penilaian</a>
 				</div>
 			</div>

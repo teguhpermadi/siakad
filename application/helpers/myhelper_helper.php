@@ -49,8 +49,7 @@ function check_login()
 						'nilai_sikap',
 						'nilai_pengetahuan',
 						'nilai_keterampilan',
-						'pengajar',
-						'walikelas'
+						'kompetensi_dasar',
 					];
 
 				break;

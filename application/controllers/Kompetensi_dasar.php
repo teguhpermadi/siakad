@@ -32,21 +32,17 @@ class Kompetensi_dasar extends CI_Controller{
     {   
         $this->load->library('form_validation');
 
-		$this->form_validation->set_rules('id_tahun','Id Tahun','required');
 		$this->form_validation->set_rules('id_mapel','Id Mapel','required');
 		$this->form_validation->set_rules('id_kelas','Id Kelas','required');
-		$this->form_validation->set_rules('id_guru','Id Guru','required');
-		$this->form_validation->set_rules('ki','Ki','required');
 		$this->form_validation->set_rules('kd','Kd','required');
 		
 		if($this->form_validation->run())     
         {   
             $params = array(
-				'id_tahun' => $this->input->post('id_tahun'),
+				'id_tahun' => $_SESSION['id_tahun_pelajaran'],
 				'id_mapel' => $this->input->post('id_mapel'),
 				'id_kelas' => $this->input->post('id_kelas'),
-				'id_guru' => $this->input->post('id_guru'),
-				'ki' => $this->input->post('ki'),
+				'id_guru' => user_info()['id_guru'],
 				'kd' => $this->input->post('kd'),
             );
             
@@ -55,17 +51,11 @@ class Kompetensi_dasar extends CI_Controller{
         }
         else
         {
-			$this->load->model('Tahun_pelajaran_model');
-			$data['all_tahun_pelajaran'] = $this->Tahun_pelajaran_model->get_all_tahun_pelajaran();
-
 			$this->load->model('Mapel_model');
 			$data['all_mapel'] = $this->Mapel_model->get_all_mapel();
 
-			$this->load->model('Kelas_model');
+            $this->load->model('Kelas_model');
 			$data['all_kelas'] = $this->Kelas_model->get_all_kelas();
-
-			$this->load->model('Guru_model');
-			$data['all_guru'] = $this->Guru_model->get_all_guru();
             
             $data['_view'] = 'kompetensi_dasar/add';
             $this->load->view('template/header');
@@ -87,11 +77,8 @@ class Kompetensi_dasar extends CI_Controller{
         {
             $this->load->library('form_validation');
 
-			$this->form_validation->set_rules('id_tahun','Id Tahun','required');
 			$this->form_validation->set_rules('id_mapel','Id Mapel','required');
 			$this->form_validation->set_rules('id_kelas','Id Kelas','required');
-			$this->form_validation->set_rules('id_guru','Id Guru','required');
-			$this->form_validation->set_rules('ki','Ki','required');
 			$this->form_validation->set_rules('kd','Kd','required');
 		
 			if($this->form_validation->run())     
@@ -101,7 +88,6 @@ class Kompetensi_dasar extends CI_Controller{
 					'id_mapel' => $this->input->post('id_mapel'),
 					'id_kelas' => $this->input->post('id_kelas'),
 					'id_guru' => $this->input->post('id_guru'),
-					'ki' => $this->input->post('ki'),
 					'kd' => $this->input->post('kd'),
                 );
 
@@ -110,17 +96,11 @@ class Kompetensi_dasar extends CI_Controller{
             }
             else
             {
-				$this->load->model('Tahun_pelajaran_model');
-				$data['all_tahun_pelajaran'] = $this->Tahun_pelajaran_model->get_all_tahun_pelajaran();
-
 				$this->load->model('Mapel_model');
 				$data['all_mapel'] = $this->Mapel_model->get_all_mapel();
 
 				$this->load->model('Kelas_model');
 				$data['all_kelas'] = $this->Kelas_model->get_all_kelas();
-
-				$this->load->model('Guru_model');
-				$data['all_guru'] = $this->Guru_model->get_all_guru();
 
                 $data['_view'] = 'kompetensi_dasar/edit';
                 $this->load->view('template/header');

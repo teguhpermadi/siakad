@@ -50,6 +50,7 @@ function check_login()
 						'nilai_pengetahuan',
 						'nilai_keterampilan',
 						'kompetensi_dasar',
+						'pengajar'
 					];
 
 				break;

@@ -6,17 +6,6 @@
 		<h1 class="h3 mb-0 text-gray-800">Kompetensi Dasar</h1>
 	</div>
 
-	<div class="row mb-4">
-		<div class="col">
-			<a href="<?= base_url('kompetensi_dasar/add'); ?>" class="btn btn-info btn-icon-split">
-				<span class="icon text-white-50">
-					<i class="fas fa-user-plus"></i>
-				</span>
-				<span class="text">Tambah KD</span>
-			</a>
-		</div>
-	</div>
-
 	<!-- flash data -->
 	<?php if($this->session->flashdata('berhasil')) { ?>
 	<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -48,7 +37,7 @@
 	<?php } ?>
 
 	<!-- DataTales Example -->
-	<div class="card shadow mb-4">
+	<!-- <div class="card shadow mb-4">
 		<div class="card-header py-3">
 			<h3 class="m-0 font-weight-bold text-primary">Daftar kelas</h6>
 		</div>
@@ -87,7 +76,78 @@
 				</tfoot>
 			</table>
 		</div>
+	</div> -->
+
+	<?php if(empty($mapel)){ ?>
+	<!-- jika data mapelnya kosong -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="alert alert-danger fade show" role="alert">
+				Tidak ada mata pelajaran yang Anda ajar, silahkan hubungi Administrator.
+			</div>
+		</div>
 	</div>
+	<?php } else { 
+            foreach($mapel as $m) { 
+		?>
+	<div>
+		<!-- tampilkan nama mapelnya -->
+		<div class="row">
+			<div class="col-md-12 mb-3">
+				<div class="card border-left-info">
+					<div class="card-body">
+						<div class="row no-gutters align-items-center">
+							<div class="col mr-2">
+								<div class="font-weight-bold text-primary text-uppercase mb-1"><?= $m['nama_mapel']; ?>
+								</div>
+								<div class="btn-group" role="group" aria-label="Basic example">
+									<button type="button" class="btn btn-info">Tambah KD</button>
+									<button type="button" class="btn btn-info">Download Excel</button>
+									<button type="button" class="btn btn-info">Upload Excel</button>
+									<button type="button" class="btn btn-info">Cetak KD</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="row">
+			<!-- tampilkan kd tiap tingkat kelasnya -->
+			<div class="col-md-12">
+				<table class="table table-hover table-light">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col" width="80%">Deskripsi KD</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore quas tempora voluptatibus, illum facere animi ea voluptates molestiae odit tempore inventore quia aperiam consequuntur natus. Consequuntur sed doloremque quidem praesentium?</td>
+							<td>
+								<button class='btn btn-sm btn-warning'>Edit</button>
+								<button class='btn btn-sm btn-danger'>Hapus</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt dignissimos voluptatibus assumenda ducimus natus provident totam dolor cumque ipsam iusto laborum odio sed repudiandae nobis, aperiam illo nesciunt odit quam.</td>
+							<td>
+								<button class='btn btn-sm btn-warning'>Edit</button>
+								<button class='btn btn-sm btn-danger'>Hapus</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<?php }; } ?>
+	<!-- content row -->
 
 	<!-- content row -->
 

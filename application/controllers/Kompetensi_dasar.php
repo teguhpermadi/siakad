@@ -17,6 +17,7 @@ class Kompetensi_dasar extends CI_Controller{
     function index()
     {
         $data['kompetensi_dasar'] = $this->Kompetensi_dasar_model->get_all_kompetensi_dasar();
+        $data['mapel'] = $this->Kompetensi_dasar_model->get_mapel();
         
         $data['_view'] = 'kompetensi_dasar/index';
         $this->load->view('template/header');

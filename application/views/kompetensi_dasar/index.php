@@ -114,35 +114,53 @@
 
 		</div>
 		<div class="row">
+		<?php 
+		$tingkat = $this->Kompetensi_dasar_model->get_kelas($m['id_mapel']);
+		print_r($tingkat);
+		?>
 			<!-- tampilkan kd tiap tingkat kelasnya -->
-			<div class="col-md-12">
-				<table class="table table-hover table-light">
-					<thead>
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col" width="80%">Deskripsi KD</th>
-							<th scope="col">Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore quas tempora voluptatibus, illum facere animi ea voluptates molestiae odit tempore inventore quia aperiam consequuntur natus. Consequuntur sed doloremque quidem praesentium?</td>
-							<td>
-								<button class='btn btn-sm btn-warning'>Edit</button>
-								<button class='btn btn-sm btn-danger'>Hapus</button>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt dignissimos voluptatibus assumenda ducimus natus provident totam dolor cumque ipsam iusto laborum odio sed repudiandae nobis, aperiam illo nesciunt odit quam.</td>
-							<td>
-								<button class='btn btn-sm btn-warning'>Edit</button>
-								<button class='btn btn-sm btn-danger'>Hapus</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="col-md-6 mb-3">
+				<div class="card">
+					<div class="card-header">
+						tingkat 10
+					</div>
+					<div class="card-body">
+						<table class="table table-hover table-light table-sm">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col" width="80%">Deskripsi KD</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">1</th>
+									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore quas tempora
+										voluptatibus, illum facere animi ea voluptates molestiae odit tempore inventore
+										quia
+										aperiam consequuntur natus. Consequuntur sed doloremque quidem praesentium?</td>
+									<td>
+										<button class='btn btn-sm btn-warning'>Edit</button>
+										<button class='btn btn-sm btn-danger'>Hapus</button>
+									</td>
+								</tr>
+								<tr>
+									<th scope="row">2</th>
+									<td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt dignissimos
+										voluptatibus
+										assumenda ducimus natus provident totam dolor cumque ipsam iusto laborum odio
+										sed
+										repudiandae nobis, aperiam illo nesciunt odit quam.</td>
+									<td>
+										<button class='btn btn-sm btn-warning'>Edit</button>
+										<button class='btn btn-sm btn-danger'>Hapus</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

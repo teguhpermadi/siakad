@@ -65,6 +65,18 @@ class Kompetensi_dasar_model extends CI_Model
         $this->db->join('mapel', 'mapel.id = pengajar.id_mapel');
         $this->db->group_by('nama_mapel');
         return $this->db->get()->result_array();
+    }
 
+    function get_kelas($id_mapel)
+    {
+        $id_guru = user_info()['id_guru'];
+        $this->db->select('kelas.id as id_kelas, kelas.tingkat as nama_tingkat');
+        $this->db->from('pengajar');
+        $this->db->where('id_guru', $id_guru);
+        $this->db->where('id_mapel', $id_mapel);
+        $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
+        $this->db->join('kelas', 'kelas.id = pengajar.id_kelas');
+        $this->db->group_by('nama_tingkat');
+        return $this->db->get()->result_array();
     }
 }

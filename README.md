@@ -59,3 +59,4 @@ sistem informasi akademik dengan codeigniter
   * 9.13.16 : download, upload, cetak absensi. Perbaikan link upload excel guru dan excel siswa
   * 9.13.17 : nilai pengetahuan
   * 9.13.18 : kompetensi dasar
+    * 9.13.18.1 : crud kompetensi dasar

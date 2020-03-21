@@ -3,54 +3,41 @@
 
 	<div class="row">
 	<div class="col-md-12">
-		<?php echo form_open('kompetensi_dasar/add',array("class"=>"form-horizontal")); ?>
+		<?php echo form_open('kompetensi_dasar/simpan',array("class"=>"form-horizontal")); ?>
 
 		<div class="form-group">
-			<label for="id_mapel" class="col-md-12 control-label"><span class="text-danger">*</span>Mapel</label>
+			<label for="id_mapel" class="col-md-12 control-label">Mapel</label>
 			<div class="col-md-12">
-				<select name="id_mapel" class="form-control">
-					<option value="">select mapel</option>
-					<?php 
-			foreach($all_mapel as $mapel)
-			{
-				$selected = ($mapel['id'] == $this->input->post('id_mapel')) ? ' selected="selected"' : "";
-
-				echo '<option value="'.$mapel['id'].'" '.$selected.'>'.$mapel['nama'].'</option>';
-			} 
-			?>
-				</select>
-				<span class="text-danger"><?php echo form_error('id_mapel');?></span>
+				<input type="text" value='<?= $mapel['id']; ?>' name='id_mapel' id='id_mapel' hidden>
+				<input type="text" class="form-control" value='<?= $mapel['nama']; ?>' readonly>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="id_kelas" class="col-md-12 control-label"><span class="text-danger">*</span>Kelas</label>
+			<label for="tingkat" class="col-md-12 control-label">Kelas Tingkat</label>
 			<div class="col-md-12">
-				<select name="id_kelas" class="form-control">
-					<option value="">select kelas</option>
+				<select name="tingkat" class="form-control">
 					<?php 
-			foreach($all_kelas as $kelas)
+			foreach($tingkat as $t)
 			{
-				$selected = ($kelas['id'] == $this->input->post('id_kelas')) ? ' selected="selected"' : "";
+				$selected = ($t['tingkat'] == $this->input->post('tingkat')) ? ' selected="selected"' : "";
 
-				echo '<option value="'.$kelas['id'].'" '.$selected.'>'.$kelas['nama'].'</option>';
+				echo '<option value="'.$t['tingkat'].'" '.$selected.'>tingkat '.$t['tingkat'].'</option>';
 			} 
 			?>
 				</select>
-				<span class="text-danger"><?php echo form_error('id_kelas');?></span>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="kd" class="col-md-12 control-label"><span class="text-danger">*</span>Kd</label>
+			<label for="kd" class="col-md-12 control-label">Deskripsi Kompetensi Dasar</label>
 			<div class="col-md-12">
-				<input type="text" name="kd" value="<?php echo $this->input->post('kd'); ?>" class="form-control"
-					id="kd" />
-				<span class="text-danger"><?php echo form_error('kd');?></span>
+				<textarea class="form-control" name="kd" id="kd" value="<?php echo $this->input->post('kd'); ?>"  required></textarea>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div class="col-sm-offset-4 col-sm-8">
-				<button type="submit" class="btn btn-success">Save</button>
+				<button type="submit" class="btn btn-primary">Simpan</button>
+				<a href="<?= base_url('kompetensi_dasar') ?>" class="btn btn-secondary">Batal</a>
 			</div>
 		</div>
 

@@ -26,8 +26,8 @@ class Guru extends CI_Controller{
         
         $data['_view'] = 'guru/index';
         $this->load->view('template/header');
-        $this->load->view('template/sidebar', $data);
-        $this->load->view('guru/index',$data);
+        $this->load->view('template/sidebar');
+        $this->load->view('guru/index', $data);
         $this->load->view('template/footer');
     }
 

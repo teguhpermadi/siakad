@@ -1,51 +1,70 @@
-<?php echo form_open('kompetensi_dasar/edit/'.$kompetensi_dasar['id'],array("class"=>"form-horizontal")); ?>
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-	<div class="form-group">
-		<label for="id_mapel" class="col-md-4 control-label"><span class="text-danger">*</span>Mapel</label>
-		<div class="col-md-8">
-			<select name="id_mapel" class="form-control">
-				<option value="">select mapel</option>
-				<?php 
-				foreach($all_mapel as $mapel)
-				{
-					$selected = ($mapel['id'] == $kompetensi_dasar['id_mapel']) ? ' selected="selected"' : "";
+	<div class="row">
+		<div class="col-md-12">
+			<?php echo form_open('kompetensi_dasar/simpan_edit/'.$kompetensi_dasar['id'],array("class"=>"form-horizontal")); ?>
 
-					echo '<option value="'.$mapel['id'].'" '.$selected.'>'.$mapel['nama_mapel'].'</option>';
-				} 
-				?>
-			</select>
-			<span class="text-danger"><?php echo form_error('id_mapel');?></span>
+			<div class="form-group">
+				<label for="id_mapel" class="col-md-12 control-label">Mapel</label>
+				<div class="col-md-12">
+					<input type="text" value='<?= $mapel['id']; ?>' name='id_mapel' id='id_mapel' hidden>
+					<input type="text" class="form-control" value='<?= $mapel['nama']; ?>' readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="id_kelas" class="col-md-12 control-label">Kelas</label>
+				<div class="col-md-12">
+					<input type="text" value='<?= $kompetensi_dasar['tingkat']; ?>' name='tingkat' hidden>
+					<input type="text" class="form-control" value='<?= $kompetensi_dasar['tingkat']; ?>' readonly>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="kd" class="col-md-12 control-label">Deskripsi Kompetensi Dasar</label>
+				<div class="col-md-12">
+					<input type="text" name="kd"
+						value="<?php echo ($this->input->post('kd') ? $this->input->post('kd') : $kompetensi_dasar['kd']); ?>"
+						class="form-control" id="kd" />
+					<span class="text-danger"><?php echo form_error('kd');?></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<button type="submit" class="btn btn-primary">Simpan</button>
+					<a href="<?= base_url('kompetensi_dasar'); ?>" class="btn btn-secondary">Batal</a>
+				</div>
+			</div>
+
+			<?php echo form_close(); ?>
+
+		</div>
+
+	</div>
+
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+	<div class="container my-auto">
+		<div class="copyright text-center my-auto">
+			<span>Copyright &copy; Your Website 2019</span>
 		</div>
 	</div>
-	<div class="form-group">
-		<label for="id_kelas" class="col-md-4 control-label"><span class="text-danger">*</span>Kelas</label>
-		<div class="col-md-8">
-			<select name="id_kelas" class="form-control">
-				<option value="">select kelas</option>
-				<?php 
-				foreach($all_kelas as $kelas)
-				{
-					$selected = ($kelas['id'] == $kompetensi_dasar['id_kelas']) ? ' selected="selected"' : "";
+</footer>
+<!-- End of Footer -->
 
-					echo '<option value="'.$kelas['id'].'" '.$selected.'>'.$kelas['nama'].'</option>';
-				} 
-				?>
-			</select>
-			<span class="text-danger"><?php echo form_error('id_kelas');?></span>
-		</div>
-	</div>
-	<div class="form-group">
-		<label for="kd" class="col-md-4 control-label"><span class="text-danger">*</span>Kd</label>
-		<div class="col-md-8">
-			<input type="text" name="kd" value="<?php echo ($this->input->post('kd') ? $this->input->post('kd') : $kompetensi_dasar['kd']); ?>" class="form-control" id="kd" />
-			<span class="text-danger"><?php echo form_error('kd');?></span>
-		</div>
-	</div>
-	
-	<div class="form-group">
-		<div class="col-sm-offset-4 col-sm-8">
-			<button type="submit" class="btn btn-success">Save</button>
-        </div>
-	</div>
-	
-<?php echo form_close(); ?>
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+	<i class="fas fa-angle-up"></i>
+</a>

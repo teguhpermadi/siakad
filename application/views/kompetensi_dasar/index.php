@@ -36,48 +36,6 @@
 	</div>
 	<?php } ?>
 
-	<!-- DataTales Example -->
-	<!-- <div class="card shadow mb-4">
-		<div class="card-header py-3">
-			<h3 class="m-0 font-weight-bold text-primary">Daftar kelas</h6>
-		</div>
-		<div class="card-body">
-			<table id="datatable-kelas" class="table table-striped table-bordered" style="width:100%">
-				<thead>
-					<tr>
-						<th>Id Mapel</th>
-						<th>Id Kelas</th>
-						<th>Kd</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach($kompetensi_dasar as $kd){ ?>
-					<tr>
-						<td><?php echo $kd['id_mapel']; ?></td>
-						<td><?php echo $kd['id_kelas']; ?></td>
-						<td><?php echo $kd['kd']; ?></td>
-						<td>
-							<a href="<?php echo site_url('kompetensi_dasar/edit/'.$kd['id']); ?>"
-								class="btn btn-info btn-xs">Edit</a>
-							<a href="<?php echo site_url('kompetensi_dasar/remove/'.$kd['id']); ?>"
-								class="btn btn-danger btn-xs">Delete</a>
-						</td>
-					</tr>
-					<?php } ?>
-				</tbody>
-				<tfoot>
-					<tr>
-						<th>Id Mapel</th>
-						<th>Id Kelas</th>
-						<th>Kd</th>
-						<th>Actions</th>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
-	</div> -->
-
 	<?php if(empty($mapel)){ ?>
 	<!-- jika data mapelnya kosong -->
 	<div class="row">
@@ -101,7 +59,7 @@
 								<div class="font-weight-bold text-primary text-uppercase mb-1"><?= $m['nama_mapel']; ?>
 								</div>
 								<div class="btn-group" role="group" aria-label="Basic example">
-									<button type="button" class="btn btn-info">Tambah KD</button>
+									<a href='<?= base_url('kompetensi_dasar/add/'.$m['id_mapel']) ?>' type="button" class="btn btn-info">Tambah KD</a>
 									<button type="button" class="btn btn-info">Download Excel</button>
 									<button type="button" class="btn btn-info">Upload Excel</button>
 									<button type="button" class="btn btn-info">Cetak KD</button>
@@ -114,15 +72,16 @@
 
 		</div>
 		<div class="row">
-		<?php 
-		$tingkat = $this->Kompetensi_dasar_model->get_kelas($m['id_mapel']);
-		print_r($tingkat);
-		?>
+			<?php 
+			$tingkat = $this->Kompetensi_dasar_model->get_tingkat($m['id_mapel']);
+			echo($tingkat == null ? '<div class="col-md-12"><div class="alert alert-danger" role="alert">Belum ada Kompetensi Dasar untuk mata pelajaran ini.</div></div>' : '');
+				foreach ($tingkat as $t) {
+			?>
 			<!-- tampilkan kd tiap tingkat kelasnya -->
 			<div class="col-md-6 mb-3">
 				<div class="card">
 					<div class="card-header">
-						tingkat 10
+						<?= $t['tingkat']; ?>
 					</div>
 					<div class="card-body">
 						<table class="table table-hover table-light table-sm">
@@ -134,34 +93,27 @@
 								</tr>
 							</thead>
 							<tbody>
+								<!-- dapatkan kd pada masing2 mapel dan tingkat -->
+								<?php
+									$no = 1;
+									$kd = $this->Kompetensi_dasar_model->get_kd($m['id_mapel'], $t['tingkat']);
+									foreach ($kd as $k) {
+									?>
 								<tr>
-									<th scope="row">1</th>
-									<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore quas tempora
-										voluptatibus, illum facere animi ea voluptates molestiae odit tempore inventore
-										quia
-										aperiam consequuntur natus. Consequuntur sed doloremque quidem praesentium?</td>
+									<th scope="row"><?= $no++; ?></th>
+									<td><?= $k['kd']; ?></td>
 									<td>
-										<button class='btn btn-sm btn-warning'>Edit</button>
-										<button class='btn btn-sm btn-danger'>Hapus</button>
+										<a class='btn btn-sm btn-warning mb-1' href="<?= base_url('kompetensi_dasar/edit/'.$k['id']); ?>">Edit</a>
+										<a class='btn btn-sm btn-danger mb-1' href="<?= base_url('kompetensi_dasar/remove/'.$k['id']); ?>">Hapus</a>
 									</td>
 								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt dignissimos
-										voluptatibus
-										assumenda ducimus natus provident totam dolor cumque ipsam iusto laborum odio
-										sed
-										repudiandae nobis, aperiam illo nesciunt odit quam.</td>
-									<td>
-										<button class='btn btn-sm btn-warning'>Edit</button>
-										<button class='btn btn-sm btn-danger'>Hapus</button>
-									</td>
-								</tr>
+								<?php } ?>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
+			<?php } ?>
 		</div>
 	</div>
 	<?php }; } ?>

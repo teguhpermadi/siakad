@@ -144,7 +144,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form method="post" action="<?php bae_url('guru/do_upload'); ?>" enctype="multipart/form-data">
+			<form method="post" action="<?php base_url('guru/do_upload'); ?>" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">

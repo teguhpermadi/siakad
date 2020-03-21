@@ -67,16 +67,53 @@ class Kompetensi_dasar_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    function get_kelas($id_mapel)
+    function get_id_mapel($id_mapel)
+    {
+        $this->db->select('*');
+        $this->db->from('mapel');
+        $this->db->where('id', $id_mapel);
+        return $this->db->get()->row_array();
+    }
+
+    // digunakan untuk menampilkan data tingkat per kd
+    function get_tingkat($id_mapel)
     {
         $id_guru = user_info()['id_guru'];
-        $this->db->select('kelas.id as id_kelas, kelas.tingkat as nama_tingkat');
-        $this->db->from('pengajar');
+
+        $this->db->select('tingkat');
+        $this->db->from('kompetensi_dasar');
+        $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
         $this->db->where('id_guru', $id_guru);
         $this->db->where('id_mapel', $id_mapel);
+        $this->db->group_by('tingkat');
+        return $this->db->get()->result_array();
+    }
+
+    // digunakan untuk form add kd
+    function get_kelas_tingkat($id_mapel)
+    {
+        $id_guru = user_info()['id_guru'];
+
+        $this->db->select('*');
+        $this->db->from('pengajar');
         $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
+        $this->db->where('id_guru', $id_guru);
+        $this->db->where('id_mapel', $id_mapel);
         $this->db->join('kelas', 'kelas.id = pengajar.id_kelas');
-        $this->db->group_by('nama_tingkat');
+        $this->db->group_by('kelas.tingkat');
+        return $this->db->get()->result_array();
+    }
+
+    function get_kd($id_mapel, $tingkat)
+    {
+        $id_guru = user_info()['id_guru'];
+
+        $this->db->select('id, kd');
+        $this->db->from('kompetensi_dasar');
+        $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
+        $this->db->where('id_guru', $id_guru);
+        $this->db->where('id_mapel', $id_mapel);
+        $this->db->where('tingkat', $tingkat);
         return $this->db->get()->result_array();
     }
 }

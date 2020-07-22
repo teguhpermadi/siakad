@@ -60,7 +60,7 @@
 								</div>
 								<div class="btn-group" role="group" aria-label="Basic example">
 									<a href='<?= base_url('kompetensi_dasar/add/'.$m['id_mapel']) ?>' type="button" class="btn btn-info">Tambah KD</a>
-									<button type="button" class="btn btn-info">Download Excel</button>
+									<a href='<?= base_url('kompetensi_dasar/download/'.$m['id_mapel']) ?>' type="button" class="btn btn-info">Download Excel</a>
 									<button type="button" class="btn btn-info">Upload Excel</button>
 									<button type="button" class="btn btn-info">Cetak KD</button>
 								</div>

@@ -113,7 +113,9 @@ class Kompetensi_dasar_model extends CI_Model
         $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
         $this->db->where('id_guru', $id_guru);
         $this->db->where('id_mapel', $id_mapel);
-        $this->db->where('tingkat', $tingkat);
+        if($tingkat != null){
+            $this->db->where('tingkat', $tingkat);
+        };
         return $this->db->get()->result_array();
     }
 }

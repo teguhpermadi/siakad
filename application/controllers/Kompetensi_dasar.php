@@ -149,18 +149,19 @@ class Kompetensi_dasar extends CI_Controller{
         // masukkan datanya berdasarkan sheet
         for($i=0;$i<count($tingkat);$i++){
             $identitas = [
-                ['Tahun Pelajaran', $_SESSION['tahun']],
-                ['Semester', $_SESSION['semester']],
-                ['Mapel', $mapel['nama']],
-                ['Tingkat', $tingkat[$i]['tingkat']],
-                ['Guru', user_info()['first_name'].' '.user_info()['last_name']],
-                [null, null],
-                ['id', 'Deskripsi KD']
+                ['Tahun Pelajaran', $_SESSION['id_tahun_pelajaran'], $_SESSION['tahun']],
+                ['Semester', null, $_SESSION['semester']],
+                ['Mapel',  $mapel['id'], $mapel['nama']],
+                ['Tingkat', $tingkat[$i]['tingkat'], $tingkat[$i]['tingkat']],
+                ['Guru', user_info()['user_id'], user_info()['first_name'].' '.user_info()['last_name']],
+                [null, null, null],
+                ['id KD', 'Deskripsi KD']
             ];
             
-            $kompetensi_dasar = $this->Kompetensi_dasar_model->get_kd($id, $tingkat[$i]['tingkat']);
-            
-            $data = array_merge($identitas, $kompetensi_dasar);
+            $data_kd = $this->Kompetensi_dasar_model->get_kd($id, $tingkat[$i]['tingkat']);
+           
+            $data = array_merge($identitas, $data_kd);
+            // print_r($kompetensi_dasar);
             // exit();
 
             // tuliskan array ke dalam excel
@@ -171,6 +172,15 @@ class Kompetensi_dasar extends CI_Controller{
                     'A1'         // Top left coordinate of the worksheet range where
                                  //    we want to set these values (default is A1)
                 );
+            
+            // proteksi cell B1:B5
+            $spreadsheet->getSheet($i)->getProtection()->setSheet(true);
+            $spreadsheet->getDefaultStyle()->getProtection()->setLocked(false);
+            $spreadsheet->getSheet($i)->getStyle('B1:B5')->getProtection()->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
+
+            $spreadsheet->getSheet($i)->getStyle('B1:B5')
+                ->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_WHITE);
+
         };
 
         // Redirect output to a client’s web browser (Xlsx)

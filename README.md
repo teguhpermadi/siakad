@@ -61,3 +61,4 @@ sistem informasi akademik dengan codeigniter
   * 9.13.18 : kompetensi dasar
     * 9.13.18.1 : crud kompetensi dasar
     * 9.13.18.2 : download kompetensi dasar
+    * 9.13.18.3 : download dan upload excel kompetensi dasar, rubah struktur database pada tabel kompetensi_dasar, rubah tampilan index kompetensi dasar agar lebih rapi

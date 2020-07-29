@@ -104,11 +104,28 @@ class Kompetensi_dasar_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    function get_kd($id_mapel, $tingkat)
+    function get_kd($id_mapel, $tingkat, $jenis)
     {
         $id_guru = user_info()['id_guru'];
 
-        $this->db->select('id, kd');
+        $this->db->select('*');
+        $this->db->from('kompetensi_dasar');
+        $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
+        $this->db->where('jenis', $jenis);
+        $this->db->where('id_guru', $id_guru);
+        $this->db->where('id_mapel', $id_mapel);
+        if($tingkat != null){
+            $this->db->where('tingkat', $tingkat);
+        };
+        return $this->db->get()->result_array();
+    }
+
+    // untuk fungsi download kd
+    function download_kd($id_mapel, $tingkat)
+    {
+        $id_guru = user_info()['id_guru'];
+
+        $this->db->select('kd');
         $this->db->from('kompetensi_dasar');
         $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
         $this->db->where('id_guru', $id_guru);

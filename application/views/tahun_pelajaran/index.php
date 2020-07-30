@@ -6,6 +6,10 @@
 		<h1 class="h3 mb-0 text-gray-800">Tahun Pelajaran</h1>
 	</div>
 
+	<!-- cek status user, jika user adalah admin maka dapat menambahkan tahun pelajaran -->
+	<?php
+	 if(user_info()['user_role'] == 'administrator') {
+	?>
 	<div class="row mb-4">
 		<div class="col">
 			<a href="<?= base_url('tahun_pelajaran/add'); ?>" class="btn btn-info btn-icon-split">
@@ -16,6 +20,14 @@
 			</a>
 		</div>
 	</div>
+	<?php } else { ?>
+	<!-- jika status user bukan administrator, maka tampilkan pesan berikut ini -->
+	<div>
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			Hanya <b>Administrator</b> yang bisa menambahkan Tahun Pelajaran Baru
+		</div>
+	</div>
+	<?php }?>
 
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
@@ -35,26 +47,26 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php foreach($tahun_pelajaran as $t){ ?>
-				<tr>
-					<td><?php if($_SESSION['id_tahun_pelajaran'] == $t['id']) { ?><span
-							class="badge badge-primary">Aktif</span> <?php } ?></td>
-					<td><?php echo $t['tahun']; ?></td>
-					<td><?php echo $t['semester']; ?></td>
-					<td><?php echo $t['kepsek']; ?></td>
-					<td><?php echo $t['tanggal_rapor']; ?></td>
-					<td>
-						<a href="<?php echo site_url('tahun_pelajaran/edit/'.$t['id']); ?>"
-							class="btn btn-info btn-sm">Edit</a>
-						<a href="<?php echo site_url('tahun_pelajaran/remove/'.$t['id']); ?>"
-							class="btn btn-danger btn-sm">Delete</a>
-						<?php if($_SESSION['id_tahun_pelajaran'] != $t['id']){ ?>
-						<a href='<?= site_url('tahun_pelajaran/set_session/'.$t['id']) ?>'
-							class='btn btn-primary btn-sm'>Aktifkan</a>
-						<?php } ?>
-					</td>
-				</tr>
-				<?php } ?>
+					<?php foreach($tahun_pelajaran as $t){ ?>
+					<tr>
+						<td><?php if($_SESSION['id_tahun_pelajaran'] == $t['id']) { ?><span
+								class="badge badge-primary">Aktif</span> <?php } ?></td>
+						<td><?php echo $t['tahun']; ?></td>
+						<td><?php echo $t['semester']; ?></td>
+						<td><?php echo $t['kepsek']; ?></td>
+						<td><?php echo $t['tanggal_rapor']; ?></td>
+						<td>
+							<a href="<?php echo site_url('tahun_pelajaran/edit/'.$t['id']); ?>"
+								class="btn btn-info btn-sm">Edit</a>
+							<a href="<?php echo site_url('tahun_pelajaran/remove/'.$t['id']); ?>"
+								class="btn btn-danger btn-sm">Delete</a>
+							<?php if($_SESSION['id_tahun_pelajaran'] != $t['id']){ ?>
+							<a href='<?= site_url('tahun_pelajaran/set_session/'.$t['id']) ?>'
+								class='btn btn-primary btn-sm'>Aktifkan</a>
+							<?php } ?>
+						</td>
+					</tr>
+					<?php } ?>
 				</tbody>
 				<tfoot>
 					<tr>

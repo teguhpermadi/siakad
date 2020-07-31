@@ -57,6 +57,7 @@ class Kompetensi_dasar extends CI_Controller{
             'id_mapel' => $this->input->post('id_mapel'),
             'tingkat'  => $this->input->post('tingkat'),
             'id_guru' => user_info()['id_guru'],
+            'jenis'  => $this->input->post('jenis'),
             'kd' => $this->input->post('kd')
         ];
 
@@ -328,5 +329,10 @@ class Kompetensi_dasar extends CI_Controller{
                 
         }
 
+    }
+
+    function cetak($id){
+        $kd = $this->Kompetensi_dasar_model->get_kd($id, null, 'pengetahuan');
+        print_r($kd);
     }
 }

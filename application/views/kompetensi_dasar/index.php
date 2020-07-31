@@ -75,7 +75,7 @@
 										class="btn btn-info">Download KD</a>
 									<!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#upload" data-idmapel="<?= $m['id_mapel']; ?>">Upload KD</button> -->
 									<button type="button" class="btn btn-info" data-idmapel="<?= $m['id_mapel']; ?>" data-namamapel="<?= $m['nama_mapel'] ?>" onclick="showModal(this)">Upload KD</button>
-									<button type="button" class="btn btn-info">Cetak KD</button>
+									<a href='<?= base_url('kompetensi_dasar/cetak/'.$m['id_mapel']) ?>' type="button" class="btn btn-info">Cetak KD</a>
 								</div>
 							</div>
 						</div>
@@ -129,6 +129,9 @@
 								<?php } ?>
 							</tbody>
 						</table>
+					</div>
+					<div class="card-footer">
+					<a href="#" class="btn btn-info btn-sm">Cetak</a>
 					</div>
 				</div>
 			</div>

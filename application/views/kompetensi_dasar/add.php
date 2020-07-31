@@ -2,21 +2,21 @@
 <div class="container-fluid">
 
 	<div class="row">
-	<div class="col-md-12">
-		<?php echo form_open('kompetensi_dasar/simpan',array("class"=>"form-horizontal")); ?>
+		<div class="col-md-12">
+			<?php echo form_open('kompetensi_dasar/simpan',array("class"=>"form-horizontal")); ?>
 
-		<div class="form-group">
-			<label for="id_mapel" class="col-md-12 control-label">Mapel</label>
-			<div class="col-md-12">
-				<input type="text" value='<?= $mapel['id']; ?>' name='id_mapel' id='id_mapel' hidden>
-				<input type="text" class="form-control" value='<?= $mapel['nama']; ?>' readonly>
+			<div class="form-group">
+				<label for="id_mapel" class="col-md-12 control-label">Mapel</label>
+				<div class="col-md-12">
+					<input type="text" value='<?= $mapel['id']; ?>' name='id_mapel' id='id_mapel' hidden>
+					<input type="text" class="form-control" value='<?= $mapel['nama']; ?>' readonly>
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label for="tingkat" class="col-md-12 control-label">Kelas Tingkat</label>
-			<div class="col-md-12">
-				<select name="tingkat" class="form-control">
-					<?php 
+			<div class="form-group">
+				<label for="tingkat" class="col-md-12 control-label">Kelas Tingkat</label>
+				<div class="col-md-12">
+					<select name="tingkat" class="form-control">
+						<?php 
 			foreach($tingkat as $t)
 			{
 				$selected = ($t['tingkat'] == $this->input->post('tingkat')) ? ' selected="selected"' : "";
@@ -24,25 +24,35 @@
 				echo '<option value="'.$t['tingkat'].'" '.$selected.'>tingkat '.$t['tingkat'].'</option>';
 			} 
 			?>
-				</select>
+					</select>
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<label for="kd" class="col-md-12 control-label">Deskripsi Kompetensi Dasar</label>
-			<div class="col-md-12">
-				<textarea class="form-control" name="kd" id="kd" value="<?php echo $this->input->post('kd'); ?>"  required></textarea>
+			<div class="form-group">
+				<label for="" class="col-md-12 control-label">Jenis</label>
+				<div class="col-md-12">
+					<select name="jenis" id="jenis" class="form-control">
+						<option value="pengetahuan">Pengetahuan</option>
+						<option value="keterampilan">Keterampilan</option>
+					</select>
+				</div>
 			</div>
-		</div>
+			<div class="form-group">
+				<label for="kd" class="col-md-12 control-label">Deskripsi Kompetensi Dasar</label>
+				<div class="col-md-12">
+					<textarea class="form-control" name="kd" id="kd" value="<?php echo $this->input->post('kd'); ?>"
+						required></textarea>
+				</div>
+			</div>
 
-		<div class="form-group">
-			<div class="col-sm-offset-4 col-sm-8">
-				<button type="submit" class="btn btn-primary">Simpan</button>
-				<a href="<?= base_url('kompetensi_dasar') ?>" class="btn btn-secondary">Batal</a>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<button type="submit" class="btn btn-primary">Simpan</button>
+					<a href="<?= base_url('kompetensi_dasar') ?>" class="btn btn-secondary">Batal</a>
+				</div>
 			</div>
-		</div>
 
-		<?php echo form_close(); ?>
-	</div>
+			<?php echo form_close(); ?>
+		</div>
 
 	</div>
 

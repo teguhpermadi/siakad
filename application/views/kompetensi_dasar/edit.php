@@ -20,6 +20,13 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label for="">Jenis</label>
+				<div class="col-md-12">
+					<input type="text" value='<?= $kompetensi_dasar['jenis']; ?>' name='jenis' hidden>
+					<input type="text" class="form-control" value='<?= $kompetensi_dasar['jenis']; ?>' readonly>
+				</div>
+			</div>
+			<div class="form-group">
 				<label for="kd" class="col-md-12 control-label">Deskripsi Kompetensi Dasar</label>
 				<div class="col-md-12">
 					<input type="text" name="kd"

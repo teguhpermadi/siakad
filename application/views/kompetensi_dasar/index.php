@@ -74,8 +74,10 @@
 									<a href='<?= base_url('kompetensi_dasar/download/'.$m['id_mapel']) ?>' type="button"
 										class="btn btn-info">Download KD</a>
 									<!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#upload" data-idmapel="<?= $m['id_mapel']; ?>">Upload KD</button> -->
-									<button type="button" class="btn btn-info" data-idmapel="<?= $m['id_mapel']; ?>" data-namamapel="<?= $m['nama_mapel'] ?>" onclick="showModal(this)">Upload KD</button>
-									<a href='<?= base_url('kompetensi_dasar/cetak/'.$m['id_mapel']) ?>' type="button" class="btn btn-info">Cetak KD</a>
+									<button type="button" class="btn btn-info" data-idmapel="<?= $m['id_mapel']; ?>"
+										data-namamapel="<?= $m['nama_mapel'] ?>" onclick="showModal(this)">Upload
+										KD</button>
+									<a href='<?= base_url('kompetensi_dasar/cetak/'.$m['id_mapel']) ?>' type="button" class="btn btn-info" target="_blank">Cetak</a>
 								</div>
 							</div>
 						</div>
@@ -121,17 +123,16 @@
 									<td><?= $k['kd']; ?></td>
 									<td>
 										<a class='btn btn-sm btn-warning mb-1'
-											href="<?= base_url('kompetensi_dasar/edit/'.$k['id']); ?>"><i class="fa fa-edit" aria-hidden="true"></i></a>
+											href="<?= base_url('kompetensi_dasar/edit/'.$k['id']); ?>"><i
+												class="fa fa-edit" aria-hidden="true"></i></a>
 										<a class='btn btn-sm btn-danger mb-1'
-											href="<?= base_url('kompetensi_dasar/remove/'.$k['id']); ?>"><i class="fa fa-trash" aria-hidden="true"></i></a>
+											href="<?= base_url('kompetensi_dasar/remove/'.$k['id']); ?>"><i
+												class="fa fa-trash" aria-hidden="true"></i></a>
 									</td>
 								</tr>
 								<?php } ?>
 							</tbody>
 						</table>
-					</div>
-					<div class="card-footer">
-					<a href="#" class="btn btn-info btn-sm">Cetak</a>
 					</div>
 				</div>
 			</div>
@@ -167,9 +168,11 @@
 									<td><?= $k['kd']; ?></td>
 									<td>
 										<a class='btn btn-sm btn-warning mb-1'
-											href="<?= base_url('kompetensi_dasar/edit/'.$k['id']); ?>"><i class="fa fa-edit" aria-hidden="true"></i></a>
+											href="<?= base_url('kompetensi_dasar/edit/'.$k['id']); ?>"><i
+												class="fa fa-edit" aria-hidden="true"></i></a>
 										<a class='btn btn-sm btn-danger mb-1'
-											href="<?= base_url('kompetensi_dasar/remove/'.$k['id']); ?>"><i class="fa fa-trash" aria-hidden="true"></i></a>
+											href="<?= base_url('kompetensi_dasar/remove/'.$k['id']); ?>"><i
+												class="fa fa-trash" aria-hidden="true"></i></a>
 									</td>
 								</tr>
 								<?php } ?>
@@ -225,7 +228,7 @@
 			</div>
 			<form method="post" action="<?= base_url('kompetensi_dasar/do_upload'); ?>" enctype="multipart/form-data">
 				<div class="modal-body">
-				<div class="alert alert-warning" role="alert">
+					<div class="alert alert-warning" role="alert">
 						<ul>
 							<li>Pastikan Anda telah <b>Download KD</b> terlebih dahulu, kemudian isikan deskripsi kd
 								yang diinginkan dibawah deskripsi kd yang sudah ada.</li>
@@ -237,7 +240,7 @@
 
 					<input type="hidden" name="id_mapel" id="id_mapel">
 					<input type="hidden" name="nama_mapel" id="nama_mapel">
-					<input type="hidden" name="id_kelas" >
+					<input type="hidden" name="id_kelas">
 
 					<div class="custom-file">
 						<input type="file" name="userfile" id="userfile">
@@ -256,13 +259,14 @@
 </div>
 
 <script>
-function showModal(data){
-	// tampilkan modalnya
-	$('#upload').modal('show')
-	// isi dengan data atribud yang ada
-	var idMapel = data.getAttribute('data-idmapel');
-	var namaMapel = data.getAttribute('data-namamapel');
-	document.getElementById("id_mapel").value = idMapel;
-	document.getElementById("nama_mapel").value = namaMapel;
-}
+	function showModal(data) {
+		// tampilkan modalnya
+		$('#upload').modal('show')
+		// isi dengan data atribud yang ada
+		var idMapel = data.getAttribute('data-idmapel');
+		var namaMapel = data.getAttribute('data-namamapel');
+		document.getElementById("id_mapel").value = idMapel;
+		document.getElementById("nama_mapel").value = namaMapel;
+	}
+
 </script>

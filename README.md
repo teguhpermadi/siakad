@@ -63,3 +63,4 @@ sistem informasi akademik dengan codeigniter
     * 9.13.18.2 : download kompetensi dasar
     * 9.13.18.3 : download dan upload excel kompetensi dasar, rubah struktur database pada tabel kompetensi_dasar, rubah tampilan index kompetensi dasar agar lebih rapi
     * 9.13.18.4 : tambahkan aturan pada tahun pelajaran, bahwa hanya user role administrator yang bisa menambahkan tahun pelajaran baru, user role yang lain hanya bisa merubah tahun pelajaran aktif
+    * 9.13.18.5 : cetak kompetensi dasar

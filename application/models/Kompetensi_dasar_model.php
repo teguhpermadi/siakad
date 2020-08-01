@@ -111,12 +111,15 @@ class Kompetensi_dasar_model extends CI_Model
         $this->db->select('*');
         $this->db->from('kompetensi_dasar');
         $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
-        $this->db->where('jenis', $jenis);
+        if($jenis){
+            $this->db->where('jenis', $jenis);
+        }
         $this->db->where('id_guru', $id_guru);
         $this->db->where('id_mapel', $id_mapel);
-        if($tingkat != null){
+        if($tingkat){
             $this->db->where('tingkat', $tingkat);
         };
+        $this->db->order_by('jenis', 'asc');
         return $this->db->get()->result_array();
     }
 

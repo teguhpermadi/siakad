@@ -332,7 +332,12 @@ class Kompetensi_dasar extends CI_Controller{
     }
 
     function cetak($id){
-        $kd = $this->Kompetensi_dasar_model->get_kd($id, null, 'pengetahuan');
-        print_r($kd);
+        $data['mapel'] = $this->Kompetensi_dasar_model->get_id_mapel($id);
+        $data['tingkat'] = $this->Kompetensi_dasar_model->get_tingkat($id);
+
+        $this->load->view('template/header');
+        // $this->load->view('template/sidebar');
+        $this->load->view('kompetensi_dasar/cetak',$data);
+        // $this->load->view('template/footer');
     }
 }

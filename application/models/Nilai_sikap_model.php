@@ -58,6 +58,7 @@ class Nilai_sikap_model extends CI_Model
         $this->db->where($filter);
         $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
         $this->db->join('nilai_sikap', 'rombel.id_siswa = nilai_sikap.id_siswa AND nilai_sikap.id_guru ='.$id_guru, 'left outer');
+        $this->db->order_by('nama_siswa', 'asc');
         $db = $this->db->get();
         return $db->result_array();
     }

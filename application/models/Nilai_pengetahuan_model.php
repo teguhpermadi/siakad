@@ -35,9 +35,34 @@ class Nilai_pengetahuan_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    function get_nilai_siswa($id_mapel, $id_kelas)
+    function get_kd($id_mapel, $tingkat)
     {
-        // dapatkan nilai siswa berdasarkan id mapel dan id kelas
+        $id_guru = user_info()['id_guru'];
+
+        $this->db->select('*');
+        $this->db->from('kompetensi_dasar');
+        $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
+        $this->db->where('id_mapel', $id_mapel);
+        $this->db->where('tingkat', $tingkat);
+        $this->db->where('id_guru', $id_guru);
+        $this->db->where('jenis', 'pengetahuan');
+        $db = $this->db->get();
+        return $db->result_array();
+    }
+
+    function get_siswa($id_mapel, $id_kelas)
+    {
+        // dapatkan siswa berdasarkan id mapel dan id kelas
+        // filter rombel berdasarkan id tahun aktif dan id kelas yang mana user menjadi pengajarnya
+        $filter = 'rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' AND rombel.id_kelas = '.$id_kelas;
+        $this->db->select('nilai_pengetahuan.id, nilai_pengetahuan.nilai, siswa.id as id_siswa, siswa.nama_lengkap as nama_siswa, siswa.nis');
+        $this->db->from('rombel');
+        $this->db->where($filter);
+        $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
+        $this->db->join('nilai_pengetahuan', 'rombel.id_siswa = nilai_pengetahuan.id_siswa AND nilai_pengetahuan.id_mapel ='.$id_mapel, 'left outer');
+        $this->db->order_by('nama_siswa', 'asc');
+        $db = $this->db->get();
+        return $db->result_array();
     }
 
 }

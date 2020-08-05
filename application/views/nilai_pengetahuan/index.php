@@ -19,41 +19,68 @@
             foreach($mapel as $m) { 
 		?>
 	<div>
-	<!-- tampilkan nama mapelnya -->
+		<!-- tampilkan nama mapelnya -->
 		<div class="row">
 			<div class="col-md-12">
 				<div class="alert alert-info fade show" role='alert'>
-					<h4 class='text-uppercase'><?= $m['nama_mapel']; ?></h4>
+					<span class='text-uppercase font-weight-bold'><?= $m['nama_mapel']; ?></span>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-		<!-- tampilkan kelasnya -->
+			<!-- jika user tersebut wali kelas, tampilkan kelasnya -->
 			<?php 
-			$kelas = $this->Nilai_pengetahuan_model->get_kelas($m['id_mapel']);
-			foreach($kelas as $k) { ?>
-				<div class="col-md-6">
-					<div class="card shadow mb-4">
-						<div class="card-header">
-							<span class='text-uppercase'>kelas <?= $k['nama_kelas']; ?></span>
-							<!-- jika user adalah walikelasnya -->
-							<?php 
-							if($k['id_kelas'] == user_info()['id_kelas'])
-							{
-								echo '<span class="badge badge-primary float-right">Walikelas</span>';
-							}
-							?>
-						</div>
-						<div class="card-body">
-						
-						</div>						
-						<div class="card-footer">
-							<a href="<?= base_url('nilai_pengetahuan/do_nilai/').$m['id_mapel'].'-'.$k['id_kelas']; ?>" class='btn btn-primary'>Lakukan Penilaian</a>
-							<a href="<?= base_url('nilai_pengetahuan/cetak/').$m['id_mapel'].'-'.$k['id_kelas']; ?>" class='btn btn-primary float-right'>Cetak Penilaian</a>
-						</div>
+		$walikelas = $this->Nilai_pengetahuan_model->get_kelas($m['id_mapel']);
+		foreach ($walikelas as $w) {
+			if($w['id_kelas'] == user_info()['id_kelas'])
+			{
+		?>
+			<div class="col-md-6">
+				<div class="card shadow mb-4">
+					<div class="card-header">
+						<span class='text-uppercase'>Kelas <?= $w['nama_kelas']; ?></span>
+						<span class="badge badge-primary float-right"><i class="fa fa-award mr-1"></i>Walikelas</span>
+					</div>
+					<div class="card-body">
+
+					</div>
+					<div class="card-footer">
+						<a href="<?= base_url('nilai_pengetahuan/do_nilai/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
+							class='btn btn-primary'>Lakukan Penilaian</a>
+						<a href="<?= base_url('nilai_pengetahuan/cetak/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
+							class='btn btn-primary float-right'>Cetak Penilaian</a>
 					</div>
 				</div>
-			<?php } ?>
+			</div>
+
+			<?php }}?>
+		</div>
+
+		<!-- tampilkan kelas yang lain -->
+		<div class="row">
+			<?php 
+		$walikelas = $this->Nilai_pengetahuan_model->get_kelas($m['id_mapel']);
+		foreach ($walikelas as $w) {
+			if($w['id_kelas'] != user_info()['id_kelas'])
+			{
+		?>
+			<div class="col-md-4">
+				<div class="card shadow mb-4">
+					<div class="card-header">
+						<span class='text-uppercase'>Kelas <?= $w['nama_kelas']; ?></span>
+					</div>
+					<div class="card-body">
+
+					</div>
+					<div class="card-footer">
+						<a href="<?= base_url('nilai_pengetahuan/do_nilai/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
+							class='btn btn-primary'>Lakukan Penilaian</a>
+						<a href="<?= base_url('nilai_pengetahuan/cetak/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
+							class='btn btn-primary float-right'>Cetak Penilaian</a>
+					</div>
+				</div>
+			</div>
+			<?php }}?>
 		</div>
 	</div>
 	<?php }; } ?>

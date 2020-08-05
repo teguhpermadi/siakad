@@ -17,7 +17,7 @@
 					<?php 
 					if($w['id_kelas'] == user_info()['id_kelas']) {
 						// jika anda walikelas pada kelas ini
-						echo '<span class="badge badge-primary float-right">Walikelas</span>';
+						echo '<span class="badge badge-primary float-right"><i class="fa fa-award mr-1"></i>Walikelas</span>';
 					}
 					?>
 				</div>

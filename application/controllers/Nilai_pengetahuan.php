@@ -11,6 +11,7 @@ class Nilai_pengetahuan extends CI_Controller {
         parent::__construct();
         
         $this->load->model('Nilai_pengetahuan_model');
+        $this->load->model('Kelas_model');
         // $this->load->model('Kelas_model');
         // cek user login
         check_login();
@@ -35,6 +36,22 @@ class Nilai_pengetahuan extends CI_Controller {
         $id_mapel = $params[0];
         $id_kelas = $params[1];
 
-        $data['siswa'] = $this->Nilai_pengetahuan_model->get_nilai_siswa($id_mapel, $id_kelas);
+        $get_kelas = $this->Kelas_model->get_kelas($id_kelas);
+        // dapatkan semua kd pada mapel dan kelas ini
+        $data['kd'] = $this->Nilai_pengetahuan_model->get_kd($id_mapel, $get_kelas['tingkat']);
+        // print_r($data['kd']);
+
+        // $data['siswa'] = $this->Nilai_pengetahuan_model->get_siswa($id_mapel, $id_kelas);
+        // $data['jumlah'] = count($data['siswa']);
+
+        $this->load->view('template/header');
+        $this->load->view('template/sidebar');
+        $this->load->view('nilai_pengetahuan/do_nilai', $data);
+        $this->load->view('template/footer');
+    }
+
+    public function nilai_kd()
+    {
+
     }
 }

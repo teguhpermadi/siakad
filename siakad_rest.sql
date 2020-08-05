@@ -150,6 +150,21 @@ CREATE TABLE `mapel` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `nilai_pengetahuan`
+--
+
+CREATE TABLE `nilai_pengetahuan` (
+  `id` int(255) NOT NULL,
+  `id_tahun` int(255) NOT NULL,
+  `id_guru` int(255) NOT NULL,
+  `id_siswa` int(255) NOT NULL,
+  `id_kd` int(255) NOT NULL,
+  `nilai` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `nilai_sikap`
 --
 
@@ -421,6 +436,14 @@ ALTER TABLE `mapel`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `nilai_pengetahuan`
+--
+ALTER TABLE `nilai_pengetahuan`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_tahun` (`id_tahun`,`id_siswa`,`id_guru`, `id_kd`) USING BTREE;
+
+
+--
 -- Indexes for table `nilai_sikap`
 --
 ALTER TABLE `nilai_sikap`
@@ -532,6 +555,12 @@ ALTER TABLE `login_attempts`
 -- AUTO_INCREMENT for table `mapel`
 --
 ALTER TABLE `mapel`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `nilai_pengetahuan`
+--
+ALTER TABLE `nilai_pengetahuan`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --

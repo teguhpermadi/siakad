@@ -65,4 +65,5 @@ sistem informasi akademik dengan codeigniter
     * 9.13.18.4 : tambahkan aturan pada tahun pelajaran, bahwa hanya user role administrator yang bisa menambahkan tahun pelajaran baru, user role yang lain hanya bisa merubah tahun pelajaran aktif
     * 9.13.18.5 : cetak kompetensi dasar
 * 9.14.0 : membuat nilai pengetahuan
+* 9.14.1 : ajax nilai pengetahuan
 * 9.15.0 : revisi database, menambahkan tabel nilai_pengetahuan

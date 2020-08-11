@@ -17,5 +17,8 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.css">
   <!-- Custom styles for this template-->
   <link href="<?php echo base_url()?>assets/css/sb-admin-2.css" rel="stylesheet">
+  <!-- jquery -->
+  <script src="<?= base_url('assets/vendor/jquery/jquery.min.js'); ?>"></script>
+
 
 </head>

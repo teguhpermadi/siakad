@@ -50,7 +50,7 @@ class Nilai_pengetahuan_model extends CI_Model
         return $db->result_array();
     }
 
-    function get_siswa($id_mapel, $id_kelas)
+    function get_siswa($id_mapel, $id_kelas, $id_kd)
     {
         // dapatkan siswa berdasarkan id mapel dan id kelas
         // filter rombel berdasarkan id tahun aktif dan id kelas yang mana user menjadi pengajarnya
@@ -59,7 +59,7 @@ class Nilai_pengetahuan_model extends CI_Model
         $this->db->from('rombel');
         $this->db->where($filter);
         $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
-        $this->db->join('nilai_pengetahuan', 'rombel.id_siswa = nilai_pengetahuan.id_siswa AND nilai_pengetahuan.id_mapel ='.$id_mapel, 'left outer');
+        $this->db->join('nilai_pengetahuan', 'rombel.id_siswa = nilai_pengetahuan.id_siswa AND nilai_pengetahuan.id_mapel ='.$id_mapel.' AND nilai_pengetahuan.id_kd = '.$id_kd, 'left outer');
         $this->db->order_by('nama_siswa', 'asc');
         $db = $this->db->get();
         return $db->result_array();

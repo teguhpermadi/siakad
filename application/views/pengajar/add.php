@@ -127,7 +127,7 @@
 	<i class="fas fa-angle-up"></i>
 </a>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script> -->
 <script src="<?= base_url('assets/js/jquery.multi-select.js'); ?>"></script>
 <script src="<?= base_url('assets/js/jquery.quicksearch.js'); ?>"></script>
 

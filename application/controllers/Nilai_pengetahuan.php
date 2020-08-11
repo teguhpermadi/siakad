@@ -39,6 +39,8 @@ class Nilai_pengetahuan extends CI_Controller {
         $get_kelas = $this->Kelas_model->get_kelas($id_kelas);
         // dapatkan semua kd pada mapel dan kelas ini
         $data['kd'] = $this->Nilai_pengetahuan_model->get_kd($id_mapel, $get_kelas['tingkat']);
+        $data['id_mapel'] = $id_mapel;
+        $data['id_kelas'] =$id_kelas;
         // print_r($data['kd']);
 
         // $data['siswa'] = $this->Nilai_pengetahuan_model->get_siswa($id_mapel, $id_kelas);
@@ -50,8 +52,18 @@ class Nilai_pengetahuan extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function nilai_kd()
+    public function get_siswa()
     {
+        $id_mapel = $this->input->get('idMapel');
+        $id_kelas = $this->input->get('idKelas');
+        $id_kd = $this->input->get('idKd');
+        $siswa = $this->Nilai_pengetahuan_model->get_siswa($id_mapel, $id_kelas, $id_kd);
+        echo json_encode($siswa);
+    }
 
+    public function save()
+    {
+        $data = $this->input->post('nilai[]');
+        echo json_encode($data);
     }
 }

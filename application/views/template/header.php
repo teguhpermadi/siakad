@@ -18,7 +18,7 @@
   <!-- Custom styles for this template-->
   <link href="<?php echo base_url()?>assets/css/sb-admin-2.css" rel="stylesheet">
   <!-- jquery -->
-  <script src="<?= base_url('assets/vendor/jquery/jquery.min.js'); ?>"></script>
+  <script src="<?= base_url('assets/vendor/jquery/jquery.js'); ?>"></script>
 
 
 </head>

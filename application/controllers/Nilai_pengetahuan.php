@@ -63,7 +63,21 @@ class Nilai_pengetahuan extends CI_Controller {
 
     public function save()
     {
-        $data = $this->input->post('nilai[]');
+        $nilai = $this->input->post('nilai[]');
+        $id_siswa = $this->input->post('id_siswa[]');
+        $id_mapel = $this->input->post('id_mapel');
+        $id_kd = $this->input->post('id_kd');
+        $data = [];
+        for ($i=0; $i < count($nilai) ; $i++) { 
+            array_push($data, [ 'id_tahun' => $_SESSION['id_tahun_pelajaran'],
+                                'id_mapel' => $id_mapel,
+                                'id_siswa' => $id_siswa[$i],
+                                'id_kd' => $id_kd,
+                                'nilai' =>$nilai[$i]]);
+        }
+
+        $this->db->insert_on_duplicate_update_batch('nilai_pengetahuan', $data);
+
         echo json_encode($data);
     }
 }

@@ -64,5 +64,4 @@ class Nilai_pengetahuan_model extends CI_Model
         $db = $this->db->get();
         return $db->result_array();
     }
-
 }

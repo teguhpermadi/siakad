@@ -30,7 +30,7 @@
 		<div class="row">
 			<!-- jika user tersebut wali kelas, tampilkan kelasnya -->
 			<?php 
-		$walikelas = $this->Nilai_pengetahuan_model->get_kelas($m['id_mapel']);
+		$walikelas = $this->Penilaian_model->get_kelas($m['id_mapel']);
 		foreach ($walikelas as $w) {
 			if($w['id_kelas'] == user_info()['id_kelas'])
 			{
@@ -45,9 +45,9 @@
 
 					</div>
 					<div class="card-footer">
-						<a href="<?= base_url('nilai_pengetahuan/do_nilai/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
+						<a href="<?= base_url('penilaian/do_nilai/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
 							class='btn btn-primary'>Lakukan Penilaian</a>
-						<a href="<?= base_url('nilai_pengetahuan/cetak/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
+						<a href="<?= base_url('penilaian/cetak/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
 							class='btn btn-primary float-right'>Cetak Penilaian</a>
 					</div>
 				</div>
@@ -59,7 +59,7 @@
 		<!-- tampilkan kelas yang lain -->
 		<div class="row">
 			<?php 
-		$walikelas = $this->Nilai_pengetahuan_model->get_kelas($m['id_mapel']);
+		$walikelas = $this->Penilaian_model->get_kelas($m['id_mapel']);
 		foreach ($walikelas as $w) {
 			if($w['id_kelas'] != user_info()['id_kelas'])
 			{
@@ -73,9 +73,9 @@
 
 					</div>
 					<div class="card-footer">
-						<a href="<?= base_url('nilai_pengetahuan/do_nilai/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
+						<a href="<?= base_url('penilaian/do_nilai/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
 							class='btn btn-primary'>Lakukan Penilaian</a>
-						<a href="<?= base_url('nilai_pengetahuan/cetak/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
+						<a href="<?= base_url('penilaian/cetak/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
 							class='btn btn-primary float-right'>Cetak Penilaian</a>
 					</div>
 				</div>

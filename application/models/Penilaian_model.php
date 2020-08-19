@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Nilai_pengetahuan_model extends CI_Model
+class Penilaian_model extends CI_Model
 {
     function __construct()
     {
@@ -35,7 +35,7 @@ class Nilai_pengetahuan_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    function get_kd($id_mapel, $tingkat)
+    function get_kd($id_mapel, $tingkat, $jenis)
     {
         $id_guru = user_info()['id_guru'];
 
@@ -45,7 +45,7 @@ class Nilai_pengetahuan_model extends CI_Model
         $this->db->where('id_mapel', $id_mapel);
         $this->db->where('tingkat', $tingkat);
         $this->db->where('id_guru', $id_guru);
-        $this->db->where('jenis', 'pengetahuan');
+        $this->db->where('jenis', $jenis);
         $db = $this->db->get();
         return $db->result_array();
     }
@@ -55,11 +55,11 @@ class Nilai_pengetahuan_model extends CI_Model
         // dapatkan siswa berdasarkan id mapel dan id kelas
         // filter rombel berdasarkan id tahun aktif dan id kelas yang mana user menjadi pengajarnya
         $filter = 'rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' AND rombel.id_kelas = '.$id_kelas;
-        $this->db->select('nilai_pengetahuan.id, nilai_pengetahuan.nilai, siswa.id as id_siswa, siswa.nama_lengkap as nama_siswa, siswa.nis');
+        $this->db->select('nilai.id, nilai.nilai, siswa.id as id_siswa, siswa.nama_lengkap as nama_siswa, siswa.nis');
         $this->db->from('rombel');
         $this->db->where($filter);
         $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
-        $this->db->join('nilai_pengetahuan', 'rombel.id_siswa = nilai_pengetahuan.id_siswa AND nilai_pengetahuan.id_mapel ='.$id_mapel.' AND nilai_pengetahuan.id_kd = '.$id_kd, 'left outer');
+        $this->db->join('nilai', 'rombel.id_siswa = nilai.id_siswa AND nilai.id_mapel ='.$id_mapel.' AND nilai.id_kd = '.$id_kd, 'left outer');
         $this->db->order_by('nama_siswa', 'asc');
         $db = $this->db->get();
         return $db->result_array();

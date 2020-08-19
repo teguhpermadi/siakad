@@ -38,6 +38,13 @@
 <script src="<?= base_url()?>assets/js/sb-admin-2.js"></script>
 <script src="<?= base_url()?>assets/js/custom.js"></script>
 
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+</script>
+
 </body>
 
 </html>

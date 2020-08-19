@@ -57,13 +57,14 @@ sistem informasi akademik dengan codeigniter
   * 9.13.14 : upload nilai sikap dalam excel
   * 9.13.15 : cetak nilai sikap
   * 9.13.16 : download, upload, cetak absensi. Perbaikan link upload excel guru dan excel siswa
-  * 9.13.17 : nilai pengetahuan
+  * 9.13.17 : nilai pengetahuan & keterampilan
   * 9.13.18 : kompetensi dasar
     * 9.13.18.1 : crud kompetensi dasar
     * 9.13.18.2 : download kompetensi dasar
     * 9.13.18.3 : download dan upload excel kompetensi dasar, rubah struktur database pada tabel kompetensi_dasar, rubah tampilan index kompetensi dasar agar lebih rapi
     * 9.13.18.4 : tambahkan aturan pada tahun pelajaran, bahwa hanya user role administrator yang bisa menambahkan tahun pelajaran baru, user role yang lain hanya bisa merubah tahun pelajaran aktif
     * 9.13.18.5 : cetak kompetensi dasar
-* 9.14.0 : membuat nilai pengetahuan
-* 9.14.1 : ajax nilai pengetahuan
-* 9.15.0 : revisi database, menambahkan tabel nilai_pengetahuan
+* 9.14.0 : membuat nilai pengetahuan & keterampilan
+* 9.14.1 : ajax nilai pengetahuan & keterampilan
+* 9.14.2 : revisi nilai pengetahuan & keterampilan menjadi penilaian, perbaikan tampilan halaman penilaian
+* 9.15.0 : revisi database, menambahkan tabel nilai

@@ -1,4 +1,23 @@
+<!-- untuk style jika table kd di sorot maka kursor berubah -->
+<style>
+	#example td:hover {
+		cursor: pointer;
+	}
+
+</style>
+
 <div class="container">
+	<div class="row mb-3">
+		<div class="col-md-12">
+			<div class="btn-group" role="group" aria-label="Basic example">
+				<a class="btn btn-secondary" href="<?= base_url('penilaian') ?>">Kembali</a>
+				<a class="btn btn-secondary" href="<?= base_url('penilaian/download/'.$id_mapel.'-'.$id_kelas) ?>">Download Nilai</a>
+				<button type="button" class="btn btn-secondary">Upload Nilai</button>
+				<button type="button" class="btn btn-secondary">Cetak Nilai</button>
+			</div>
+		</div>
+	</div>
+
 	<div class="row">
 		<!-- chart -->
 		Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates quidem assumenda aperiam quibusdam maiores
@@ -10,12 +29,39 @@
 		<div class="col-md-6">
 			<div class="card">
 				<div class="card-header">Kompetensi Dasar</div>
-				<ul class="list-group">
-					<?php foreach ($kd as $k) { ?>
-					<a href="#" class="list-group-item list-group-item-action" data-idMapel="<?= $id_mapel ?>"
-						data-idKelas="<?= $id_kelas ?>" data-idKd="<?= $k['id'] ?>"><?= $k['kd']; ?></a>
-					<?php } ?>
-				</ul>
+				<div class="card-body">
+					<?php 
+					// jika tidak ada KD
+					if(empty($kd_pengetahuan) && empty($kd_keterampilan)){
+						echo '<div class="d-flex bd-highlight">
+						<div class="p-2 flex-fill bd-highlight"><h3><i class="fa fa-exclamation-triangle text-warning"></i></h3></div>
+						<div class="p-2 flex-fill bd-highlight">Silahkan <a class="font-weight-bold" href="'.base_url('kompetensi_dasar').'">Tambahkan</a> Kompetensi Dasar dahulu untuk mata pelajaran ini.</div>
+						</div></div>';
+					} else {
+						echo '<table class="table table-hover m-0" id="example"><tbody>';
+
+						// tampilkan kd pengetahuan
+						foreach ($kd_pengetahuan as $k) {
+							echo '<tr data-toggle="tooltip" data-placement="right" title="KD Pengetahuan"
+							data-idMapel="'.$id_mapel.'" data-idKelas="'.$id_kelas.'" data-idKd="'.$k['id'].'">
+									<td><p class="mb-0">'.$k['kd'].'</p></td>
+								</tr>';
+						}
+
+						// tampilkan kd keterampilan
+						foreach ($kd_keterampilan as $k) {
+							echo '<tr data-toggle="tooltip" data-placement="right" title="KD Keterampilan"
+							data-idMapel="'.$id_mapel.'" data-idKelas="'.$id_kelas.'" data-idKd="'.$k['id'].'">
+									<td><p class="mb-0">'.$k['kd'].'</p></td>
+								</tr>';
+						}
+						echo '</tbody></table>';
+					} ?>
+
+				</div>
+				<div class="card-footer">
+					<a class="btn btn-primary" href="<?= base_url('kompetensi_dasar') ?>">Tambah KD</a>
+				</div>
 			</div>
 		</div>
 		<!-- siswa -->
@@ -24,8 +70,8 @@
 				<div class="card-header">Daftar Siswa</div>
 				<form id="form_nilai" name="form_nilai">
 					<div class="card-body">
-					<input type="hidden" name="id_mapel" id="id_mapel" value="<?= $id_mapel; ?>">
-					<input type="hidden" name="id_kd" id="id_kd">
+						<input type="hidden" name="id_mapel" id="id_mapel" value="<?= $id_mapel; ?>">
+						<input type="hidden" name="id_kd" id="id_kd">
 						<div id="show_data"></div>
 					</div>
 					<div class="card-footer"><button type="button" class="btn btn-primary" id="submit">Simpan</button>
@@ -60,7 +106,6 @@
 	<i class="fas fa-angle-up"></i>
 </a>
 
-
 <script>
 	$(document).ready(function () {
 		// tampilkan data default sebelum kd di klik oleh user
@@ -77,13 +122,13 @@
 		};
 
 		// tampilkan data siswa ketika kd sudah di klik oleh user
-		$('.list-group-item').click(function () {
+		$('tr').click(function () {
 			var idKd = $(this).attr('data-idKd');
 			var idMapel = $(this).attr('data-idMapel');
 			var idKelas = $(this).attr('data-idKelas');
 			$.ajax({
 				type: 'GET',
-				url: '<?= base_url("nilai_pengetahuan/get_siswa")?>',
+				url: '<?= base_url("penilaian/get_siswa")?>',
 				dataType: 'JSON',
 				data: {
 					idKelas: idKelas,
@@ -101,14 +146,14 @@
 										<label class="col-sm-8 col-form-label">` + data[i].nama_siswa
 
 						// cek apakah ada nilai yang kosong, jika ada tampilkan alert label
-						if (data[i].nilai === null) {
-							html +=
-								`<i class="fas fa-exclamation-circle ml-1 text-danger"></i></label>`
-						} else {
-							html += `</label>`
-						}
+						// if (data[i].nilai === null || data[i].nilai == 0) {
+						// 	html +=
+						// 		`<i class="fas fa-exclamation-circle ml-1 text-danger"></i></label>`
+						// } else {
+						// 	html += `</label>`
+						// }
 
-						html += `<div class="col-sm-4">
+						html += `</label><div class="col-sm-4">
 											<input name="id_siswa[]" type="hidden" value="` + data[i].id_siswa + `">
 											<input type="number" class="form-control" name="nilai[]" `
 
@@ -131,15 +176,15 @@
 
 		$('#submit').click(function () {
 			$.ajax({
-			url: '<?= base_url("nilai_pengetahuan/save"); ?>',
-			type: 'post',
-			data: $('#form_nilai').serialize(),
-			success: function(data){ 
-				alert('tersimpan');
-			},
-			error: function(error){
-				alert('error!');
-			}
+				url: '<?= base_url("penilaian/save"); ?>',
+				type: 'POST',
+				data: $('#form_nilai').serialize(),
+				success: function (data) {
+					alert('tersimpan');
+				},
+				error: function (error) {
+					alert('error!');
+				}
 			});
 		});
 	});

@@ -47,8 +47,7 @@ function check_login()
 						'tahun_pelajaran',
 						'catatan',
 						'nilai_sikap',
-						'nilai_pengetahuan',
-						'nilai_keterampilan',
+						'penilaian',
 						'kompetensi_dasar',
 						'pengajar'
 					];

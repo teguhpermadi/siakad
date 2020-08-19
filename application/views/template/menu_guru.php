@@ -47,8 +47,7 @@
 		<div class="bg-white py-2 collapse-inner rounded">
 			<a class="collapse-item" href="<?= base_url('kompetensi_dasar'); ?>">Kompetensi Dasar</a>
 			<a class="collapse-item" href="<?= base_url('nilai_sikap'); ?>">Nilai Sikap</a>
-			<a class="collapse-item" href="<?= base_url('nilai_pengetahuan'); ?>">Nilai Pengetahuan</a>
-			<a class="collapse-item" href="<?= base_url('nilai_keterampilan'); ?>">Nilai Keterampilan</a>
+			<a class="collapse-item" href="<?= base_url('penilaian'); ?>">Penilaian</a>
 		</div>
 	</div>
 </li>

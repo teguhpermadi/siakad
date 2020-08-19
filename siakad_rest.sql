@@ -150,10 +150,10 @@ CREATE TABLE `mapel` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nilai_pengetahuan`
+-- Table structure for table `nilai`
 --
 
-CREATE TABLE `nilai_pengetahuan` (
+CREATE TABLE `nilai` (
   `id` int(255) NOT NULL,
   `id_tahun` int(255) NOT NULL,
   `id_guru` int(255) NOT NULL,
@@ -436,9 +436,9 @@ ALTER TABLE `mapel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `nilai_pengetahuan`
+-- Indexes for table `nilai`
 --
-ALTER TABLE `nilai_pengetahuan`
+ALTER TABLE `nilai`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id_tahun` (`id_tahun`,`id_siswa`,`id_guru`, `id_kd`) USING BTREE;
 
@@ -558,9 +558,9 @@ ALTER TABLE `mapel`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `nilai_pengetahuan`
+-- AUTO_INCREMENT for table `nilai`
 --
-ALTER TABLE `nilai_pengetahuan`
+ALTER TABLE `nilai`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --

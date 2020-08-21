@@ -1,7 +1,46 @@
-<!-- untuk style jika table kd di sorot maka kursor berubah -->
 <style>
+	/* untuk kursor kd */
 	#example td:hover {
 		cursor: pointer;
+	}
+
+	/* untuk spinner */
+	#overlay {
+		/* position: fixed; */
+		position: absolute;
+		top: 0;
+		z-index: 100;
+		width: 100%;
+		height: 100%;
+		display: none;
+		background: rgba(0, 0, 0, 0.6);
+	}
+
+	.cv-spinner {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		/* margin-top: 10%; */
+		align-items: center;
+	}
+
+	.spinner {
+		width: 40px;
+		height: 40px;
+		border: 4px #ddd solid;
+		border-top: 4px #2e93e6 solid;
+		border-radius: 50%;
+		animation: sp-anime 0.8s infinite linear;
+	}
+
+	@keyframes sp-anime {
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	.is-hide {
+		display: none;
 	}
 
 </style>
@@ -11,7 +50,8 @@
 		<div class="col-md-12">
 			<div class="btn-group" role="group" aria-label="Basic example">
 				<a class="btn btn-secondary" href="<?= base_url('penilaian') ?>">Kembali</a>
-				<a class="btn btn-secondary" href="<?= base_url('penilaian/download/'.$id_mapel.'-'.$id_kelas) ?>">Download Nilai</a>
+				<a class="btn btn-secondary"
+					href="<?= base_url('penilaian/download/'.$id_mapel.'-'.$id_kelas) ?>">Download Nilai</a>
 				<button type="button" class="btn btn-secondary">Upload Nilai</button>
 				<button type="button" class="btn btn-secondary">Cetak Nilai</button>
 			</div>
@@ -24,6 +64,9 @@
 		accusamus molestias, doloribus minima voluptatem sapiente, adipisci omnis error in pariatur non illo officiis,
 		tempore delectus.
 	</div>
+
+
+
 	<div class="row">
 		<!-- kd -->
 		<div class="col-md-6">
@@ -67,6 +110,12 @@
 		<!-- siswa -->
 		<div class="col-md-6 mb-3">
 			<div class="card">
+				<!-- spinner -->
+				<div id="overlay">
+					<div class="cv-spinner">
+						<span class="spinner"></span>
+					</div>
+				</div>
 				<div class="card-header">Daftar Siswa</div>
 				<form id="form_nilai" name="form_nilai">
 					<div class="card-body">
@@ -112,7 +161,6 @@
 		showInfo();
 
 		function showInfo() {
-			// info = `Silahkan <b>klik</b> salah satu daftar kompetensi dasar di samping dahulu untuk menampilkan daftar siswa.`;
 			info = `<div class="d-flex bd-highlight">
 					<div class="p-2 flex-fill bd-highlight"><h3><i class="fa fa-exclamation-triangle text-warning"></i></h3></div>
 					<div class="p-2 flex-fill bd-highlight">Silahkan <b>klik</b> salah satu daftar kompetensi dasar di samping dahulu untuk menampilkan daftar siswa.</div>
@@ -123,6 +171,9 @@
 
 		// tampilkan data siswa ketika kd sudah di klik oleh user
 		$('tr').click(function () {
+			// show spinner
+			$("#overlay").fadeIn(300);
+
 			var idKd = $(this).attr('data-idKd');
 			var idMapel = $(this).attr('data-idMapel');
 			var idKelas = $(this).attr('data-idKelas');
@@ -136,6 +187,10 @@
 					idKd: idKd
 				},
 				success: function (data) {
+					// hide spinner
+					setTimeout(function () {
+						$("#overlay").fadeOut(300);
+					}, 500);
 					// console.log(data)
 					$('#id_kd').val(idKd)
 					$('#submit').show();
@@ -175,12 +230,23 @@
 		});
 
 		$('#submit').click(function () {
+			// setting sweetalert2
+			const Toast = Swal.mixin({
+				toast: true,
+				position: 'top-end',
+				showConfirmButton: false,
+				timer: 1500
+			})
 			$.ajax({
 				url: '<?= base_url("penilaian/save"); ?>',
 				type: 'POST',
 				data: $('#form_nilai').serialize(),
 				success: function (data) {
-					alert('tersimpan');
+					// show sweetalert2
+					Toast.fire({
+						icon: 'success',
+						title: 'Tersimpan'
+					})
 				},
 				error: function (error) {
 					alert('error!');

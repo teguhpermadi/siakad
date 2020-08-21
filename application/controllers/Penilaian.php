@@ -117,10 +117,28 @@ class Penilaian extends CI_Controller {
             ->setCategory('Siakad Excel');
 
         $identitas = [
-            ['Penilaian Kelas oleh'.user_info()['first_name'].' '.user_info()['last_name']],
+            ['Penilaian Kelas oleh '.user_info()['first_name'].' '.user_info()['last_name']],
             ['Kelas', $get_kelas['nama']],
-            ['Tahun Pelajaran', ]
+            ['Tahun Pelajaran', $_SESSION['tahun']],
         ]; 
+
+        $kd_pengetahuan = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'pengetahuan');
+        $kd_keterampilan = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'keterampilan');
+        $data_nilai = $this->Penilaian_model->get_siswa($id_mapel, $id_kelas, null);
+
+        // kita pisah dulu data kdnya
+        $data_kd = [];
+        foreach($kd_pengetahuan as $p){
+            array_push($data_kd, ['id_kd' => $p['id'], 'kd' => $p['kd']]);
+        }
+
+        foreach($kd_keterampilan as $k){
+            array_push($data_kd, ['id_kd' => $k['id'], 'kd' => $k['kd']]);
+        }
+
+        echo json_encode($data_kd);
+
+        exit;
         // tuliskan array ke dalam excel
         $spreadsheet->getActiveSheet()
         ->fromArray(

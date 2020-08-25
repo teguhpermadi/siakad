@@ -159,7 +159,7 @@ CREATE TABLE `nilai` (
   `id_guru` int(255) NOT NULL,
   `id_siswa` int(255) NOT NULL,
   `id_kd` int(255) NOT NULL,
-  `nilai` int(255) NOT NULL
+  `nilai` int(255) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

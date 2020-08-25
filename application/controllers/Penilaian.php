@@ -129,11 +129,17 @@ class Penilaian extends CI_Controller {
         // kita pisah dulu data kdnya
         $data_kd = [];
         foreach($kd_pengetahuan as $p){
-            array_push($data_kd, ['id_kd' => $p['id'], 'kd' => $p['kd']]);
+            array_push($data_kd, [
+                'id_kd' => $p['id'], 
+                'jenis' => 'pengetahuan',
+                'kd' => $p['kd']]);
         }
 
         foreach($kd_keterampilan as $k){
-            array_push($data_kd, ['id_kd' => $k['id'], 'kd' => $k['kd']]);
+            array_push($data_kd, [
+                'id_kd' => $k['id'], 
+                'jenis' => 'keterampilan',
+                'kd' => $k['kd']]);
         }
 
         // echo json_encode($data_kd);
@@ -150,12 +156,19 @@ class Penilaian extends CI_Controller {
                          //    we want to set these values (default is A1)
         );
 
+        // tulis petunjuk pengisian
+        $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue('F5', 'Petunjuk Pengisian')
+                ->setCellValue('F6', 'Isilah cell warna hijau dan orange dengan interval nilai 0 - 100')
+                ->setCellValue('F7', 'Cell warna hijau mewakili kd pengetahuan')
+                ->setCellValue('F8', 'Cell warna orange mewakili kd keterampilan');
+
         // tuliskan array header kolom
         $spreadsheet->getActiveSheet()
         ->fromArray(
             $data_header_siswa, // The data to set
             NULL,        // Array values with this value will not be set
-            'B5'         // Top left coordinate of the worksheet range where
+            'A10'         // Top left coordinate of the worksheet range where
                          //    we want to set these values (default is A1)
         );
 
@@ -164,13 +177,13 @@ class Penilaian extends CI_Controller {
         ->fromArray(
             $data_siswa, // The data to set
             NULL,        // Array values with this value will not be set
-            'B6'         // Top left coordinate of the worksheet range where
+            'B11'         // Top left coordinate of the worksheet range where
                          //    we want to set these values (default is A1)
         );
 
         // tulis nomor urut
         for ($i=0; $i < count($data_siswa); $i++) { 
-            $row = 6 + $i;
+            $row = 11 + $i;
             $no = 1 + $i;
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A'.$row, $no);
@@ -181,26 +194,61 @@ class Penilaian extends CI_Controller {
         // tuliskan array kd dan nilai pada masing-masing kd
         for ($i=0; $i < count($data_kd); $i++) { 
 
-            // tulis id kdnya pada baris ke 4
+            // tulis id kdnya pada baris ke 9
             $spreadsheet->setActiveSheetIndex(0)
-                ->setCellValue($column[$i].'4', $data_kd[$i]['id_kd']);
+                ->setCellValue($column[$i].'9', $data_kd[$i]['id_kd']);
 
-            // tulis header kdnya pada baris ke 5
+            // tulis header kdnya pada baris ke 10
             $spreadsheet->setActiveSheetIndex(0)
-                ->setCellValue($column[$i].'5', $data_kd[$i]['kd']);
+                ->setCellValue($column[$i].'10', $data_kd[$i]['kd']);
             
             $data_nilai = $this->Penilaian_model->get_siswa($id_mapel, $id_kelas, $data_kd[$i]['id_kd']);
+
+            // beri warna pada cell
+            if($data_kd[$i]['jenis'] == 'pengetahuan')
+                {
+                    $spreadsheet->getActiveSheet()->getStyle($column[$i].'10')
+                    ->getFill()
+                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                    ->getStartColor()->setARGB('80f700');
+                } else {
+                    $spreadsheet->getActiveSheet()->getStyle($column[$i].'10')
+                    ->getFill()
+                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                    ->getStartColor()->setARGB('ff6500');
+            };
 
             // hitung berapa banyak nilainya
             for ($n=0; $n < count($data_nilai); $n++) { 
                 $nilai = $data_nilai[$n]['nilai'];
                 
                 // ditulis pada baris ke 6 sampai seterusnya
-                $row = $n + 6;
+                $row = $n + 11;
 
                 // tuliskan masing-masing nilai per kd nya
                 $spreadsheet->setActiveSheetIndex(0)
-                ->setCellValue($column[$i].$row, $nilai);
+                    ->setCellValue($column[$i].$row, $nilai);
+
+                // tidak di proteksi
+                $spreadsheet->getActiveSheet()
+                    ->getStyle($column[$i].$row) // proteksi cell
+                    ->getProtection()->setLocked(
+                        Protection::PROTECTION_UNPROTECTED
+                    );
+
+                // beri warna pada cell
+                if($data_kd[$i]['jenis'] == 'pengetahuan')
+                {
+                    $spreadsheet->getActiveSheet()->getStyle($column[$i].$row)
+                    ->getFill()
+                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                    ->getStartColor()->setARGB('80f700');
+                } else {
+                    $spreadsheet->getActiveSheet()->getStyle($column[$i].$row)
+                    ->getFill()
+                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                    ->getStartColor()->setARGB('ff6500');
+            };
             }
         }
 

@@ -12,6 +12,7 @@ class Penilaian extends CI_Controller {
         
         $this->load->model('Penilaian_model');
         $this->load->model('Kelas_model');
+        $this->load->model('Rombel_model');
         // $this->load->model('Kelas_model');
         // cek user login
         check_login();
@@ -124,7 +125,6 @@ class Penilaian extends CI_Controller {
 
         $kd_pengetahuan = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'pengetahuan');
         $kd_keterampilan = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'keterampilan');
-        $data_nilai = $this->Penilaian_model->get_siswa($id_mapel, $id_kelas, null);
 
         // kita pisah dulu data kdnya
         $data_kd = [];
@@ -136,18 +136,76 @@ class Penilaian extends CI_Controller {
             array_push($data_kd, ['id_kd' => $k['id'], 'kd' => $k['kd']]);
         }
 
-        echo json_encode($data_kd);
+        // echo json_encode($data_kd);
 
-        exit;
-        // tuliskan array ke dalam excel
+        $data_siswa = $this->Rombel_model->get_siswa_by_id_kelas($id_kelas);
+        $data_header_siswa = ['no','id','id_tahun','id_kelas','id_siswa','nis','nama_lengkap','jenis_kelamin','nama_panggilan'];
+
+        // tuliskan array identitas ke dalam excel
         $spreadsheet->getActiveSheet()
         ->fromArray(
             $identitas,  // The data to set
             NULL,        // Array values with this value will not be set
-            'A1'         // Top left coordinate of the worksheet range where
+            'F1'         // Top left coordinate of the worksheet range where
                          //    we want to set these values (default is A1)
         );
 
+        // tuliskan array header kolom
+        $spreadsheet->getActiveSheet()
+        ->fromArray(
+            $data_header_siswa, // The data to set
+            NULL,        // Array values with this value will not be set
+            'B5'         // Top left coordinate of the worksheet range where
+                         //    we want to set these values (default is A1)
+        );
+
+        // tuliskan array data siswa
+        $spreadsheet->getActiveSheet()
+        ->fromArray(
+            $data_siswa, // The data to set
+            NULL,        // Array values with this value will not be set
+            'B6'         // Top left coordinate of the worksheet range where
+                         //    we want to set these values (default is A1)
+        );
+
+        // tulis nomor urut
+        for ($i=0; $i < count($data_siswa); $i++) { 
+            $row = 6 + $i;
+            $no = 1 + $i;
+            $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue('A'.$row, $no);
+        }
+
+        // jadikan patokan column
+        $column = range('J', 'Z');
+        // tuliskan array kd dan nilai pada masing-masing kd
+        for ($i=0; $i < count($data_kd); $i++) { 
+
+            // tulis id kdnya pada baris ke 4
+            $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue($column[$i].'4', $data_kd[$i]['id_kd']);
+
+            // tulis header kdnya pada baris ke 5
+            $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue($column[$i].'5', $data_kd[$i]['kd']);
+            
+            $data_nilai = $this->Penilaian_model->get_siswa($id_mapel, $id_kelas, $data_kd[$i]['id_kd']);
+
+            // hitung berapa banyak nilainya
+            for ($n=0; $n < count($data_nilai); $n++) { 
+                $nilai = $data_nilai[$n]['nilai'];
+                
+                // ditulis pada baris ke 6 sampai seterusnya
+                $row = $n + 6;
+
+                // tuliskan masing-masing nilai per kd nya
+                $spreadsheet->setActiveSheetIndex(0)
+                ->setCellValue($column[$i].$row, $nilai);
+            }
+        }
+
+
+        // exit;
         // proteksi cell
         $spreadsheet->getActiveSheet()
             ->getProtection()->setPassword('PhpSpreadsheet');

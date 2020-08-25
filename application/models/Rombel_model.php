@@ -100,7 +100,7 @@ class Rombel_model extends CI_Model
      */
     function get_siswa_by_id_kelas($id_kelas)
     {
-        $this->db->select('rombel.*, siswa.nama_lengkap, siswa.nis, siswa.jenis_kelamin, siswa.nama_panggilan');
+        $this->db->select('rombel.*, siswa.nis, siswa.nama_lengkap, siswa.jenis_kelamin, siswa.nama_panggilan');
         $this->db->from('rombel');
         $this->db->where('rombel.id_kelas ='.$id_kelas);
         $this->db->where('rombel.id_tahun ='.$_SESSION['id_tahun_pelajaran']);

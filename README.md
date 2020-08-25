@@ -67,5 +67,6 @@ sistem informasi akademik dengan codeigniter
 * 9.14.0 : membuat nilai pengetahuan & keterampilan
 * 9.14.1 : ajax nilai pengetahuan & keterampilan
 * 9.14.2 : revisi nilai pengetahuan & keterampilan menjadi penilaian, perbaikan tampilan halaman penilaian
+* 9.14.3 : download excel penilaian
 * 9.15.0 : revisi database, menambahkan tabel nilai
 * 9.16.0 : install sweetalert2

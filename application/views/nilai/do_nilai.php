@@ -51,8 +51,8 @@
 			<div class="btn-group" role="group" aria-label="Basic example">
 				<a class="btn btn-secondary" href="<?= base_url('penilaian') ?>">Kembali</a>
 				<a class="btn btn-secondary"
-					href="<?= base_url('penilaian/download/'.$id_mapel.'-'.$id_kelas) ?>">Download Nilai</a>
-				<button type="button" class="btn btn-secondary">Upload Nilai</button>
+					href="<?= base_url('penilaian/download/'.$id_mapel.'-'.$id_kelas) ?>">Download Excel</a>
+				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#upload">Upload Excel</button>
 				<button type="button" class="btn btn-secondary">Cetak Nilai</button>
 			</div>
 		</div>
@@ -64,8 +64,6 @@
 		accusamus molestias, doloribus minima voluptatem sapiente, adipisci omnis error in pariatur non illo officiis,
 		tempore delectus.
 	</div>
-
-
 
 	<div class="row">
 		<!-- kd -->
@@ -154,6 +152,36 @@
 <a class="scroll-to-top rounded" href="#page-top">
 	<i class="fas fa-angle-up"></i>
 </a>
+
+<!-- Modal -->
+<div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Upload Nilai</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form method="post" action="<?= base_url('penilaian/do_upload'); ?>" enctype="multipart/form-data">
+				<div class="modal-body">
+					<div class="custom-file">
+					<input type="hidden" name="id_mapel" value="<?= $id_mapel; ?>">
+					<input type="hidden" name="id_kelas" value="<?= $id_kelas; ?>">
+						<input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01"
+							name="userfile" size="20">
+						<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Simpan</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 
 <script>
 	$(document).ready(function () {

@@ -214,3 +214,28 @@ function konversi_nilai_sikap($value)
 		break;
 	}
 }
+
+function column_excel()
+{
+	// ATUR KOLOM DI EXCEL
+        // jadikan patokan column
+        $column_asli = range('A', 'Z');
+        $column_tambahan = [];
+
+        // tambahkan kolom berikutnya
+        foreach($column_asli as $c){
+            array_push($column_tambahan, 'A'.$c);
+        }
+
+        foreach($column_asli as $c){
+            array_push($column_tambahan, 'B'.$c);
+        }
+
+        foreach($column_asli as $c){
+            array_push($column_tambahan, 'C'.$c);
+        }
+
+        // gabungkan semua kolom
+        $column_all = array_merge($column_asli, $column_tambahan);
+        return $column_all;
+}

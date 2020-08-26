@@ -26,7 +26,7 @@ class Penilaian extends CI_Controller {
         
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('nilai_pengetahuan/index', $data);
+        $this->load->view('nilai/index', $data);
         $this->load->view('template/footer');
     }
 
@@ -51,7 +51,7 @@ class Penilaian extends CI_Controller {
 
         $this->load->view('template/header');
         $this->load->view('template/sidebar');
-        $this->load->view('nilai_pengetahuan/do_nilai', $data);
+        $this->load->view('nilai/do_nilai', $data);
         $this->load->view('template/footer');
     }
 
@@ -199,26 +199,8 @@ class Penilaian extends CI_Controller {
                 ->setCellValue('A'.$row, $no);
         }
 
-        // ATUR KOLOM DI EXCEL
-        // jadikan patokan column
-        $column_asli = range('A', 'Z');
-        $column_tambahan = [];
-
-        // tambahkan kolom berikutnya
-        foreach($column_asli as $c){
-            array_push($column_tambahan, 'A'.$c);
-        }
-
-        foreach($column_asli as $c){
-            array_push($column_tambahan, 'B'.$c);
-        }
-
-        foreach($column_asli as $c){
-            array_push($column_tambahan, 'C'.$c);
-        }
-
-        // gabungkan semua kolom
-        $column_all = array_merge($column_asli, $column_tambahan);
+        // ambil kolom di helper
+        $column_all = column_excel();
         
         // tuliskan array kd dan nilai pada masing-masing kd
         for ($i=0; $i < count($data_kd); $i++) { 
@@ -282,12 +264,12 @@ class Penilaian extends CI_Controller {
         }
 
         // hide column B,C,D,E
-        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setVisible(false);
-        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setVisible(false);
-        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setVisible(false);
-        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setVisible(false);
+        // $spreadsheet->getActiveSheet()->getColumnDimension('B')->setVisible(false);
+        // $spreadsheet->getActiveSheet()->getColumnDimension('C')->setVisible(false);
+        // $spreadsheet->getActiveSheet()->getColumnDimension('D')->setVisible(false);
+        // $spreadsheet->getActiveSheet()->getColumnDimension('E')->setVisible(false);
         // hide row 11
-        $spreadsheet->getActiveSheet()->getRowDimension('11')->setVisible(false);
+        // $spreadsheet->getActiveSheet()->getRowDimension('11')->setVisible(false);
 
 
         // exit;
@@ -323,5 +305,73 @@ class Penilaian extends CI_Controller {
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
         ob_end_clean();
         $writer->save('php://output');
+    }
+
+    function do_upload()
+    {
+        $id_mapel = $this->input->post('id_mapel');
+        $id_kelas = $this->input->post('id_kelas');
+
+        $file_ext = pathinfo($_FILES["userfile"]["name"], PATHINFO_EXTENSION);
+
+        $config['upload_path']          = './uploads/';
+        $config['allowed_types']        = 'xlsx|xls|csv';
+        $config['overwrite']             = true;
+        $config['file_name']             = 'nilai-'.user_info()['user_id'];
+
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('userfile'))
+        {
+                $error = array('error' => $this->upload->display_errors());
+                print_r($error);
+        }
+        else
+        {
+            $data = array('upload_data' => $this->upload->data());
+            
+            $helper = new Sample();
+            $inputFileName = 'uploads/nilai-'.user_info()['user_id'].'.'.$file_ext;
+            $helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory to identify the format');
+            $spreadsheet = IOFactory::load($inputFileName);
+            $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+            $highestRow = $spreadsheet->getActiveSheet()->getHighestRow();
+            
+            // hitung jumlah data yang di upload
+            // $jumlahData = $highestRow - 7;
+            $file_id_guru = $sheetData[1]['B'];
+            $file_id_kelas = $sheetData[2]['B'];
+            $file_id_mapel = $sheetData[3]['B'];
+            $file_id_tahun = $sheetData[4]['B'];
+
+            // periksa dulu identitas file excelnya
+            if($file_id_guru != user_info()['id_guru'] && $file_id_kelas != $id_kelas && $file_id_mapel != $id_mapel && $file_id_tahun != $_SESSION['id_tahun_pelajaran']){
+                // jika file excel salah
+                echo 'identitas file excel yang anda upload tidak sesuai.';
+            } else {
+                // jika file excel benar
+                // baca datanya mulai baris ke 11
+                $row_id_kd = array_slice($sheetData, 10, 1);
+                // baca id per kd
+                $data_id_kd = array_slice($row_id_kd[0], 10);
+                // hitung berapa jumlah kd yang dinilai
+                $jml_data_kd = count($data_id_kd);
+
+                // baca datanya mulai baris ke 13
+                $row_data_nilai_siswa = array_slice($sheetData, 12);
+                
+                $data_nilai = [];
+
+                foreach($row_data_nilai_siswa as $row){
+                    array_push($data_nilai, [
+                        'id_siswa' => $row['E'],
+                        'nilai' => $row['K']
+                    ]);
+                }
+
+                print_r(column_excel());
+                
+            }
+        }
     }
 }

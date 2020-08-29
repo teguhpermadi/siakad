@@ -149,7 +149,8 @@ class Penilaian extends CI_Controller {
 
         $data_siswa = $this->Rombel_model->get_siswa_by_id_kelas($id_kelas);
         $data_header_siswa = ['no','id','id_tahun','id_kelas','id_siswa','nis','nama_lengkap','jenis_kelamin','nama_panggilan'];
-
+        $jml_kd = count($data_kd);
+        
         // tuliskan array identitas ke dalam excel
         $spreadsheet->getActiveSheet()
         ->fromArray(
@@ -160,11 +161,21 @@ class Penilaian extends CI_Controller {
         );
 
         // tulis data identitas
-        $spreadsheet->setActiveSheetIndex(0)
-                ->setCellValue('B1', $id_guru)
-                ->setCellValue('B2', $id_kelas)
-                ->setCellValue('B3', $id_mapel)
-                ->setCellValue('B4', $_SESSION['id_tahun_pelajaran']);
+        $data_identitas = [
+            ['id_guru',$id_guru],
+            ['id_kelas',$id_kelas],
+            ['id_mapel', $id_mapel],
+            ['id_tahun_pelajaran',$_SESSION['id_tahun_pelajaran']],
+            ['jml_kd', $jml_kd],
+        ];
+
+        $spreadsheet->getActiveSheet()
+        ->fromArray(
+            $data_identitas,  // The data to set
+            NULL,        // Array values with this value will not be set
+            'B1'         // Top left coordinate of the worksheet range where
+                         //    we want to set these values (default is A1)
+        );
 
         // tulis petunjuk pengisian
         $spreadsheet->setActiveSheetIndex(0)
@@ -204,18 +215,16 @@ class Penilaian extends CI_Controller {
         
         // tuliskan array kd dan nilai pada masing-masing kd
         for ($i=0; $i < count($data_kd); $i++) { 
+            // hitung setelah kolom ke 10
             $i_column = 10 + $i;
-            // tulis id kdnya pada baris ke 9
-            $spreadsheet->setActiveSheetIndex(0)
-                ->setCellValue($column_all[$i_column].'11', $data_kd[$i]['id_kd']);
-
+            
             // tulis header kdnya pada baris ke 10
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue($column_all[$i_column].'12', $data_kd[$i]['kd']);
             
             $data_nilai = $this->Penilaian_model->get_siswa($id_mapel, $id_kelas, $data_kd[$i]['id_kd']);
 
-            // beri warna pada cell
+            // beri warna pada jenis kd pengetahuan dan jenis kd keterampilan
             if($data_kd[$i]['jenis'] == 'pengetahuan')
                 {
                     $spreadsheet->getActiveSheet()->getStyle($column_all[$i_column].'12')
@@ -232,13 +241,25 @@ class Penilaian extends CI_Controller {
             // hitung berapa banyak nilainya
             for ($n=0; $n < count($data_nilai); $n++) { 
                 $nilai = $data_nilai[$n]['nilai'];
-                
-                // ditulis pada baris ke 6 sampai seterusnya
+                $id_kd_dinilai = $data_kd[$i]['id_kd'];
+
+                // ditulis pada baris ke 13 sampai seterusnya
                 $row = $n + 13;
 
-                // tuliskan masing-masing nilai per kd nya
+                // hitung kolom untuk id kd
+                $i_column_kd = $i_column + $jml_kd;
+                $column_kd = $column_all[$i_column_kd];
+
+                // tuliskan masing-masing nilai per kd nya pada tiap baris
                 $spreadsheet->setActiveSheetIndex(0)
                     ->setCellValue($column_all[$i_column].$row, $nilai);
+
+                // tulis id kd nya setelah kolom niai pada tiap baris
+                $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue($column_kd.$row, $id_kd_dinilai);
+
+                // hide kolom id kdnya
+                $spreadsheet->getActiveSheet()->getColumnDimension($column_kd)->setVisible(false);
 
                 // tidak di proteksi
                 $spreadsheet->getActiveSheet()
@@ -264,25 +285,17 @@ class Penilaian extends CI_Controller {
         }
 
         // hide column B,C,D,E
-        // $spreadsheet->getActiveSheet()->getColumnDimension('B')->setVisible(false);
-        // $spreadsheet->getActiveSheet()->getColumnDimension('C')->setVisible(false);
-        // $spreadsheet->getActiveSheet()->getColumnDimension('D')->setVisible(false);
-        // $spreadsheet->getActiveSheet()->getColumnDimension('E')->setVisible(false);
-        // hide row 11
-        // $spreadsheet->getActiveSheet()->getRowDimension('11')->setVisible(false);
-
-
+        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setVisible(false);
+        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setVisible(false);
+        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setVisible(false);
+        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setVisible(false);
+        
         // exit;
         // proteksi cell
         $spreadsheet->getActiveSheet()
             ->getProtection()->setPassword('PhpSpreadsheet');
         $spreadsheet->getActiveSheet()->getProtection()->setSheet(true);
-        // $spreadsheet->getActiveSheet()
-        //     ->getStyle('F8:F'.$jml_siswa_kelas) // proteksi cell mulai dari baris ke 8 sampai jumlah siswanya + 8
-        //     ->getProtection()->setLocked(
-        //         Protection::PROTECTION_UNPROTECTED
-        //     );
-
+        
         // Rename worksheet
         $spreadsheet->getActiveSheet()->setTitle('Nilai Mapel');
 

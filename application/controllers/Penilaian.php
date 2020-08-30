@@ -366,7 +366,7 @@ class Penilaian extends CI_Controller {
                 // jika file excel salah
                 $this->session->set_flashdata('gagal_upload', 'identitas file excel yang anda upload tidak sesuai.');
 
-                redirect('penilaian/do_nilai/'.$file_id_mapel.'-'.$file_id_kelas);
+                redirect('penilaian/do_nilai/'.$id_mapel.'-'.$id_kelas);
             } else {
                 // jika file excel benar
                 
@@ -405,7 +405,7 @@ class Penilaian extends CI_Controller {
                 $this->db->insert_on_duplicate_update_batch('nilai', $data_nilai);
                 $this->session->set_flashdata('berhasil_upload', 'Anda berhasil mengunggah <strong> nilai siswa.</strong>');
 
-                redirect('penilaian/do_nilai/'.$file_id_mapel.'-'.$file_id_kelas);
+                redirect('penilaian/do_nilai/'.$id_mapel.'-'.$id_kelas);
             }
         }
     }

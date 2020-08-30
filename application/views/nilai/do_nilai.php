@@ -45,18 +45,45 @@
 
 </style>
 
-<div class="container">
+<div class="container-fluid">
+
+	<!-- page heading -->
+	<div class="d-sm-flex align-items-center justify-content-between mb-4">
+		<h1 class="h3 mb-0 text-gray-800 text-uppercase">Penilaian <?= $nama_mapel ?> Kelas <?= $nama_kelas ?></h1>
+	</div>
+
 	<div class="row mb-3">
 		<div class="col-md-12">
 			<div class="btn-group" role="group" aria-label="Basic example">
 				<a class="btn btn-secondary" href="<?= base_url('penilaian') ?>">Kembali</a>
 				<a class="btn btn-secondary"
 					href="<?= base_url('penilaian/download/'.$id_mapel.'-'.$id_kelas) ?>">Download Excel</a>
-				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#upload">Upload Excel</button>
+				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#upload">Upload
+					Excel</button>
 				<button type="button" class="btn btn-secondary">Cetak Nilai</button>
 			</div>
 		</div>
 	</div>
+
+	<!-- flash data -->
+	<?php if($this->session->flashdata('berhasil_upload')) { ?>
+	<div class="alert alert-primary alert-dismissible fade show" role="alert">
+		<?= $this->session->flashdata('berhasil_upload'); ?>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<?php } ?>
+
+	<!-- flash data -->
+	<?php if($this->session->flashdata('gagal_upload')) { ?>
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		<?= $this->session->flashdata('gagal_upload'); ?>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<?php } ?>
 
 	<div class="row">
 		<!-- chart -->
@@ -166,8 +193,8 @@
 			<form method="post" action="<?= base_url('penilaian/do_upload'); ?>" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="custom-file">
-					<input type="hidden" name="id_mapel" value="<?= $id_mapel; ?>">
-					<input type="hidden" name="id_kelas" value="<?= $id_kelas; ?>">
+						<input type="hidden" name="id_mapel" value="<?= $id_mapel; ?>">
+						<input type="hidden" name="id_kelas" value="<?= $id_kelas; ?>">
 						<input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01"
 							name="userfile" size="20">
 						<label class="custom-file-label" for="inputGroupFile01">Choose file</label>

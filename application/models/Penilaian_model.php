@@ -50,6 +50,7 @@ class Penilaian_model extends CI_Model
         return $db->result_array();
     }
 
+    // untuk load nilai siswa
     function get_siswa($id_mapel, $id_kelas, $id_kd)
     {
         // dapatkan siswa berdasarkan id mapel dan id kelas
@@ -65,4 +66,15 @@ class Penilaian_model extends CI_Model
         return $db->result_array();
     }
 
+    // untuk download nilai
+    function get_siswa_by_id_kelas($id_kelas)
+    {
+        $this->db->select('rombel.*, siswa.nis, siswa.nama_lengkap, siswa.jenis_kelamin, siswa.nama_panggilan');
+        $this->db->from('rombel');
+        $this->db->where('rombel.id_kelas ='.$id_kelas);
+        $this->db->where('rombel.id_tahun ='.$_SESSION['id_tahun_pelajaran']);
+        $this->db->join('siswa', 'siswa.id = rombel.id_siswa');
+        $this->db->order_by('siswa.nama_lengkap', 'asc');
+        return $this->db->get()->result_array();
+    }
 }

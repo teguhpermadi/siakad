@@ -39,11 +39,14 @@ class Penilaian extends CI_Controller {
         $id_kelas = $params[1];
 
         $get_kelas = $this->Kelas_model->get_kelas($id_kelas);
+        $get_mapel = $this->Mapel_model->get_mapel($id_mapel);
         // dapatkan semua kd pada mapel dan kelas ini
         $data['kd_pengetahuan'] = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'pengetahuan');
         $data['kd_keterampilan'] = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'keterampilan');
         $data['id_mapel'] = $id_mapel;
         $data['id_kelas'] =$id_kelas;
+        $data['nama_mapel'] = $get_mapel['nama'];
+        $data['nama_kelas'] = $get_kelas['nama'];
         // print_r($data['kd_keterampilan']);
 
         // $data['siswa'] = $this->Penilaian_model->get_siswa($id_mapel, $id_kelas);
@@ -147,7 +150,7 @@ class Penilaian extends CI_Controller {
 
         // echo json_encode($data_kd);
 
-        $data_siswa = $this->Rombel_model->get_siswa_by_id_kelas($id_kelas);
+        $data_siswa = $this->Penilaian_model->get_siswa_by_id_kelas($id_kelas);
         $data_header_siswa = ['no','id','id_tahun','id_kelas','id_siswa','nis','nama_lengkap','jenis_kelamin','nama_panggilan'];
         $jml_kd = count($data_kd);
         
@@ -352,38 +355,57 @@ class Penilaian extends CI_Controller {
             
             // hitung jumlah data yang di upload
             // $jumlahData = $highestRow - 7;
-            $file_id_guru = $sheetData[1]['B'];
-            $file_id_kelas = $sheetData[2]['B'];
-            $file_id_mapel = $sheetData[3]['B'];
-            $file_id_tahun = $sheetData[4]['B'];
+            $file_id_guru = $sheetData[1]['C'];
+            $file_id_kelas = $sheetData[2]['C'];
+            $file_id_mapel = $sheetData[3]['C'];
+            $file_id_tahun = $sheetData[4]['C'];
+            $file_jml_kd = $sheetData[5]['C'];
 
             // periksa dulu identitas file excelnya
             if($file_id_guru != user_info()['id_guru'] && $file_id_kelas != $id_kelas && $file_id_mapel != $id_mapel && $file_id_tahun != $_SESSION['id_tahun_pelajaran']){
                 // jika file excel salah
-                echo 'identitas file excel yang anda upload tidak sesuai.';
+                $this->session->set_flashdata('gagal_upload', 'identitas file excel yang anda upload tidak sesuai.');
+
+                redirect('penilaian/do_nilai/'.$file_id_mapel.'-'.$file_id_kelas);
             } else {
                 // jika file excel benar
-                // baca datanya mulai baris ke 11
-                $row_id_kd = array_slice($sheetData, 10, 1);
-                // baca id per kd
-                $data_id_kd = array_slice($row_id_kd[0], 10);
-                // hitung berapa jumlah kd yang dinilai
-                $jml_data_kd = count($data_id_kd);
-
+                
                 // baca datanya mulai baris ke 13
                 $row_data_nilai_siswa = array_slice($sheetData, 12);
                 
                 $data_nilai = [];
 
+                // ambil kolom di helper
+                $column_all = column_excel();
+
                 foreach($row_data_nilai_siswa as $row){
-                    array_push($data_nilai, [
-                        'id_siswa' => $row['E'],
-                        'nilai' => $row['K']
-                    ]);
+
+                    for ($i=0; $i < $file_jml_kd; $i++) { 
+                        // hitung kolom nilai
+                        $i_nilai = 10 + $i;
+                        $column_nilai = $column_all[$i_nilai];
+                        
+                        // hitung kolom id kd
+                        $i_kd = 10 + $file_jml_kd + $i;
+                        $column_kd = $column_all[$i_kd];
+    
+                        // push data masing-masing id siswa, nilai, id kd
+                        array_push($data_nilai, [
+                            'id_tahun' => $file_id_tahun,
+                            'id_mapel' => $file_id_mapel,
+                            'id_siswa' => $row['E'], // id siswa ada di kolom E
+                            'nilai' => $row[$column_nilai],
+                            'id_kd' => $row[$column_kd],
+                        ]);
+                    }
+                    
                 }
 
-                print_r(column_excel());
-                
+                // print_r($data_nilai);
+                $this->db->insert_on_duplicate_update_batch('nilai', $data_nilai);
+                $this->session->set_flashdata('berhasil_upload', 'Anda berhasil mengunggah <strong> nilai siswa.</strong>');
+
+                redirect('penilaian/do_nilai/'.$file_id_mapel.'-'.$file_id_kelas);
             }
         }
     }

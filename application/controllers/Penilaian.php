@@ -129,8 +129,8 @@ class Penilaian extends CI_Controller {
             ['Tahun Pelajaran', $_SESSION['tahun']],
         ]; 
 
-        $kd_pengetahuan = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'pengetahuan');
-        $kd_keterampilan = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'keterampilan');
+        // $kd_pengetahuan = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'pengetahuan');
+        // $kd_keterampilan = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'keterampilan');
 
         // kita pisah dulu data kdnya
         $data_kd = [];
@@ -408,5 +408,33 @@ class Penilaian extends CI_Controller {
                 redirect('penilaian/do_nilai/'.$id_mapel.'-'.$id_kelas);
             }
         }
+    }
+
+    function cetak()
+    {
+        $uri = $this->uri->segment(3);
+        $params = explode('-', $uri);
+        $id_mapel = $params[0];
+        $id_kelas = $params[1];
+
+        $nama_user = user_info()['first_name'];
+        $id_guru = user_info()['id_guru'];
+
+        $get_kelas = $this->Kelas_model->get_kelas($id_kelas);
+        $get_mapel = $this->Mapel_model->get_mapel($id_mapel);
+        $kd_pengetahuan = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'pengetahuan');
+        $kd_keterampilan = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'keterampilan');
+
+        $data['kelas'] = $get_kelas;
+        $data['mapel'] = $get_mapel;
+        $data['kd'] = array_merge($kd_pengetahuan, $kd_keterampilan);
+        $data['siswa'] = $this->Penilaian_model->get_siswa_by_id_kelas($id_kelas);
+        $data['avg'] = $this->Penilaian_model->get_avg_siswa($id_mapel, $id_kelas);
+
+        // print_r($data['kd']);
+        
+        $this->load->view('template/header');
+        $this->load->view('nilai/cetak', $data);
+        $this->load->view('template/footer');
     }
 }

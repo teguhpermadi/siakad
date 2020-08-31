@@ -60,7 +60,7 @@
 					href="<?= base_url('penilaian/download/'.$id_mapel.'-'.$id_kelas) ?>">Download Excel</a>
 				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#upload">Upload
 					Excel</button>
-				<button type="button" class="btn btn-secondary">Cetak Nilai</button>
+				<a class="btn btn-secondary" href="<?= base_url('penilaian/cetak/'.$id_mapel.'-'.$id_kelas) ?>">Cetak Nilai</a>
 			</div>
 		</div>
 	</div>

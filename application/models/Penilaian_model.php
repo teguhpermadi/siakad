@@ -64,6 +64,25 @@ class Penilaian_model extends CI_Model
         $this->db->order_by('nama_siswa', 'asc');
         $db = $this->db->get();
         return $db->result_array();
+        // return $this->db->last_query();
+    }
+
+    function get_avg_siswa($id_mapel, $id_kelas)
+    {
+        // dapatkan siswa berdasarkan id mapel dan id kelas
+        // filter rombel berdasarkan id tahun aktif dan id kelas yang mana user menjadi pengajarnya
+        $filter = 'rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' AND rombel.id_kelas = '.$id_kelas;
+        $this->db->select('nilai.id, nilai.nilai, siswa.id as id_siswa, siswa.nama_lengkap as nama_siswa, siswa.nis, AVG(nilai) as rerata');
+        $this->db->from('rombel');
+        $this->db->where($filter);
+        $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
+        $this->db->join('nilai', 'rombel.id_siswa = nilai.id_siswa AND nilai.id_mapel ='.$id_mapel, 'left outer');
+        $this->db->group_by('nama_siswa', 'asc');
+        $this->db->order_by('nama_siswa', 'asc');
+
+        $db = $this->db->get();
+        return $db->result_array();
+        // return $this->db->last_query();
     }
 
     // untuk download nilai

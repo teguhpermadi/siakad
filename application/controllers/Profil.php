@@ -21,6 +21,7 @@ class Profil extends CI_Controller{
     function index()
     {
         $data['profil'] = $this->Profil_model->get_all_profil();
+        $data['num_rows'] = $this->Profil_model->count_row();
         
         $data['_view'] = 'profil/index';
         $this->load->view('template/header');

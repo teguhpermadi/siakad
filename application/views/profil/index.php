@@ -1,6 +1,13 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+<!-- cek datanya jika kosong -->
+<?php if($num_rows == 0): ?>
+			<div class="alert alert-danger" role="alert">
+				<p>Anda belum memasukan profil sekolah.</p><a href='<?= base_url('profil/add'); ?>' class='btn btn-primary'>Profil Sekolah</a>
+			</div>
+			<?php endif; ?>
+
 	<div class="row">
 		<div class='col-md-12'>
 			<?php foreach($profil as $p){ ?>

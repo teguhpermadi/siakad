@@ -438,6 +438,58 @@ class Penilaian extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    function cek_nilai_kd_walikelas()
+    {
+        $data = [];
+        // dapatkan mapelnya
+        $mapel = $this->Penilaian_model->get_mapel();
+        foreach($mapel as $m){
+            // dapatkan kelasnya
+            $kelas = $this->Penilaian_model->get_kelas($m['id_mapel']);
+
+            // dapatkan kd nya
+            $kd = [];
+            for ($kls=0; $kls < count($kelas); $kls++) { 
+                $kd_pengetahuan = $this->Penilaian_model->get_id_kd($m['id_mapel'], $kelas[$kls]['tingkat_kelas'], 'pengetahuan');
+                $kd_keterampilan = $this->Penilaian_model->get_id_kd($m['id_mapel'], $kelas[$kls]['tingkat_kelas'], 'keterampilan');
+                $kd = array_merge($kd_pengetahuan, $kd_keterampilan);
+                $total_kd = count($kd);
+               
+                $hitung = 0;
+               
+                // jka bukan walikelas letakkan data berikutnya
+                foreach($kd as $k){
+                    $cek = $this->Penilaian_model->count_kd_dinilai($m['id_mapel'], $kelas[$kls]['id_kelas'] ,$k['id']);
+                    // hitung kd yang sudah dinilai
+                        if($cek){
+                            $hitung += 1;
+                        } else {
+                            $hitung += 0;
+                        }
+                    }
+                
+                $selisih = $total_kd - $hitung;
+                
+                if($kelas[$kls]['id_kelas'] == user_info()['id_kelas']){
+                    //  kumpulkan datanya
+                    array_push($data, [
+                        'id_kelas' => $kelas[$kls]['id_kelas'],
+                        'datanya' => [
+                            // 'id_mapel' => $m['id_mapel'],
+                            // 'nama_mapel' => $m['nama_mapel'],
+                            // 'nama_kelas' => $kelas[$kls]['nama_kelas'],
+                            'jumlahnya' => $total_kd,
+                            'sudah_dinilai' => $hitung,
+                            'belum_dinilai' => $selisih,
+                        ],
+                    ]);
+                }
+            }
+        }
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
     function cek_nilai_kd()
     {
         $data = [];
@@ -450,38 +502,43 @@ class Penilaian extends CI_Controller {
             // dapatkan kd nya
             $kd = [];
             for ($kls=0; $kls < count($kelas); $kls++) { 
-               $kd_pengetahuan = $this->Penilaian_model->get_id_kd($m['id_mapel'], $kelas[$kls]['tingkat_kelas'], 'pengetahuan');
-               $kd_keterampilan = $this->Penilaian_model->get_id_kd($m['id_mapel'], $kelas[$kls]['tingkat_kelas'], 'keterampilan');
-               $kd = array_merge($kd_pengetahuan, $kd_keterampilan);
+                $kd_pengetahuan = $this->Penilaian_model->get_id_kd($m['id_mapel'], $kelas[$kls]['tingkat_kelas'], 'pengetahuan');
+                $kd_keterampilan = $this->Penilaian_model->get_id_kd($m['id_mapel'], $kelas[$kls]['tingkat_kelas'], 'keterampilan');
+                $kd = array_merge($kd_pengetahuan, $kd_keterampilan);
+                $total_kd = count($kd);
                
-               $hitung = 0;
+                $hitung = 0;
                
-                //    jka bukan walikelas letakkan data berikutnya
+                // jka bukan walikelas letakkan data berikutnya
                 foreach($kd as $k){
                     $cek = $this->Penilaian_model->count_kd_dinilai($m['id_mapel'], $kelas[$kls]['id_kelas'] ,$k['id']);
                     // hitung kd yang sudah dinilai
-                       if($cek){
-                           $hitung += 1;
-                       } else {
+                        if($cek){
+                            $hitung += 1;
+                        } else {
                             $hitung += 0;
-                       }
+                        }
                     }
-     
-                 //  kumpulkan datanya
-                 array_push($data, [
-                        'id_mapel' => $m['id_mapel'],
-                        'nama_mapel' => $m['nama_mapel'],
+                
+                $selisih = $total_kd - $hitung;
+                
+                if($kelas[$kls]['id_kelas'] != user_info()['id_kelas']){
+                    //  kumpulkan datanya
+                    array_push($data, [
                         'id_kelas' => $kelas[$kls]['id_kelas'],
-                        'nama_kelas' => $kelas[$kls]['nama_kelas'],
-                        'total_kd' => count($kd),
-                        'kd_dinilai' => $hitung,
+                        'datanya' => [
+                            // 'id_mapel' => $m['id_mapel'],
+                            // 'nama_mapel' => $m['nama_mapel'],
+                            // 'nama_kelas' => $kelas[$kls]['nama_kelas'],
+                            'jumlahnya' => $total_kd,
+                            'sudah_dinilai' => $hitung,
+                            'belum_dinilai' => $selisih,
+                        ],
                     ]);
-               
-
+                }
             }
-            
         }
-
+        header('Content-Type: application/json');
         echo json_encode($data);
     }
 }

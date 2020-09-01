@@ -43,6 +43,9 @@
 					</div>
 					<div class="card-body">
 
+						<!-- PIE CHART -->
+						<canvas id="myChart-id_walikelas-<?=$w['id_kelas'] ?>"></canvas>
+
 					</div>
 					<div class="card-footer">
 						<a href="<?= base_url('penilaian/do_nilai/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
@@ -70,9 +73,9 @@
 						<span class='text-uppercase'>Kelas <?= $w['nama_kelas']; ?></span>
 					</div>
 					<div class="card-body">
-					
-					<!-- PIE CHART -->
-					<canvas id="myChart-id_kelas-<?=$w['id_kelas'] ?>"></canvas>
+
+						<!-- PIE CHART -->
+						<canvas id="myChart-id_kelas-<?=$w['id_kelas'] ?>"></canvas>
 
 					</div>
 					<div class="card-footer">
@@ -118,5 +121,77 @@
 <script src="<?= base_url('assets/vendor/chart.js/Chart.js'); ?>"></script>
 <script src="<?= base_url()?>assets/vendor/jquery/jquery.js"></script>
 <script>
+	// tampilkan data nilainya rombel_walikelas
+	$.get('<?= base_url("penilaian/cek_nilai_kd_walikelas"); ?>')
+		.done((data) => {
+			// jika datanya berhasil di load
+			Object.keys(data).forEach(
+				id_kelas => {
+					var id_kelasnya = data[id_kelas]['id_kelas']
+					var jml_kd = data[id_kelas]['datanya']['jumlah'];
+					var sudah_dinilai = data[id_kelas]['datanya']['sudah_dinilai'];
+					var belum_dinilai = data[id_kelas]['datanya']['belum_dinilai'];
+					console.log('total: ' + jml_kd + ', sudah: ' + sudah_dinilai + ', belum :' + belum_dinilai);
 
+					var ctx = document.getElementById('myChart-id_walikelas-' + id_kelasnya).getContext('2d');
+					var myPieChart = new Chart(ctx, {
+						type: 'doughnut',
+						data: {
+							labels: ["KD Sudah dinilai", "KD Belum dinilai"],
+							datasets: [{
+								data: [sudah_dinilai, belum_dinilai],
+								backgroundColor: ['#4e73df', '#1cc88a'],
+								hoverBackgroundColor: ['#2e59d9', '#17a673'],
+								hoverBorderColor: "rgba(234, 236, 244, 1)",
+							}],
+						},
+						options: {
+							legend: {
+								position: 'bottom'
+							}
+						},
+					});
+				}
+			)
+		})
+		.fail(
+			(console.error())
+		);
+
+	// tampilkan data nilainya tiap kelas yang diajar
+	$.get('<?= base_url("penilaian/cek_nilai_kd"); ?>')
+		.done((data) => {
+			// jika datanya berhasil di load
+			Object.keys(data).forEach(
+				id_kelas => {
+					var id_kelasnya = data[id_kelas]['id_kelas']
+					var jml_kd = data[id_kelas]['datanya']['jumlah'];
+					var sudah_dinilai = data[id_kelas]['datanya']['sudah_dinilai'];
+					var belum_dinilai = data[id_kelas]['datanya']['belum_dinilai'];
+					console.log('total: ' + jml_kd + ', sudah: ' + sudah_dinilai + ', belum :' + belum_dinilai);
+
+					var ctx = document.getElementById('myChart-id_kelas-' + id_kelasnya).getContext('2d');
+					var myPieChart = new Chart(ctx, {
+						type: 'doughnut',
+						data: {
+							labels: ["KD Sudah dinilai", "KD Belum dinilai"],
+							datasets: [{
+								data: [sudah_dinilai, belum_dinilai],
+								backgroundColor: ['#4e73df', '#1cc88a'],
+								hoverBackgroundColor: ['#2e59d9', '#17a673'],
+								hoverBorderColor: "rgba(234, 236, 244, 1)",
+							}],
+						},
+						options: {
+							legend: {
+								position: 'bottom'
+							}
+						},
+					});
+				}
+			)
+		})
+		.fail(
+			(console.error())
+		);
 </script>

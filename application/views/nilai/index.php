@@ -70,6 +70,9 @@
 						<span class='text-uppercase'>Kelas <?= $w['nama_kelas']; ?></span>
 					</div>
 					<div class="card-body">
+					
+					<!-- PIE CHART -->
+					<canvas id="myChart-id_kelas-<?=$w['id_kelas'] ?>"></canvas>
 
 					</div>
 					<div class="card-footer">
@@ -112,3 +115,8 @@
 <a class="scroll-to-top rounded" href="#page-top">
 	<i class="fas fa-angle-up"></i>
 </a>
+<script src="<?= base_url('assets/vendor/chart.js/Chart.js'); ?>"></script>
+<script src="<?= base_url()?>assets/vendor/jquery/jquery.js"></script>
+<script>
+
+</script>

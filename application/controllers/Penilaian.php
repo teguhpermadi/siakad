@@ -14,7 +14,7 @@ class Penilaian extends CI_Controller {
         $this->load->model('Kelas_model');
         $this->load->model('Rombel_model');
         $this->load->model('Mapel_model');
-        // $this->load->model('Kelas_model');
+        $this->load->model('Kompetensi_dasar_model');
         // cek user login
         check_login();
     }
@@ -436,5 +436,38 @@ class Penilaian extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('nilai/cetak', $data);
         $this->load->view('template/footer');
+    }
+
+    function cek_nilai_kd()
+    {
+        $data_nilai_kd = [];
+        // dapatkan mapelnya
+        $mapel = $this->Penilaian_model->get_mapel();
+        foreach($mapel as $m){
+            // dapatkan kelasnya
+            $kelas = $this->Penilaian_model->get_kelas($m['id_mapel']);
+            // hitung masing-masing kdnya
+            for ($i=0; $i < count($kelas); $i++) { 
+                $kd_pengetahuan = $this->Kompetensi_dasar_model->get_kd($m['id_mapel'], $kelas[$i]['tingkat_kelas'], 'pengetahuan');
+                $kd_keterampilan = $this->Kompetensi_dasar_model->get_kd($m['id_mapel'], $kelas[$i]['tingkat_kelas'], 'keterampilan');
+                $kd_total = array_merge($kd_pengetahuan, $kd_keterampilan);
+                
+                for ($k=0; $k < count($kd_total); $k++) { 
+                    $cek = $this->Penilaian_model->count_kd_dinilai($m['id_mapel'], $kelas[$i]['id_kelas'], $kd_total[$k]['id']);
+                    // array_push($data_nilai_kd, [
+                    //     'id_mapel' => $m['id_mapel'],
+                    //     'id_kelas' => $kelas[$i]['id_kelas'],
+                    //     'kd_dinilai' => count($cek),
+                    //     'total_kd' => count($kd_total),
+                    // ]);
+                    print_r($cek);
+                }
+
+
+
+            }
+        }
+
+        // echo json_encode($data_nilai_kd);
     }
 }

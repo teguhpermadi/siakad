@@ -25,7 +25,7 @@ class Penilaian_model extends CI_Model
     function get_kelas($id_mapel)
     {
         $id_guru = user_info()['id_guru'];
-        $this->db->select('pengajar.*, kelas.id as id_kelas, kelas.nama as nama_kelas');
+        $this->db->select('pengajar.*, kelas.id as id_kelas, kelas.nama as nama_kelas, kelas.tingkat as tingkat_kelas');
         $this->db->from('pengajar');
         $this->db->where('id_guru', $id_guru);
         $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
@@ -95,5 +95,20 @@ class Penilaian_model extends CI_Model
         $this->db->join('siswa', 'siswa.id = rombel.id_siswa');
         $this->db->order_by('siswa.nama_lengkap', 'asc');
         return $this->db->get()->result_array();
+    }
+
+    // hitung semua kd yang sudah dinilai
+    function count_kd_dinilai($id_mapel, $id_kelas, $id_kd)
+    {
+        // filter rombel berdasarkan id tahun aktif dan id kelas yang mana user menjadi pengajarnya
+        $filter = 'rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' AND rombel.id_kelas = '.$id_kelas;
+        $this->db->select('nilai.id, nilai.id_kd');
+        $this->db->from('rombel');
+        $this->db->where($filter);
+        $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
+        $this->db->join('nilai', 'rombel.id_siswa = nilai.id_siswa AND nilai.id_mapel ='.$id_mapel.' AND nilai.id_kd = '.$id_kd, 'left outer');
+        $this->db->group_by('id_kd', 'asc');
+        $db = $this->db->get();
+        return $db->result_array();
     }
 }

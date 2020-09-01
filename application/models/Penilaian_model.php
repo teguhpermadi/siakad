@@ -101,13 +101,29 @@ class Penilaian_model extends CI_Model
     function count_kd_dinilai($id_mapel, $id_kelas, $id_kd)
     {
         // filter rombel berdasarkan id tahun aktif dan id kelas yang mana user menjadi pengajarnya
-        $filter = 'rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' AND rombel.id_kelas = '.$id_kelas;
-        $this->db->select('nilai.id, nilai.id_kd');
-        $this->db->from('rombel');
-        $this->db->where($filter);
-        $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
-        $this->db->join('nilai', 'rombel.id_siswa = nilai.id_siswa AND nilai.id_mapel ='.$id_mapel.' AND nilai.id_kd = '.$id_kd, 'left outer');
-        $this->db->group_by('id_kd', 'asc');
+        $this->db->select('nilai.id as id_nilai');
+        $this->db->from('nilai');
+        $this->db->join('rombel', 'nilai.id_siswa = rombel.id_siswa');
+        $this->db->where('nilai.id_tahun', $_SESSION['id_tahun_pelajaran']);
+        $this->db->where('nilai.id_mapel', $id_mapel);
+        $this->db->where('nilai.id_kd', $id_kd);
+        $this->db->where('rombel.id_kelas', $id_kelas);
+        $db = $this->db->get();
+        return $db->result_array();
+    }
+
+    // untuk chartjs
+    function get_id_kd($id_mapel, $tingkat, $jenis)
+    {
+        $id_guru = user_info()['id_guru'];
+
+        $this->db->select('id');
+        $this->db->from('kompetensi_dasar');
+        $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
+        $this->db->where('id_mapel', $id_mapel);
+        $this->db->where('tingkat', $tingkat);
+        $this->db->where('id_guru', $id_guru);
+        $this->db->where('jenis', $jenis);
         $db = $this->db->get();
         return $db->result_array();
     }

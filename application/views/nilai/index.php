@@ -51,7 +51,7 @@
 						<a href="<?= base_url('penilaian/do_nilai/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
 							class='btn btn-primary'>Lakukan Penilaian</a>
 						<a href="<?= base_url('penilaian/cetak/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
-							class='btn btn-primary float-right'>Cetak Penilaian</a>
+							class='btn btn-primary float-right' target="_blank">Cetak Penilaian</a>
 					</div>
 				</div>
 			</div>
@@ -82,7 +82,7 @@
 						<a href="<?= base_url('penilaian/do_nilai/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
 							class='btn btn-primary'>Lakukan Penilaian</a>
 						<a href="<?= base_url('penilaian/cetak/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
-							class='btn btn-primary float-right' target="blank">Cetak Penilaian</a>
+							class='btn btn-primary float-right' target="_blank">Cetak Penilaian</a>
 					</div>
 				</div>
 			</div>

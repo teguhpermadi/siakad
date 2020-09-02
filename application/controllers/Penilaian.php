@@ -15,7 +15,6 @@ class Penilaian extends CI_Controller {
         $this->load->model('Rombel_model');
         $this->load->model('Mapel_model');
         $this->load->model('Kompetensi_dasar_model');
-        $this->load->library('randomcolor');
         // cek user login
         check_login();
     }

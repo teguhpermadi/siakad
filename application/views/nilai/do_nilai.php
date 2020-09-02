@@ -52,19 +52,6 @@
 		<h1 class="h3 mb-0 text-gray-800 text-uppercase">Penilaian <?= $nama_mapel ?> Kelas <?= $nama_kelas ?></h1>
 	</div>
 
-	<div class="row mb-3">
-		<div class="col-md-12">
-			<div class="btn-group" role="group" aria-label="Basic example">
-				<a class="btn btn-secondary" href="<?= base_url('penilaian') ?>">Kembali</a>
-				<a class="btn btn-secondary"
-					href="<?= base_url('penilaian/download/'.$id_mapel.'-'.$id_kelas) ?>">Download Excel</a>
-				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#upload">Upload
-					Excel</button>
-				<a class="btn btn-secondary" href="<?= base_url('penilaian/cetak/'.$id_mapel.'-'.$id_kelas) ?>" target="blank">Cetak Nilai</a>
-			</div>
-		</div>
-	</div>
-
 	<!-- flash data -->
 	<?php if($this->session->flashdata('berhasil_upload')) { ?>
 	<div class="alert alert-primary alert-dismissible fade show" role="alert">
@@ -85,11 +72,23 @@
 	</div>
 	<?php } ?>
 
-	<div class="row">
+	<div class="row p-3">
 		<!-- chart -->
-		Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates quidem assumenda aperiam quibusdam maiores
-		accusamus molestias, doloribus minima voluptatem sapiente, adipisci omnis error in pariatur non illo officiis,
-		tempore delectus.
+		<canvas id="myChart"></canvas>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-md-12">
+			<div class="btn-group" role="group" aria-label="Basic example">
+				<a class="btn btn-secondary" href="<?= base_url('penilaian') ?>">Kembali</a>
+				<a class="btn btn-secondary"
+					href="<?= base_url('penilaian/download/'.$id_mapel.'-'.$id_kelas) ?>">Download Excel</a>
+				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#upload">Upload
+					Excel</button>
+				<a class="btn btn-secondary" href="<?= base_url('penilaian/cetak/'.$id_mapel.'-'.$id_kelas) ?>"
+					target="blank">Cetak Nilai</a>
+			</div>
+		</div>
 	</div>
 
 	<div class="row">
@@ -209,11 +208,13 @@
 	</div>
 </div>
 
-
+<script src="<?= base_url('assets/vendor/chart.js/Chart.js'); ?>"></script>
+<script src="<?= base_url()?>assets/vendor/jquery/jquery.js"></script>
 <script>
 	$(document).ready(function () {
 		// tampilkan data default sebelum kd di klik oleh user
 		showInfo();
+		get_chart()
 
 		function showInfo() {
 			info = `<div class="d-flex bd-highlight">
@@ -223,6 +224,47 @@
 			$('#show_data').html(info);
 			$('#submit').hide();
 		};
+
+		function get_chart() {
+			$.get('<?= base_url("penilaian/get_avg/".$id_mapel.'-'.$id_kelas); ?>')
+				.done((data) => {
+					var nama_siswa = data['nama_siswa']
+					var rerata = data['rerata']
+					var colors = data['color']
+
+					// jika datanya berhasil di load
+					var ctx = document.getElementById('myChart').getContext('2d');
+					var myPieChart = new Chart(ctx, {
+						type: 'horizontalBar',
+						"data": {
+							"labels": nama_siswa,
+							"datasets": [{
+								"label": "Rata-rata",
+								"data": rerata,
+								"fill": false,
+								"backgroundColor": colors,
+							}]
+						},
+						"options": {
+							"scales": {
+								"xAxes": [{
+									"ticks": {
+										"beginAtZero": true,
+										"max": 100,
+									}
+								}],
+							},
+							"legend": {
+								"display": false
+							},
+						}
+					});
+				})
+				.fail(
+					(console.error())
+				);
+		}
+
 
 		// tampilkan data siswa ketika kd sudah di klik oleh user
 		$('tr').click(function () {
@@ -286,6 +328,7 @@
 
 		$('#submit').click(function () {
 			// setting sweetalert2
+			get_chart();
 			const Toast = Swal.mixin({
 				toast: true,
 				position: 'top-end',
@@ -309,5 +352,10 @@
 			});
 		});
 	});
+
+</script>
+
+<!-- chart -->
+<script>
 
 </script>

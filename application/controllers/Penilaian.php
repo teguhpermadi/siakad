@@ -15,6 +15,7 @@ class Penilaian extends CI_Controller {
         $this->load->model('Rombel_model');
         $this->load->model('Mapel_model');
         $this->load->model('Kompetensi_dasar_model');
+        $this->load->library('randomcolor');
         // cek user login
         check_login();
     }
@@ -541,4 +542,40 @@ class Penilaian extends CI_Controller {
         header('Content-Type: application/json');
         echo json_encode($data);
     }
+
+    function get_avg()
+    {
+        $uri = $this->uri->segment(3);
+        $params = explode('-', $uri);
+        $id_mapel = $params[0];
+        $id_kelas = $params[1];
+
+        $data_avg= $this->Penilaian_model->get_avg_siswa($id_mapel, $id_kelas);
+
+        $data_nama = [];
+        $data_rerata = [];
+        $data_color = [];
+
+        foreach($data_avg as $da){
+            array_push($data_nama, 
+                $da['nama_siswa']);
+            
+            array_push($data_rerata, 
+                round($da['rerata']));
+
+                array_push($data_color, 
+                    'rgba('.mt_rand( 0, 255 ).','.mt_rand( 0, 255 ).','.mt_rand( 0, 255 ).')'
+                );
+        };
+
+        $data = [
+            'nama_siswa' => $data_nama,
+            'rerata' => $data_rerata,
+            'color' => $data_color,
+        ];
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
 }

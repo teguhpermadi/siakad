@@ -72,5 +72,6 @@ sistem informasi akademik dengan codeigniter
 * 9.14.5 : cetak penilaian
 * 9.14.6 : chartjs di halaman index penilaian
 * 9.14.7 : chartjs di halaman do_nilai penilaian
+* 9.14.8 : gunakan randomcolor untuk generate warna chartjs, sumber : https://github.com/mistic100/RandomColor.php | lakukan instalasi via 'composer require mistic100/randomcolor'
 * 9.15.0 : revisi database, menambahkan tabel nilai
 * 9.16.0 : install sweetalert2

@@ -101,6 +101,7 @@ class ComposerStaticInit2ccebe7bbdf90ef2a29aa90d77b546f3
         'C' => 
         array (
             'Complex\\' => 8,
+            'Colors\\' => 7,
         ),
     );
 
@@ -150,6 +151,10 @@ class ComposerStaticInit2ccebe7bbdf90ef2a29aa90d77b546f3
         'Complex\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
+        ),
+        'Colors\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mistic100/randomcolor/src',
         ),
     );
 

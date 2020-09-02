@@ -216,7 +216,7 @@ function get_chart() {
 				.done((data) => {
 					var nama_siswa = data['nama_siswa']
 					var rerata = data['rerata']
-					var colors = data['color']
+					var colors = data['randomcolor']
 
 					// jika datanya berhasil di load
 					var ctx = document.getElementById('myChart').getContext('2d');

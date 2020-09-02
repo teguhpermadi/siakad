@@ -5,6 +5,7 @@ use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
+use Colors\RandomColor;
 
 class Penilaian extends CI_Controller {
     public function __construct(){
@@ -553,7 +554,6 @@ class Penilaian extends CI_Controller {
 
         $data_nama = [];
         $data_rerata = [];
-        $data_color = [];
 
         foreach($data_avg as $da){
             array_push($data_nama, 
@@ -561,16 +561,18 @@ class Penilaian extends CI_Controller {
             
             array_push($data_rerata, 
                 round($da['rerata']));
-
-                array_push($data_color, 
-                    'rgba('.mt_rand( 0, 255 ).','.mt_rand( 0, 255 ).','.mt_rand( 0, 255 ).')'
-                );
         };
+
+        $randomcolor = RandomColor::many(count($data_avg), array(
+            // 'luminosity' => 'bright',
+            'hue' => 'red',
+            'format' => 'rgbCss' // e.g. 'rgb(225,200,20)'
+         ));
 
         $data = [
             'nama_siswa' => $data_nama,
             'rerata' => $data_rerata,
-            'color' => $data_color,
+            'randomcolor' => $randomcolor,
         ];
 
         header('Content-Type: application/json');

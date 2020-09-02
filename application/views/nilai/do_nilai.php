@@ -211,21 +211,7 @@
 <script src="<?= base_url('assets/vendor/chart.js/Chart.js'); ?>"></script>
 <script src="<?= base_url()?>assets/vendor/jquery/jquery.js"></script>
 <script>
-	$(document).ready(function () {
-		// tampilkan data default sebelum kd di klik oleh user
-		showInfo();
-		get_chart()
-
-		function showInfo() {
-			info = `<div class="d-flex bd-highlight">
-					<div class="p-2 flex-fill bd-highlight"><h3><i class="fa fa-exclamation-triangle text-warning"></i></h3></div>
-					<div class="p-2 flex-fill bd-highlight">Silahkan <b>klik</b> salah satu daftar kompetensi dasar di samping dahulu untuk menampilkan daftar siswa.</div>
-					</div>`
-			$('#show_data').html(info);
-			$('#submit').hide();
-		};
-
-		function get_chart() {
+function get_chart() {
 			$.get('<?= base_url("penilaian/get_avg/".$id_mapel.'-'.$id_kelas); ?>')
 				.done((data) => {
 					var nama_siswa = data['nama_siswa']
@@ -265,6 +251,21 @@
 				);
 		}
 
+</script>
+<script>
+	$(document).ready(function () {
+		// tampilkan data default sebelum kd di klik oleh user
+		showInfo();
+		get_chart()
+
+		function showInfo() {
+			info = `<div class="d-flex bd-highlight">
+					<div class="p-2 flex-fill bd-highlight"><h3><i class="fa fa-exclamation-triangle text-warning"></i></h3></div>
+					<div class="p-2 flex-fill bd-highlight">Silahkan <b>klik</b> salah satu daftar kompetensi dasar di samping dahulu untuk menampilkan daftar siswa.</div>
+					</div>`
+			$('#show_data').html(info);
+			$('#submit').hide();
+		};
 
 		// tampilkan data siswa ketika kd sudah di klik oleh user
 		$('tr').click(function () {
@@ -328,7 +329,6 @@
 
 		$('#submit').click(function () {
 			// setting sweetalert2
-			get_chart();
 			const Toast = Swal.mixin({
 				toast: true,
 				position: 'top-end',
@@ -345,6 +345,9 @@
 						icon: 'success',
 						title: 'Tersimpan'
 					})
+
+					get_chart();
+
 				},
 				error: function (error) {
 					alert('error!');

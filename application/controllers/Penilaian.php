@@ -564,8 +564,7 @@ class Penilaian extends CI_Controller {
         };
 
         $randomcolor = RandomColor::many(count($data_avg), array(
-            // 'luminosity' => 'bright',
-            'hue' => 'red',
+            'luminosity' => 'bright',
             'format' => 'rgbCss' // e.g. 'rgb(225,200,20)'
          ));
 

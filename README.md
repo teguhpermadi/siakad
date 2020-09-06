@@ -76,3 +76,4 @@ sistem informasi akademik dengan codeigniter
 * 9.14.9 : membuat garis vertikal pada charjs do_nilai penilaian sebagai tanda KKM
 * 9.15.0 : revisi database, menambahkan tabel nilai
 * 9.16.0 : install sweetalert2
+* 9.17.0 : membuat kkm

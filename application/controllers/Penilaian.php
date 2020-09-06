@@ -578,4 +578,12 @@ class Penilaian extends CI_Controller {
         echo json_encode($data);
     }
 
+    // untuk modal kkm
+    function get_kkm($id_mapel)
+    {
+        $data['kelas_tingkat'] = $this->Penilaian_model->get_kelas_tingkat($id_mapel);
+        $data['kkm'] = $this->Penilaian_model->get_kkm($id_mapel);
+
+        echo json_encode($data);
+    }
 }

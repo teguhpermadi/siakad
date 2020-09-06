@@ -23,7 +23,14 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="alert alert-info fade show" role='alert'>
-					<span class='text-uppercase font-weight-bold'><?= $m['nama_mapel']; ?></span>
+					<h4 class='text-uppercase font-weight-bold'><?= $m['nama_mapel']; ?></h4>
+					<div class="d-flex flex-row bd-highlight">
+						<div class="p-2 bd-highlight">
+							<button class="btn btn-info btn-kkm" data-mapel="<?= $m['nama_mapel']; ?>"
+								data-idmapel="<?= $m['id_mapel'] ?>">Kriteria Ketuntasan Minimum</button>
+						</div>
+						<div class="p-2 bd-highlight align-self-center">Flex item 3</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -119,6 +126,30 @@
 	<i class="fas fa-angle-up"></i>
 </a>
 
+<!-- Modal KKM -->
+<div class="modal fade" id="kkmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title text-uppercase">KKM <span id="kkmModalTitle"></span></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form id="kkmForm">
+				<div class="modal-body">
+					<div id="konten"></div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+					<button type="submit" class="btn btn-primary">Simpan</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 <script src="<?= base_url('assets/vendor/chart.js/Chart.js'); ?>"></script>
 <script src="<?= base_url()?>assets/vendor/jquery/jquery.js"></script>
@@ -133,7 +164,7 @@
 					var jml_kd = data[id_kelas]['datanya']['jumlah'];
 					var sudah_dinilai = data[id_kelas]['datanya']['sudah_dinilai'];
 					var belum_dinilai = data[id_kelas]['datanya']['belum_dinilai'];
-					console.log('total: ' + jml_kd + ', sudah: ' + sudah_dinilai + ', belum :' + belum_dinilai);
+					// console.log('total: ' + jml_kd + ', sudah: ' + sudah_dinilai + ', belum :' + belum_dinilai);
 
 					var ctx = document.getElementById('myChart-id_walikelas-' + id_kelasnya).getContext('2d');
 					var myPieChart = new Chart(ctx, {
@@ -170,7 +201,7 @@
 					var jml_kd = data[id_kelas]['datanya']['jumlah'];
 					var sudah_dinilai = data[id_kelas]['datanya']['sudah_dinilai'];
 					var belum_dinilai = data[id_kelas]['datanya']['belum_dinilai'];
-					console.log('total: ' + jml_kd + ', sudah: ' + sudah_dinilai + ', belum :' + belum_dinilai);
+					// console.log('total: ' + jml_kd + ', sudah: ' + sudah_dinilai + ', belum :' + belum_dinilai);
 
 					var ctx = document.getElementById('myChart-id_kelas-' + id_kelasnya).getContext('2d');
 					var myPieChart = new Chart(ctx, {
@@ -196,4 +227,54 @@
 		.fail(
 			(console.error())
 		);
+
+	// tampilkan modal kkm
+	$('.btn-kkm').click(function () {
+		var nama_mapel = $(this).attr("data-mapel")
+		var id_mapel = $(this).attr("data-idmapel")
+		html = ''
+		$.ajax({
+			type: 'GET',
+			url: '<?= base_url("penilaian/get_kkm/")?>' + id_mapel,
+			dataType: 'JSON',
+			// data: {
+			// 	kelas_tingkat: kelas_tingkat
+			// },
+			success: function (data) {
+				// console.log(id_mapel)
+				for (let i = 0; i < data['kelas_tingkat'].length; i++) {
+					// cek kkm nya
+					var kkm;
+					if(data.kkm[i] != null) {
+						kkm = data.kkm[i]['kkm']
+					} else {
+						kkm = ''
+					}
+					
+					// tampilkan kelas tingkat dan kkmnya
+					html += `<div class="form-group">
+							<input type="hidden" id="tingkat[]" value="`+ data.kelas_tingkat[i]['kelas_tingkat']+`"/>
+							<label>Kelas Tingkat `+ data.kelas_tingkat[i]['kelas_tingkat']+`</label>
+							<input class="form-control" type="number" name="kkm" id="kkm[]" min="0" max="100" placeholder="KKM tingkat `+ data.kelas_tingkat[i]['kelas_tingkat']+`" value="`+ kkm +`">
+							</div>`					
+				}
+				$('#konten').html(html)
+			},
+			error: function (error) {
+				console.log(error)
+			}
+		});
+
+
+		// set title modalnya
+		$('#kkmModalTitle').text(nama_mapel)
+
+		// tampilkan modalnya
+		$('#kkmModal').modal('show')
+	});
+
+	$('#kkmForm').submit(function(){
+		var data = this.serialize()
+		alert(data)
+	});
 </script>

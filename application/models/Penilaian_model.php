@@ -127,4 +127,38 @@ class Penilaian_model extends CI_Model
         $db = $this->db->get();
         return $db->result_array();
     }
+
+    // digunakan untuk modal kkm
+    function get_kelas_tingkat($id_mapel)
+    {
+        $id_guru = user_info()['id_guru'];
+
+        $this->db->select('kelas.tingkat as kelas_tingkat');
+        $this->db->from('pengajar');
+        $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
+        $this->db->where('id_guru', $id_guru);
+        $this->db->where('id_mapel', $id_mapel);
+        $this->db->join('kelas', 'kelas.id = pengajar.id_kelas');
+        $this->db->group_by('kelas.tingkat');
+        $db = $this->db->get();
+        return $db->result_array();
+    }
+
+    function get_kkm($id_mapel)
+    {
+        $id_guru = user_info()['id_guru'];
+
+        $this->db->select('*');
+        $this->db->from('pengajar');
+        $this->db->where('kriteria_ketuntasan.id_tahun', $_SESSION['id_tahun_pelajaran']);
+        $this->db->where('kriteria_ketuntasan.id_guru', $id_guru);
+        $this->db->where('kriteria_ketuntasan.id_mapel', $id_mapel);
+        $this->db->join('kelas', 'kelas.id = pengajar.id_kelas');
+        $this->db->join('kriteria_ketuntasan', 'kriteria_ketuntasan.tingkat = kelas.tingkat', 'left');
+        $this->db->order_by('kelas.tingkat');
+        $this->db->group_by('kelas.tingkat');
+        $db = $this->db->get();
+        // return $this->db->last_query();
+        return $db->result_array();
+    }
 }

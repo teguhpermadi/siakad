@@ -124,6 +124,20 @@ CREATE TABLE `kompetensi_dasar` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `kriteria_ketuntasan`
+--
+
+CREATE TABLE `kriteria_ketuntasan` (
+  `id` int(255) NOT NULL,
+  `id_tahun` int(255) NOT NULL,
+  `id_mapel` int(255) NOT NULL,
+  `id_guru` int(255) NOT NULL,
+  `tingkat` int(255) NOT NULL,
+  `kkm` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+--
 -- Table structure for table `login_attempts`
 --
 
@@ -504,6 +518,23 @@ ALTER TABLE `users_groups`
 --
 ALTER TABLE `walikelas`
   ADD PRIMARY KEY (`id`);
+
+
+--
+-- Indexes for table `kriteria_ketuntasan`
+--
+ALTER TABLE `kriteria_ketuntasan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `kriteria_ketuntasan`
+--
+ALTER TABLE `kriteria_ketuntasan`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for dumped tables

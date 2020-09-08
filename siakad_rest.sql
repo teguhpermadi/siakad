@@ -524,7 +524,8 @@ ALTER TABLE `walikelas`
 -- Indexes for table `kriteria_ketuntasan`
 --
 ALTER TABLE `kriteria_ketuntasan`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_tahun` (`id_tahun`,`id_guru`, `id_mapel`, `tingkat`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables

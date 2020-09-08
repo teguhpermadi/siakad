@@ -29,7 +29,7 @@
 							<button class="btn btn-info btn-kkm" data-mapel="<?= $m['nama_mapel']; ?>"
 								data-idmapel="<?= $m['id_mapel'] ?>">Kriteria Ketuntasan Minimum</button>
 						</div>
-						<div class="p-2 bd-highlight align-self-center">Flex item 3</div>
+						<div class="p-2 bd-highlight align-self-center" id="show_kkm_id_mapel_<?= $m['id_mapel']; ?>"></div>
 					</div>
 				</div>
 			</div>
@@ -253,9 +253,10 @@
 					
 					// tampilkan kelas tingkat dan kkmnya
 					html += `<div class="form-group">
-							<input type="hidden" id="tingkat[]" value="`+ data.kelas_tingkat[i]['kelas_tingkat']+`"/>
+							<input type="hidden" name="id_mapel" value="`+ id_mapel +`"/>
+							<input type="hidden" name="tingkat[]" value="`+ data.kelas_tingkat[i]['kelas_tingkat']+`"/>
 							<label>Kelas Tingkat `+ data.kelas_tingkat[i]['kelas_tingkat']+`</label>
-							<input class="form-control" type="number" name="kkm" id="kkm[]" min="0" max="100" placeholder="KKM tingkat `+ data.kelas_tingkat[i]['kelas_tingkat']+`" value="`+ kkm +`">
+							<input class="form-control" type="number" name="kkm[]" min="0" max="100" placeholder="KKM tingkat `+ data.kelas_tingkat[i]['kelas_tingkat']+`" value="`+ kkm +`">
 							</div>`					
 				}
 				$('#konten').html(html)
@@ -273,8 +274,41 @@
 		$('#kkmModal').modal('show')
 	});
 
+	show_kkm()
+
+	function show_kkm(){
+		// tampilkan data kkm tiap mapel yang diajar
+	$.get('<?= base_url("penilaian/get_kkm/all"); ?>')
+		.done((data) => {
+			// jika datanya berhasil di load
+				console.log(data)
+		}
+			);
+	}
+
 	$('#kkmForm').submit(function(){
-		var data = this.serialize()
-		alert(data)
-	});
+		// setting sweetalert2
+		const Toast = Swal.mixin({
+				toast: true,
+				position: 'top-end',
+				showConfirmButton: false,
+				timer: 1500
+			})
+
+		$.ajax({
+              url: '<?= base_url('penilaian/save_kkm') ?>',
+              data:$(this).serialize(),
+              type:"POST",
+              success:function(data) {
+				  console.log(data)
+				  $('#kkmModal').modal('hide')
+				  // show sweetalert2
+					Toast.fire({
+						icon: 'success',
+						title: 'Tersimpan'
+					})
+              }
+            })
+            return false;
+          });
 </script>

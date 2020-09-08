@@ -148,17 +148,32 @@ class Penilaian_model extends CI_Model
     {
         $id_guru = user_info()['id_guru'];
 
-        $this->db->select('*');
+        
+        if($id_mapel != 'all'){
+            $this->db->select('*');
         $this->db->from('pengajar');
         $this->db->where('kriteria_ketuntasan.id_tahun', $_SESSION['id_tahun_pelajaran']);
         $this->db->where('kriteria_ketuntasan.id_guru', $id_guru);
-        $this->db->where('kriteria_ketuntasan.id_mapel', $id_mapel);
-        $this->db->join('kelas', 'kelas.id = pengajar.id_kelas');
-        $this->db->join('kriteria_ketuntasan', 'kriteria_ketuntasan.tingkat = kelas.tingkat', 'left');
-        $this->db->order_by('kelas.tingkat');
-        $this->db->group_by('kelas.tingkat');
-        $db = $this->db->get();
-        // return $this->db->last_query();
-        return $db->result_array();
+            $this->db->where('kriteria_ketuntasan.id_mapel', $id_mapel);
+            $this->db->join('kelas', 'kelas.id = pengajar.id_kelas');
+            $this->db->join('kriteria_ketuntasan', 'kriteria_ketuntasan.tingkat = kelas.tingkat', 'left');
+            $this->db->order_by('kelas.tingkat');
+            $this->db->group_by('kelas.tingkat');
+            $db = $this->db->get();
+            // return $this->db->last_query();
+            return $db->result_array();
+        } else {
+            $this->db->select('*');
+        $this->db->from('pengajar');
+        $this->db->where('kriteria_ketuntasan.id_tahun', $_SESSION['id_tahun_pelajaran']);
+        $this->db->where('kriteria_ketuntasan.id_guru', $id_guru);
+            $this->db->join('kelas', 'kelas.id = pengajar.id_kelas');
+            $this->db->join('kriteria_ketuntasan', 'kriteria_ketuntasan.tingkat = kelas.tingkat', 'left');
+            $this->db->order_by('kelas.tingkat');
+            $this->db->group_by('kelas.tingkat');
+            $db = $this->db->get();
+            // return $this->db->last_query();
+            return $db->result_array();
+        }
     }
 }

@@ -586,4 +586,25 @@ class Penilaian extends CI_Controller {
 
         echo json_encode($data);
     }
+
+    function save_kkm(){
+        $id_mapel = $this->input->post('id_mapel');
+        $tingkat = $this->input->post('tingkat');
+        $kkm = $this->input->post('kkm');
+        $data = [];
+
+        for ($i=0; $i < count($tingkat); $i++) { 
+            array_push($data, [
+                'id_tahun' => $_SESSION['id_tahun_pelajaran'],
+                'id_mapel' => $id_mapel,
+                'id_guru' => user_info()['id_guru'],
+                'tingkat' => $tingkat[$i],
+                'kkm' => $kkm[$i],
+            ]);
+        }
+
+        $this->db->insert_on_duplicate_update_batch('kriteria_ketuntasan', $data);
+
+        echo json_encode($data);
+    }
 }

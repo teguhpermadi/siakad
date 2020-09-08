@@ -18,6 +18,7 @@
 		<div class="bg-white py-2 collapse-inner rounded">
 			<a class="collapse-item" href="<?= base_url('absensi'); ?>">Absensi</a>
 			<a class="collapse-item" href="<?= base_url('catatan'); ?>">Catatan</a>
+			<a class="collapse-item" href="<?= base_url('leger'); ?>">Leger</a>
 			<a class="collapse-item" href="<?= base_url('rapor'); ?>">Rapor</a>
 		</div>
 	</div>

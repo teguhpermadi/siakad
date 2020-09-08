@@ -49,7 +49,7 @@ function check_login()
 						'nilai_sikap',
 						'penilaian',
 						'kompetensi_dasar',
-						'pengajar'
+						'leger',
 					];
 
 				break;

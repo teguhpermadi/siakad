@@ -44,7 +44,16 @@ class Penilaian extends CI_Controller {
         // dapatkan semua kd pada mapel dan kelas ini
         $data['kd_pengetahuan'] = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'pengetahuan');
         $data['kd_keterampilan'] = $this->Penilaian_model->get_kd($id_mapel, $get_kelas['tingkat'], 'keterampilan');
-        $data['kkm'] = $this->Penilaian_model->get_kkm_id_kelas($id_mapel, $id_kelas);
+        $kkm = $this->Penilaian_model->get_kkm_id_kelas($id_mapel, $id_kelas);
+
+        // cek kkm nya
+        if(!empty($kkm)){
+            $data['kkm'] = $kkm;
+        } else {
+            // jika belum isi kkm set default kkm nya jadi 0
+            $data['kkm'] = [0 => ['kkm' => 0]];
+        }
+
         $data['id_mapel'] = $id_mapel;
         $data['id_kelas'] =$id_kelas;
         $data['nama_mapel'] = $get_mapel['nama'];

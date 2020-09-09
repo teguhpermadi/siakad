@@ -72,6 +72,16 @@
 	</div>
 	<?php } ?>
 
+<!-- jika kkm nya belum di setting -->
+<?php if($kkm[0]['kkm'] == 0){?>
+	<!-- <div class="row"> -->
+		<div class="alert alert-warning" role="alert">
+		<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+		Anda belum mengatur KKM untuk mata pelajaran ini.
+		</div>
+	<!-- </div> -->
+<?php }?>
+
 	<div class="row p-3">
 		<!-- chart -->
 		<canvas id="myChart"></canvas>

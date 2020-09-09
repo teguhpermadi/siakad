@@ -78,3 +78,4 @@ sistem informasi akademik dengan codeigniter
 * 9.16.0 : install sweetalert2
 * 9.17.0 : membuat kkm
 * 9.18.0 : membuat leger
+* 9.18.1 : leger absensi dan catatan

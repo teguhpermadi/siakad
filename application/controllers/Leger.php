@@ -22,8 +22,12 @@ class Leger extends CI_Controller{
 
     function absensi_catatan()
     {
-        $data = [];
+        // dapatkan semua siswa dalam rombel berdasarkan id kelas yang aktif
+        $data['absensi'] = $this->Leger_model->get_absensi_catatan();
+        
+        $this->load->view('template/header');
         $this->load->view('leger/absensi_catatan',$data);
+        $this->load->view('template/footer');
     }
 
     function nilai_sikap()

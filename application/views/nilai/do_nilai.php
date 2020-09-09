@@ -280,7 +280,7 @@ function get_chart() {
 									}
 								}],
 							},
-							"lineAtIndex": 75,
+							"lineAtIndex": '<?= $kkm[0]['kkm'] ?>',
 							"legend": {
 								"display": false
 							},

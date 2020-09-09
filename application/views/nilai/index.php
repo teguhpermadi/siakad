@@ -27,9 +27,24 @@
 					<div class="d-flex flex-row bd-highlight">
 						<div class="p-2 bd-highlight">
 							<button class="btn btn-info btn-kkm" data-mapel="<?= $m['nama_mapel']; ?>"
-								data-idmapel="<?= $m['id_mapel'] ?>">Kriteria Ketuntasan Minimum</button>
+								data-idmapel="<?= $m['id_mapel'] ?>">Atur KKM</button>
 						</div>
-						<div class="p-2 bd-highlight align-self-center" id="show_kkm_id_mapel_<?= $m['id_mapel']; ?>"></div>
+						<div class="p-2 bd-highlight align-self-center show-kkm" id="show_kkm_id_mapel_<?= $m['id_mapel']; ?>">
+						<?php
+							$kkm = $this->Penilaian_model->get_kkm($m['id_mapel']);
+
+							// cek kkm
+							if($kkm){
+								// echo json_encode($kkm);
+								echo '<i class="fas fa-info-circle"></i>';
+								for ($i=0; $i < count($kkm); $i++) { 
+									echo ' <span class="mr-3"><b>KKM Tingkat '.$kkm[$i]['tingkat'].'</b> : '.$kkm[$i]['kkm'].'</span>';
+								}
+							} else {
+								echo '<span class="text-danger"><i class="fas fa-info-circle"></i> <b>Mata pelajaran ini belum atur KKM</b><span>';
+							}
+						?>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -256,7 +271,7 @@
 							<input type="hidden" name="id_mapel" value="`+ id_mapel +`"/>
 							<input type="hidden" name="tingkat[]" value="`+ data.kelas_tingkat[i]['kelas_tingkat']+`"/>
 							<label>Kelas Tingkat `+ data.kelas_tingkat[i]['kelas_tingkat']+`</label>
-							<input class="form-control" type="number" name="kkm[]" min="0" max="100" placeholder="KKM tingkat `+ data.kelas_tingkat[i]['kelas_tingkat']+`" value="`+ kkm +`">
+							<input class="form-control" type="number" name="kkm[]" min="0" max="100" value="`+ kkm +`">
 							</div>`					
 				}
 				$('#konten').html(html)
@@ -273,18 +288,6 @@
 		// tampilkan modalnya
 		$('#kkmModal').modal('show')
 	});
-
-	show_kkm()
-
-	function show_kkm(){
-		// tampilkan data kkm tiap mapel yang diajar
-	$.get('<?= base_url("penilaian/get_kkm/all"); ?>')
-		.done((data) => {
-			// jika datanya berhasil di load
-				console.log(data)
-		}
-			);
-	}
 
 	$('#kkmForm').submit(function(){
 		// setting sweetalert2
@@ -307,6 +310,12 @@
 						icon: 'success',
 						title: 'Tersimpan'
 					})
+					setTimeout(
+					function() 
+					{
+						//do something special
+					location.reload();
+					}, 1000);
               }
             })
             return false;

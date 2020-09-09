@@ -77,3 +77,4 @@ sistem informasi akademik dengan codeigniter
 * 9.15.0 : revisi database, menambahkan tabel nilai
 * 9.16.0 : install sweetalert2
 * 9.17.0 : membuat kkm
+* 9.17.1 : menampilkan kkm di chartjs do_nilai

@@ -32,7 +32,8 @@ class Leger extends CI_Controller{
 
     function nilai_sikap()
     {
-        $data = [];
+        $data['nilai_sikap'] = $this->Leger_model->get_nilai_sikap();
+        echo json_encode($data['nilai_sikap']);
         $this->load->view('leger/nilai_sikap',$data);
     }
 

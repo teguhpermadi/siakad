@@ -80,3 +80,4 @@ sistem informasi akademik dengan codeigniter
 * 9.17.1 : menampilkan kkm di chartjs do_nilai
 * 9.18.0 : membuat leger
 * 9.18.1 : leger absensi dan catatan
+* 9.18.2 : leger nilai sikap

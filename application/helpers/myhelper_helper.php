@@ -154,6 +154,8 @@ function user_info()
 				$is_walikelas = array(
 					'is_walikelas' => 'no',
 					'id_guru' => $data_guru->id_guru,
+					'id_kelas' => null,
+					'nama_kelas' => null,
 				);
 			};
 			return array_merge($data, $user_role, $is_walikelas);

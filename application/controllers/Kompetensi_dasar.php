@@ -109,7 +109,7 @@ class Kompetensi_dasar extends CI_Controller{
     function download($id)
     {
         $mapel = $this->Kompetensi_dasar_model->get_id_mapel($id);
-        $kd = $this->Kompetensi_dasar_model->get_kd($id, null);
+        $kd = $this->Kompetensi_dasar_model->get_kd($id, null, null);
         $tingkat = $this->Kelas_model->get_all_kelas();
 
         $nama_user = user_info()['first_name'];
@@ -303,15 +303,16 @@ class Kompetensi_dasar extends CI_Controller{
                 $dataAwal = array();
                 foreach($sheetData as $s) 
                 {
-                    array_push($dataAwal, array(
-                        'id_tahun' => $id_tahun,
-                        'id_mapel' => $id_mapel,
-                        'tingkat' => $s['A'],
-                        'id_guru' => $id_guru,
-                        'jenis' => $s['B'],
-                        'kd' => $s['C'],
-                    ));
+                        array_push($dataAwal, array(
+                            'id_tahun' => $id_tahun,
+                            'id_mapel' => $id_mapel,
+                            'tingkat' => $s['A'],
+                            'id_guru' => $id_guru,
+                            'jenis' => $s['B'],
+                            'kd' => $s['C'],
+                        ));
                 }
+                array_filter($dataAwal);
                 // $dataAwal membaca semua data yang ada di excel termasuk nama kolom
                 // $dataAkhir membaca $dataAwal dari array urutan ke 2
                 $dataAkhir = array_slice($dataAwal, 10);

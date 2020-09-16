@@ -66,8 +66,8 @@
 					<div class="card-body">
 						<div class="row no-gutters align-items-center">
 							<div class="col mr-2">
-								<div class="font-weight-bold text-primary text-uppercase mb-1"><?= $m['nama_mapel']; ?>
-								</div>
+								<h3 class="font-weight-bold text-primary text-uppercase mb-1"><?= $m['nama_mapel']; ?>
+								</h3>
 								<div class="btn-group" role="group" aria-label="Basic example">
 									<a href='<?= base_url('kompetensi_dasar/add/'.$m['id_mapel']) ?>' type="button"
 										class="btn btn-info">Tambah KD</a>

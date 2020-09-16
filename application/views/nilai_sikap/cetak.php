@@ -28,7 +28,7 @@
 					<th scope="col">Nomor</th>
 					<th scope="col">Nama Siswa</th>
 					<th scope="col">NIS</th>
-					<th scope="col">Nilai</th>
+					<th scope="col">Nilai Sikap</th>
 				</tr>
 			</thead>
 			<tbody>

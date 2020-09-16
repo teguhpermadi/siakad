@@ -39,7 +39,7 @@
 				</div>
 
 				<!-- iframe absensi dan catatan -->
-				<iframe id="print_absensi_catatan" frameborder="0" scrolling="yes" width="100%" src="<?= base_url('leger/absensi_catatan') ?>"></iframe>
+				<iframe id="print_absensi_catatan" frameborder="0" scrolling="yes" width="100%" src="<?= base_url('leger/absensi_catatan') ?>" onload="resizeIframe(this)"></iframe>
 			</div>
 			<div class="tab-pane fade shadow-sm p-3" id="pills-profile" role="tabpanel"
                 aria-labelledby="pills-profile-tab">
@@ -55,7 +55,7 @@
 				</div>
 
 				<!-- iframe nilai sikap -->
-                <iframe id="print_nilai_sikap" frameborder="0" scrolling="no" height="100%" width="100%" src="<?= base_url('leger/nilai_sikap') ?>"></iframe>
+                <iframe id="print_nilai_sikap" frameborder="0" scrolling="yes" width="100%" src="<?= base_url('leger/nilai_sikap') ?>" onload="resizeIframe(this)"></iframe>
                 
             </div>
 			<div class="tab-pane fade shadow-sm p-3" id="pills-contact" role="tabpanel"
@@ -114,11 +114,8 @@
     })    
 
 	// style
-	// Selecting the iframe element
-    var iframe1 = document.getElementById("print_absensi_catatan");
-    
-    // Adjusting the iframe height onload event
-    iframe1.onload = function(){
-        iframe1.style.height = iframe1.contentWindow.document.body.scrollHeight + 'px';
-    }
+	function resizeIframe(obj) {
+		obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+	}
+
 </script>

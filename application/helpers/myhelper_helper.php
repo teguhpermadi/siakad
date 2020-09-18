@@ -50,6 +50,7 @@ function check_login()
 						'penilaian',
 						'kompetensi_dasar',
 						'leger',
+						'rapor'
 					];
 
 				break;

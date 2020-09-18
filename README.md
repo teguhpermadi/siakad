@@ -83,3 +83,4 @@ sistem informasi akademik dengan codeigniter
 * 9.18.2 : leger nilai sikap
 * 9.18.3 : leger nilai mata pelajaran
 * 9.19.0 : perbaikan bug pada myhelper tentang user info
+* 9.20.0 : tampilkan nama siswa untuk cetak rapor oleh walikelas

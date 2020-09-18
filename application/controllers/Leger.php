@@ -5,6 +5,7 @@ class Leger extends CI_Controller{
     {
         parent::__construct();
         $this->load->model('Leger_model');
+        $this->load->model('Mapel_model');
 
         // cek user login
         check_login();
@@ -41,7 +42,13 @@ class Leger extends CI_Controller{
 
     function nilai_mapel()
     {
-        $data = [];
+        $data['siswa'] = $this->Leger_model->get_siswa();
+        // $data['nilai'] = $this->Leger_model->get_nilai_mapel();
+        $data['mapel'] = $this->Mapel_model->get_all_mapel();
+        // print_r(json_encode($data['nilai']));
+        $this->load->view('template/header');
         $this->load->view('leger/nilai_mapel',$data);
+        $this->load->view('template/footer');
+
     }
 }

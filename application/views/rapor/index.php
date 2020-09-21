@@ -17,6 +17,7 @@
 							<td><?= $s['nis'] ?></td>
 							<td class="text-center">
 								<div class="btn-group" role="group" aria-label="Basic example">
+									<a class="btn btn-info btn-sm" href="<?= base_url('rapor/load_rapor/'.$s['id']) ?>">Tes</a>
 									<button class="btn btn-info btn-sm">Cover Depan</button>
 									<button class="btn btn-info btn-sm">Cover Dalam</button>
 									<button class="btn btn-info btn-sm">Identitas Siswa</button>

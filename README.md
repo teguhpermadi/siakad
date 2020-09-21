@@ -85,3 +85,4 @@ sistem informasi akademik dengan codeigniter
 * 9.19.0 : perbaikan bug pada myhelper tentang user info
 * 9.20.0 : tampilkan nama siswa untuk cetak rapor oleh walikelas
 * 9.21.0 : install phpword
+* 9.22.0 : cetak rapor

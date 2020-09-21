@@ -1,11 +1,12 @@
 <?php
 
-class Rapor_model extends CI_Model{
+class Rapor_model extends CI_Model
+{
     function get_siswa()
     {
         // dapatkan semua siswa dalam rombel
         // filter rombel berdasarkan id tahun aktif dan id kelas yang mana user menjadi walikelasnya
-        $filter = 'rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' AND rombel.id_kelas = '.user_info()['id_kelas'];
+        $filter = 'rombel.id_tahun = ' . $_SESSION['id_tahun_pelajaran'] . ' AND rombel.id_kelas = ' . user_info()['id_kelas'];
         // hitung nilai rata-rata sikapnya kemudian selalu bulatkan ke atas
         $this->db->select('siswa.id, siswa.nama_lengkap nama_siswa, siswa.nis');
         $this->db->from('rombel');
@@ -14,5 +15,69 @@ class Rapor_model extends CI_Model{
         $this->db->order_by('siswa.nama_lengkap');
         $db = $this->db->get();
         return $db->result_array();
+    }
+
+    function get_data_siswa($id_siswa)
+    {
+        return $this->db->get_where('siswa', array('id' => $id_siswa))->row_array();
+    }
+
+    function get_rombel_siswa($id_siswa)
+    {
+        $this->db->select('kelas.id id_kelas, kelas.nama nama_kelas, kelas.kode_kelas, kelas.tingkat tingkat_kelas');
+        $this->db->from('rombel');
+        $this->db->join('kelas', 'kelas.id = rombel.id_kelas');
+        $this->db->where('rombel.id_siswa', $id_siswa);
+        $db = $this->db->get();
+        return $db->row_array();
+    }
+
+    function get_mapel_siswa($id_siswa)
+    {
+        $this->db->select('mapel.id id_mapel, mapel.nama nama_mapel, mapel.kode kode_mapel, mapel.kelompok kelompok_mapel');
+        $this->db->from('rombel');
+        $this->db->join('pengajar', 'pengajar.id_kelas = rombel.id_kelas');
+        $this->db->join('mapel', 'mapel.id = pengajar.id_mapel');
+        $this->db->where('rombel.id_siswa', $id_siswa);
+        $db = $this->db->get();
+        return $db->result_array();
+    }
+
+    function get_nilai($id_mapel, $id_siswa)
+    {
+        // dapatkan semua siswa dalam rombel
+        // filter rombel berdasarkan id tahun aktif dan id kelas yang mana user menjadi walikelasnya
+        $filter = 'rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' AND rombel.id_kelas = '.user_info()['id_kelas'].' AND mapel.id = '.$id_mapel.' AND siswa.id = '.$id_siswa;
+        // hitung nilai rata-rata sikapnya kemudian selalu bulatkan ke atas
+        $this->db->select('kompetensi_dasar.kd, CEILING(AVG(nilai)) rerata_up, GROUP_CONCAT(kompetensi_dasar.kd SEPARATOR ", ") des_kd');
+        $this->db->from('rombel');
+        $this->db->where($filter);
+        $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
+        $this->db->join('nilai', 'nilai.id_siswa = siswa.id');
+        $this->db->join('mapel', 'nilai.id_mapel = mapel.id');
+        $this->db->join('kompetensi_dasar', 'nilai.id_kd = kompetensi_dasar.id');
+        $this->db->group_by('nama_lengkap');
+        // $this->db->group_by('mapel.nama');
+        // $this->db->order_by('siswa.nama_lengkap');
+        $db = $this->db->get();
+        return $db->row_array();
+        // return $this->db->last_query();
+    }
+
+    function get_deskripsi($id_mapel, $id_siswa)
+    {
+        $filter = 'rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' AND rombel.id_kelas = '.user_info()['id_kelas'].' AND mapel.id = '.$id_mapel.' AND siswa.id = '.$id_siswa.' AND nilai.nilai > 75';
+        $this->db->select('nilai.*, kompetensi_dasar.kd, IF(nilai.nilai > 75, "bagus", "kurang") as deskripsi');
+        $this->db->from('rombel');
+        $this->db->where($filter);
+        $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
+        $this->db->join('nilai', 'nilai.id_siswa = siswa.id');
+        $this->db->join('mapel', 'nilai.id_mapel = mapel.id');
+        $this->db->join('kompetensi_dasar', 'nilai.id_kd = kompetensi_dasar.id');
+        $this->db->order_by('nilai.nilai', 'desc');
+        $db = $this->db->get();
+        return $db->result_array();
+        // return $this->db->last_query();
+
     }
 }

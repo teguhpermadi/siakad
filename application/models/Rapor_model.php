@@ -68,7 +68,7 @@ class Rapor_model extends CI_Model
     function get_absensi($id_siswa)
     {
         $filter = 'rombel.id_tahun = ' . $_SESSION['id_tahun_pelajaran'] . ' AND rombel.id_kelas = ' . user_info()['id_kelas'] . ' AND siswa.id =' . $id_siswa;
-        $this->db->select('absensi.sakit, absensi.izin, absensi.alpa, (sakit + izin + alpa) as jumlah');
+        $this->db->select('absensi.sakit, absensi.izin, absensi.alpa, (sakit + izin + alpa) as jumlah_ketidakhadiran');
         $this->db->from('rombel');
         $this->db->where($filter);
         $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
@@ -83,14 +83,14 @@ class Rapor_model extends CI_Model
         // dapatkan semua siswa dalam rombel
         // filter rombel berdasarkan id tahun aktif dan id kelas yang mana user menjadi walikelasnya
         $filter = 'rombel.id_tahun = ' . $_SESSION['id_tahun_pelajaran'] . ' AND rombel.id_kelas = ' . user_info()['id_kelas'] . ' AND siswa.id =' . $id_siswa;
-        $this->db->select('catatan.keterangan, catatan.note');
+        $this->db->select('if(catatan.keterangan = "Yes", "Naik", "Tidak Naik") keterangan, catatan.note catatan');
         $this->db->from('rombel');
         $this->db->where($filter);
         $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
         $this->db->join('catatan', 'rombel.id_siswa = catatan.id_siswa', 'left outer');
         $db = $this->db->get();
 
-        return $db->result_array();
+        return $db->row_array();
         // return $this->db->last_query();
     }
 
@@ -109,10 +109,11 @@ class Rapor_model extends CI_Model
 
     function get_deskripsi_tuntas($id_mapel, $id_siswa, $kkm)
     {
+        $k = (int)$kkm;
         $filter = 'rombel.id_tahun = ' . $_SESSION['id_tahun_pelajaran'] . ' AND rombel.id_kelas = ' . user_info()['id_kelas'] . ' AND mapel.id = ' . $id_mapel . ' AND siswa.id = ' . $id_siswa;
-        $this->db->select('nilai.nilai, GROUP_CONCAT(kompetensi_dasar.kd SEPARATOR ", ") des_kd');
+        $this->db->select('CONCAT("Tuntas pada ", GROUP_CONCAT(kompetensi_dasar.kd SEPARATOR "; ")) deskripsi');
         $this->db->from('rombel');
-        $this->db->where('nilai', $kkm);
+        $this->db->where('nilai >=', $k);
         $this->db->where($filter);
         $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
         $this->db->join('nilai', 'nilai.id_siswa = siswa.id');
@@ -120,24 +121,25 @@ class Rapor_model extends CI_Model
         $this->db->join('kompetensi_dasar', 'nilai.id_kd = kompetensi_dasar.id');
         $this->db->order_by('nilai.nilai', 'desc');
         $db = $this->db->get();
-        // return $db->row_array();
-        return $this->db->last_query();
+        return $db->row_array();
+        // return $this->db->last_query();
     }
 
     function get_deskripsi_tidak_tuntas($id_mapel, $id_siswa, $kkm)
     {
+        $k = (int)$kkm;
         $filter = 'rombel.id_tahun = ' . $_SESSION['id_tahun_pelajaran'] . ' AND rombel.id_kelas = ' . user_info()['id_kelas'] . ' AND mapel.id = ' . $id_mapel . ' AND siswa.id = ' . $id_siswa;
-        $this->db->select('nilai.nilai, GROUP_CONCAT(kompetensi_dasar.kd SEPARATOR ", ") des_kd');
+        $this->db->select('CONCAT("Belum tuntas pada ", GROUP_CONCAT(kompetensi_dasar.kd SEPARATOR "; ")) deskripsi');
         $this->db->from('rombel');
         $this->db->where($filter);
-        $this->db->where('nilai', $kkm);
+        $this->db->where('nilai <', $k);
         $this->db->join('siswa', 'rombel.id_siswa = siswa.id');
         $this->db->join('nilai', 'nilai.id_siswa = siswa.id');
         $this->db->join('mapel', 'nilai.id_mapel = mapel.id');
         $this->db->join('kompetensi_dasar', 'nilai.id_kd = kompetensi_dasar.id');
         $this->db->order_by('nilai.nilai', 'desc');
         $db = $this->db->get();
-        return $db->result_array();
+        return $db->row_array();
         // return $this->db->last_query();
     }
 }

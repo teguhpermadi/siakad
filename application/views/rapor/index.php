@@ -17,12 +17,9 @@
 							<td><?= $s['nis'] ?></td>
 							<td class="text-center">
 								<div class="btn-group" role="group" aria-label="Basic example">
-									<a class="btn btn-info btn-sm" href="<?= base_url('rapor/load_rapor/'.$s['id']) ?>">Tes</a>
-									<button class="btn btn-info btn-sm">Cover Depan</button>
-									<button class="btn btn-info btn-sm">Cover Dalam</button>
-									<button class="btn btn-info btn-sm">Identitas Siswa</button>
-									<button class="btn btn-info btn-sm">Rapor</button>
-									<button class="btn btn-info btn-sm">Download PDF</button>
+									<button class="btn btn-info btn-sm" data-toggle="modal" data-target="#previewModal" data-idsiswa="<?= $s['id'] ?>">Preview</button>
+									<a class="btn btn-info btn-sm"  href="<?= base_url('rapor/load_rapor/'.$s['id']) ?>" >Download DOC</a>
+									<a class="btn btn-info btn-sm" href="#">Download PDF</a>
 								</div>
 							</td>
 						</tr>
@@ -58,3 +55,4 @@
 <a class="scroll-to-top rounded" href="#page-top">
 	<i class="fas fa-angle-up"></i>
 </a>
+

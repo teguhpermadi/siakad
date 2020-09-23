@@ -68,7 +68,7 @@ class Rapor extends CI_Controller
 
             array_push($data_nilai, [
                 'id_' . $mapel['kode_mapel'] => $mapel['id_mapel'],
-                'nama_'.$mapel['kode_mapel'] => $mapel['nama_mapel'],
+                'nama_' . $mapel['kode_mapel'] => $mapel['nama_mapel'],
                 'kkm_' . $mapel['kode_mapel'] => $kkm['kkm'],
                 'nilai_' . $mapel['kode_mapel'] => $nilai['rerata_up'],
                 'deskripsi_' . $mapel['kode_mapel'] => $deskripsi,
@@ -76,8 +76,8 @@ class Rapor extends CI_Controller
         }
 
         // gabungkan semua data nilai
-        $result=array();
-        foreach($data_nilai as $arr){
+        $result = array();
+        foreach ($data_nilai as $arr) {
             $result = array_merge($arr, $result);
         };
 
@@ -86,18 +86,18 @@ class Rapor extends CI_Controller
 
         $key = array_keys($data_mentah);
         $val = array_values($data_mentah);
-        echo json_encode($data_mentah);
-        exit;
+        // echo json_encode($key);
+        // exit;
+
         // load template rapor default
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template.docx');
 
-        // $templateProcessor->setValue('date', date("d-m-Y"));
-        // $templateProcessor->setValue('name', 'Teguh');
-        // $templateProcessor->setValue(
-        //     ['city', 'street'],
-        //     ['Sunnydale, 54321 Wisconsin', '123 International Lane']);
         $templateProcessor->setValue($key, $val);
+        $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'] . '.docx';
+        // $templateProcessor->saveAs($filename);
 
-        $templateProcessor->saveAs('MyWordFile.docx');
+        header("Content-Disposition: attachment; filename=".$filename);
+
+        $templateProcessor->saveAs('php://output');
     }
 }

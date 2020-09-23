@@ -2,6 +2,27 @@
 
 class Rapor_model extends CI_Model
 {
+    function get_tahun()
+    {
+        $id_tahun = $_SESSION['id_tahun_pelajaran'];
+        $this->db->select('tahun_pelajaran.tahun, tahun_pelajaran.semester, tahun_pelajaran.tanggal_rapor, guru.nama_lengkap nama_kepsek, guru.nik nik_kepsek');
+        $this->db->from('tahun_pelajaran');
+        $this->db->where('tahun_pelajaran.id', $id_tahun);
+        $this->db->join('guru', 'guru.id = tahun_pelajaran.id_kepsek');
+        $db = $this->db->get();
+        return $db->row_array();
+    }
+
+    function get_walikelas()
+    {
+        $id_guru = user_info()['id_guru'];
+        $this->db->select('guru.nama_lengkap nama_walikelas, guru.nik nik_walikelas');
+        $this->db->from('guru');
+        $this->db->where('id', $id_guru);
+        $db = $this->db->get();
+        return $db->row_array();
+    }
+
     function get_siswa()
     {
         // dapatkan semua siswa dalam rombel

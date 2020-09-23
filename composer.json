@@ -14,7 +14,8 @@
 		"php": ">=5.3.7",
 		"phpoffice/phpspreadsheet": "^1.10",
 		"mistic100/randomcolor": "^1.0",
-		"phpoffice/phpword": "^0.17.0"
+		"phpoffice/phpword": "^0.17.0",
+		"dompdf/dompdf": "^0.8.6"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

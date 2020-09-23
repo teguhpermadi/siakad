@@ -152,14 +152,6 @@ class Rapor extends CI_Controller
         $templateProcessor->setValue($key, $val);
         $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'] . '.docx';
         // $templateProcessor->saveAs($filename);
-
-        // header("Content-Disposition: attachment; filename=".$filename);
-        \PhpOffice\PhpWord\Settings::setPdfRendererPath('vendor/dompdf/dompdf');
-        \PhpOffice\PhpWord\Settings::setPdfRendererName('DomPDF');
-
-        $templateProcessor->saveAs('downloads/' . $filename);
-        $temp = \PhpOffice\PhpWord\IOFactory::load('downloads/' . $filename);
-        $xmlWriter = \PhpOffice\PhpWord\IOFactory::createWriter($temp, 'PDF');
-        $xmlWriter->save('uploads/sampledocument.pdf', TRUE);
+        // https://searchcode.com/codesearch/view/97668736/
     }
 }

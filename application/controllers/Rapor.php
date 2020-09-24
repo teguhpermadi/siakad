@@ -1,6 +1,11 @@
 <?php
+define('PHPWORD_BASE_DIR', realpath(__DIR__));
 
 use PhpOffice\PhpWord\PhpWord;
+use Dompdf\Dompdf;
+
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\Settings;
 
 class Rapor extends CI_Controller
 {
@@ -150,8 +155,26 @@ class Rapor extends CI_Controller
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template.docx');
 
         $templateProcessor->setValue($key, $val);
-        $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'] . '.docx';
-        // $templateProcessor->saveAs($filename);
-        // https://searchcode.com/codesearch/view/97668736/
+        $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'];
+        
+        // save docx
+        $templateProcessor->saveAs('downloads/' . $filename . '.docx');
+
+        // Make sure you have `dompdf/dompdf` in your composer dependencies.
+        Settings::setPdfRendererName(Settings::PDF_RENDERER_DOMPDF);
+        // Any writable directory here. It will be ignored.
+        Settings::setPdfRendererPath('.');
+
+        // convert docx to html
+        $phpWord = IOFactory::load('downloads/' . $filename . '.docx', 'Word2007');
+        $phpWord->save('downloads/' . $filename . '.pdf', 'PDF');
+
+        // download pdf
+        force_download('downloads/' . $filename . '.pdf', null);
+
+        // hapus docx
+        unlink('downloads/' . $filename . '.docx');
+        unlink('downloads/' . $filename . '.pdf');
+
     }
 }

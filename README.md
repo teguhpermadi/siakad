@@ -87,3 +87,4 @@ sistem informasi akademik dengan codeigniter
 * 9.21.0 : install phpword
 * 9.22.0 : cetak rapor
 * 9.22.1 : download rapor pdf
+* 9.22.2 : preview rapor

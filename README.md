@@ -86,4 +86,4 @@ sistem informasi akademik dengan codeigniter
 * 9.20.0 : tampilkan nama siswa untuk cetak rapor oleh walikelas
 * 9.21.0 : install phpword
 * 9.22.0 : cetak rapor
-* 9.22.1 : cetak rapor pdf
+* 9.22.1 : download rapor pdf

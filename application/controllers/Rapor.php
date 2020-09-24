@@ -101,7 +101,10 @@ class Rapor extends CI_Controller
         $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'] . '.docx';
         // $templateProcessor->saveAs($filename);
 
-        header("Content-Disposition: attachment; filename=" . $filename);
+        header('Content-type:  application/pdf');
+        header('Content-Length: ' . filesize($filename));
+        header('Content-Disposition: attachment; filename="' . $filename);
+        readfile($filename);
 
         $templateProcessor->saveAs('php://output');
     }
@@ -156,9 +159,9 @@ class Rapor extends CI_Controller
 
         $templateProcessor->setValue($key, $val);
         $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'];
-        
+
         // save docx
-        $templateProcessor->saveAs('downloads/' . $filename . '.docx');
+        $templateProcessor->saveAs('temp/' . $filename . '.docx');
 
         // Make sure you have `dompdf/dompdf` in your composer dependencies.
         Settings::setPdfRendererName(Settings::PDF_RENDERER_DOMPDF);
@@ -166,15 +169,23 @@ class Rapor extends CI_Controller
         Settings::setPdfRendererPath('.');
 
         // convert docx to html
-        $phpWord = IOFactory::load('downloads/' . $filename . '.docx', 'Word2007');
-        $phpWord->save('downloads/' . $filename . '.pdf', 'PDF');
+        $phpWord = IOFactory::load('temp/' . $filename . '.docx', 'Word2007');
+        $phpWord->save('temp/' . $filename . '.pdf', 'PDF');
 
-        // download pdf
-        force_download('downloads/' . $filename . '.pdf', null);
+        $file_doc = 'temp/' . $filename . '.docx';
+        $file_pdf = 'temp/' . $filename . '.pdf';
 
-        // hapus docx
-        unlink('downloads/' . $filename . '.docx');
-        unlink('downloads/' . $filename . '.pdf');
+        header('Content-type:  application/pdf');
+        header('Content-Length: ' . filesize($file_pdf));
+        header('Content-Disposition: attachment; filename="' . $file_pdf);
+        readfile($file_pdf);
 
+        ignore_user_abort(true);
+
+        // hapus file setelah di download
+        unlink($file_pdf);
+        unlink($file_doc);
     }
+
+
 }

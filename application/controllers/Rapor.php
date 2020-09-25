@@ -101,10 +101,7 @@ class Rapor extends CI_Controller
         $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'] . '.docx';
         // $templateProcessor->saveAs($filename);
 
-        header('Content-type:  application/pdf');
-        header('Content-Length: ' . filesize($filename));
-        header('Content-Disposition: attachment; filename="' . $filename);
-        readfile($filename);
+        header("Content-Disposition: attachment; filename=" . $filename);
 
         $templateProcessor->saveAs('php://output');
     }
@@ -242,22 +239,20 @@ class Rapor extends CI_Controller
         // save docx
         $templateProcessor->saveAs('temp/' . $filename . '.docx');
 
-        // Make sure you have `dompdf/dompdf` in your composer dependencies.
-        Settings::setPdfRendererName(Settings::PDF_RENDERER_DOMPDF);
-        // Any writable directory here. It will be ignored.
-        Settings::setPdfRendererPath('.');
-
-        // convert docx to html
-        $phpWord = IOFactory::load('temp/' . $filename . '.docx', 'Word2007');
-        $phpWord->save('temp/' . $filename . '.pdf', 'PDF');
-
+        
         $file_doc = 'temp/' . $filename . '.docx';
-        $file_pdf = 'temp/' . $filename . '.pdf';
+        $file_html = 'temp/' . $filename . '.html';
 
-        header('Content-type:  application/pdf');
-        header('Content-Length: ' . filesize($file_pdf));
-        header('Content-Disposition: attachment; filename="' . $file_pdf);
+        // conver docx to html
+        $phpWord = \PhpOffice\PhpWord\IOFactory::load($file_doc);
+        $htmlWriter = new \PhpOffice\PhpWord\Writer\HTML($phpWord);
+        $htmlWriter->save($file_html);
 
-        print($file_pdf);
+        // tampilkan file htmlnya
+        echo file_get_contents($file_html);
+
+        // hapus file di temp
+        unlink($file_html);
+        unlink($file_doc);   
     }
 }

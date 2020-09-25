@@ -17,7 +17,7 @@
 							<td><?= $s['nis'] ?></td>
 							<td class="text-center">
 								<div class="btn-group" role="group" aria-label="Basic example">
-									<a class="btn btn-info btn-sm" href="<?= base_url('rapor/preview_rapor/'.$s['id']) ?>">Preview</a>
+									<a class="btn btn-info btn-sm" href="<?= base_url('rapor/preview_rapor/'.$s['id']) ?>" target="_blank">Preview</a>
 									<a class="btn btn-info btn-sm"  href="<?= base_url('rapor/download_doc/'.$s['id']) ?>" >Download DOC</a>
 									<a class="btn btn-info btn-sm" href="<?= base_url('rapor/download_pdf/'.$s['id']) ?>">Download PDF</a>
 								</div>

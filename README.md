@@ -91,3 +91,4 @@ sistem informasi akademik dengan codeigniter
 * with-faker : cabang baru
   * 9.23.0 : menggunakan aturan migration
   * 9.23.1 : membuat file migration dengan migration generator 
+  * 9.23.2 : membuat file faker

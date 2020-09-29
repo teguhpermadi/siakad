@@ -90,3 +90,4 @@ sistem informasi akademik dengan codeigniter
 * 9.22.2 : preview rapor html
 * with-faker : cabang baru
   * 9.23.0 : menggunakan aturan migration
+  * 9.23.1 : membuat file migration dengan migration generator 

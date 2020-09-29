@@ -7,6 +7,8 @@ class Migrate extends CI_Controller
         {
                 parent::__construct();
                 $this->load->library('migration');
+                $this->load->library('MigrationGenerator');
+
         }
         public function index()
         {
@@ -17,17 +19,9 @@ class Migrate extends CI_Controller
                 }
         }
 
-        // auto generate migration file from db
         public function make_base()
         {
-                $this->load->library('VpxMigration');
-
-                // All Tables:
-
-                $this->vpxmigration->generate();
-
-                //Single Table:
-
-                // $this->vpxmigration->generate('table');
+                $this->load->library('MigrationGenerator');
+                $this->migrationgenerator->generate();
         }
 }

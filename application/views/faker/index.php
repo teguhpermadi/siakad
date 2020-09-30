@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>users groups</td>
+                    <td>groups</td>
                     <td><a class="btn btn-primary" href="<?= base_url('faker/groups') ?>">Generate</a></td>
                 </tr>
             </tbody>

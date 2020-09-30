@@ -44,6 +44,20 @@ class Migration_create_users_groups extends CI_Migration
         $this->db->query("ALTER TABLE `users_groups` ADD FOREIGN KEY(`group_id`) REFERENCES groups(`id`) ON DELETE CASCADE ON UPDATE NO ACTION");
         $this->db->query("ALTER TABLE `users_groups` ADD FOREIGN KEY(`user_id`) REFERENCES users(`id`) ON DELETE CASCADE ON UPDATE NO ACTION");
 
+        // dumping data
+        $data = [
+            [
+                'id' => 1,
+                'user_id' => 1,
+                'group_id' => 1,
+            ],[
+                'id' => 2,
+                'user_id' => 1,
+                'group_id' => 2,
+            ],
+        ];
+
+        $this->db->insert_batch('users_groups', $data);
     }
 
     public function down()

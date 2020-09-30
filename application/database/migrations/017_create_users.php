@@ -122,6 +122,31 @@ class Migration_create_users extends CI_Migration
         // Create Table users
         $this->dbforge->create_table("users", TRUE, $attributes);
 
+        // dumping data admin
+        $data = [
+            'id' => 1,
+            'ip_address' => '127.0.0.1',
+            'username' => 'administrator',
+            'password' => '$2y$12$LDGmMnMv/vfhEGd/lVssTuEjTNccQH.QLYYSKHgPg..6sycG9azFu',
+            'email' => 'admin@admin.com',
+            'activation_selector' => null,
+            'activation_code' => null,
+            'forgotten_password_selector' => null,
+            'forgotten_password_code' => null,
+            'forgotten_password_time' => null,
+            'remember_selector' => null,
+            'remember_code' => null,
+            'created_on' => 1268889823,
+            'last_login' => null,
+            'active' => 1,
+            'first_name' => 'Admin',
+            'last_name' => 'istrator',
+            'company' => 'ADMIN',
+            'phone' => '0',
+        ];
+
+        $this->db->insert('users', $data);
+
     }
 
     public function down()

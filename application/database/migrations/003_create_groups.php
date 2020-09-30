@@ -35,6 +35,32 @@ class Migration_create_groups extends CI_Migration
 
         // Create Table groups
         $this->dbforge->create_table("groups", TRUE, $attributes);
+
+        // dumping data
+        $data = [
+            [
+                'id' => 1,
+                'name' => 'admin',
+                "description" => 'Administrator',
+            ],
+            [
+                'id' => 2,
+                'name' => 'members',
+                "description" => 'General User',
+            ],
+            [
+                'id' => 3,
+                'name' => 'guru',
+                "description" => 'Guru',
+            ],
+            [
+                'id' => 4,
+                'name' => 'siswa',
+                "description" => 'Siswa',
+            ]
+        ];
+
+        $this->db->insert_batch('groups',$data);
     }
 
     public function down()

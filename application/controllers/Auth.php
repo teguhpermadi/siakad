@@ -445,12 +445,15 @@ class Auth extends CI_Controller
 			$this->data['csrf'] = $this->_get_csrf_nonce();
 			$this->data['user'] = $this->ion_auth->user($id)->row();
 
+			$this->load->view('template/header');
+			$this->load->view('template/sidebar');
 			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'deactivate_user', $this->data);
+			$this->load->view('template/footer');
 		}
 		else
 		{
 			// do we really want to deactivate?
-			if ($this->input->post('confirm') == 'yes')
+			if ($this->input->post('confirm') == 'no')
 			{
 				// do we have a valid request?
 				if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
@@ -624,7 +627,7 @@ class Auth extends CI_Controller
 
 		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
 		{
-			redirect('auth', 'refresh');
+			// redirect('auth', 'refresh');
 		}
 
 		$user = $this->ion_auth->user($id)->row();
@@ -693,14 +696,16 @@ class Auth extends CI_Controller
 				{
 					// redirect them back to the admin page if admin, or to the base url if non admin
 					$this->session->set_flashdata('message', $this->ion_auth->messages());
-					$this->redirectUser();
+					// $this->redirectUser();
+					redirect('users');
 
 				}
 				else
 				{
 					// redirect them back to the admin page if admin, or to the base url if non admin
 					$this->session->set_flashdata('message', $this->ion_auth->errors());
-					$this->redirectUser();
+					// $this->redirectUser();
+					redirect('users');
 
 				}
 
@@ -934,5 +939,4 @@ class Auth extends CI_Controller
 			return $view_html;
 		}
 	}
-
 }

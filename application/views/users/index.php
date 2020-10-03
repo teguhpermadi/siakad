@@ -1,3 +1,5 @@
+<!-- <link rel="stylesheet" href="<?= base_url('assets/css/toggle-switchy.css') ?>"> -->
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -53,46 +55,51 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ($users as $user):?>
-					<tr>
-						<td><?php echo htmlspecialchars($user->first_name,ENT_QUOTES,'UTF-8');?></td>
-						<td><?php echo htmlspecialchars($user->last_name,ENT_QUOTES,'UTF-8');?></td>
-						<td><?php echo htmlspecialchars($user->email,ENT_QUOTES,'UTF-8');?></td>
-						<td>
-							<?php foreach ($user->groups as $group):?>
-							<a href="<?= base_url('auth/edit_group/'.$group->id); ?>"><span class="badge badge-secondary"><?= $group->name; ?></span></a>
-							<?php endforeach?>
-						</td>
-						<td>
-							<?php if($user->active) {?>
-							<a href="<?= base_url('auth/deactivate/'.$user->id); ?>"
-								class="btn btn-warning btn-icon-split btn-sm">
-								<span class="icon text-white-50">
-									<i class="fas fa-cog"></i>
-								</span>
-								<span class="text">Non-aktifkan</span>
-							</a>
-							<?php } else { ?>
-							<a href="<?= base_url('auth/activate/'.$user->id); ?>"
-								class="btn btn-primary btn-icon-split btn-sm">
-								<span class="icon text-white-50">
-									<i class="fas fa-cog"></i>
-								</span>
-								<span class="text">Aktifkan</span>
-							</a>
-							<?php } ?>
-						</td>
-						<td>
-							<a href="<?= base_url('auth/edit_user/'.$user->id); ?>"
-								class="btn btn-success btn-icon-split btn-sm">
-								<span class="icon text-white-50">
-									<i class="fas fa-cog"></i>
-								</span>
-								<span class="text">Edit</span>
-							</a>
-						</td>
-					</tr>
-					<?php endforeach;?>
+					<?php foreach ($users as $user) : ?>
+						<tr>
+							<td><?php echo htmlspecialchars($user->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
+							<td><?php echo htmlspecialchars($user->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
+							<td><?php echo htmlspecialchars($user->email, ENT_QUOTES, 'UTF-8'); ?></td>
+							<td>
+								<?php foreach ($user->groups as $group) : ?>
+									<a href="<?= base_url('auth/edit_group/' . $group->id); ?>"><span class="badge badge-secondary"><?= $group->name; ?></span></a>
+								<?php endforeach ?>
+							</td>
+							<td>
+								<!-- <label class="toggle-switchy" for="check" data-size="sm" data-style="rounded">
+									<input type="checkbox" id="check">
+									<span class="toggle">
+										<span class="switch"></span>
+									</span>
+								</label>
+								<br>
+								<br> -->
+								<?php if ($user->active) { ?>
+									<a href="<?= base_url('auth/deactivate/' . $user->id); ?>" class="btn btn-warning btn-icon-split btn-sm">
+										<span class="icon text-white-50">
+											<i class="fas fa-cog"></i>
+										</span>
+										<span class="text">Non-aktifkan</span>
+									</a>
+								<?php } else { ?>
+									<a href="<?= base_url('auth/activate/' . $user->id); ?>" class="btn btn-primary btn-icon-split btn-sm">
+										<span class="icon text-white-50">
+											<i class="fas fa-cog"></i>
+										</span>
+										<span class="text">Aktifkan</span>
+									</a>
+								<?php } ?>
+							</td>
+							<td>
+								<a href="<?= base_url('auth/edit_user/' . $user->id); ?>" class="btn btn-success btn-icon-split btn-sm">
+									<span class="icon text-white-50">
+										<i class="fas fa-cog"></i>
+									</span>
+									<span class="text">Edit</span>
+								</a>
+							</td>
+						</tr>
+					<?php endforeach; ?>
 				</tbody>
 				<tfoot>
 					<tr>

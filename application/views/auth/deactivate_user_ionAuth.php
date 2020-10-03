@@ -1,7 +1,3 @@
-<!-- Begin Page Content -->
-<div class="container-fluid">
-
-
 <h1><?php echo lang('deactivate_heading');?></h1>
 <p><?php echo sprintf(lang('deactivate_subheading'), $user->username);?></p>
 
@@ -20,25 +16,3 @@
   <p><?php echo form_submit('submit', lang('deactivate_submit_btn'));?></p>
 
 <?php echo form_close();?>
-
-</div>
-<!-- /.container-fluid -->
-
-</div>
-<!-- End of Main Content -->
-
-<!-- Footer -->
-<footer class="sticky-footer bg-white">
-	<div class="container my-auto">
-		<div class="copyright text-center my-auto">
-			<span>Copyright &copy; Your Website 2019</span>
-		</div>
-	</div>
-</footer>
-<!-- End of Footer -->
-
-</div>
-<!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->

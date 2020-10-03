@@ -12,6 +12,8 @@ class Migration_create_profil extends CI_Migration
             'id' => array(
                 'type' => 'INT',
                 'constraint' => '255',
+                'unsigned' => TRUE,
+                'auto_increment' => TRUE,
             ),
             'namaSekolah' => array(
                 'type' => 'VARCHAR',

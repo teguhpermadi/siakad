@@ -13,6 +13,7 @@ class Migration_create_users_groups extends CI_Migration
                 'type' => 'INT',
                 'constraint' => '11',
                 'unsigned' => TRUE,
+                'auto_increment' => TRUE,
             ),
             'user_id' => array(
                 'type' => 'INT',

@@ -13,6 +13,7 @@ class Migration_create_groups extends CI_Migration
                 'type' => 'MEDIUMINT',
                 'constraint' => '8',
                 'unsigned' => TRUE,
+                'auto_increment' => TRUE,
             ),
             'name' => array(
                 'type' => 'VARCHAR',

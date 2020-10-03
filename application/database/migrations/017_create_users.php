@@ -13,6 +13,7 @@ class Migration_create_users extends CI_Migration
                 'type' => 'INT',
                 'constraint' => '11',
                 'unsigned' => TRUE,
+                'auto_increment' => TRUE,
             ),
             'ip_address' => array(
                 'type' => 'VARCHAR',

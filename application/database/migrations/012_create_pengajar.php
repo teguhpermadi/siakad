@@ -12,6 +12,8 @@ class Migration_create_pengajar extends CI_Migration
             'id' => array(
                 'type' => 'INT',
                 'constraint' => '255',
+                'unsigned' => TRUE,
+                'auto_increment' => TRUE,
             ),
             'id_guru' => array(
                 'type' => 'INT',

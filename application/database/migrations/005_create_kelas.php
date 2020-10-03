@@ -12,6 +12,8 @@ class Migration_create_kelas extends CI_Migration
             'id' => array(
                 'type' => 'INT',
                 'constraint' => '100',
+                'unsigned' => TRUE,
+                'auto_increment' => TRUE,
             ),
             'nama' => array(
                 'type' => 'VARCHAR',

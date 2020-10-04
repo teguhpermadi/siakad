@@ -19,6 +19,7 @@ class Auth extends CI_Controller
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
 		$this->lang->load('auth');
+
 	}
 
 	/**
@@ -727,33 +728,39 @@ class Auth extends CI_Controller
 			'name'  => 'first_name',
 			'id'    => 'first_name',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('first_name', $user->first_name),
 		];
 		$this->data['last_name'] = [
 			'name'  => 'last_name',
 			'id'    => 'last_name',
+			'class' => 'form-control',
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('last_name', $user->last_name),
 		];
 		$this->data['company'] = [
 			'name'  => 'company',
 			'id'    => 'company',
+			'class' => 'form-control',
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('company', $user->company),
 		];
 		$this->data['phone'] = [
 			'name'  => 'phone',
 			'id'    => 'phone',
+			'class' => 'form-control',
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('phone', $user->phone),
 		];
 		$this->data['password'] = [
 			'name' => 'password',
+			'class' => 'form-control',
 			'id'   => 'password',
 			'type' => 'password'
 		];
 		$this->data['password_confirm'] = [
 			'name' => 'password_confirm',
+			'class' => 'form-control',
 			'id'   => 'password_confirm',
 			'type' => 'password'
 		];

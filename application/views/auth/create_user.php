@@ -8,59 +8,59 @@
 					<h3 class="m-0 font-weight-bold text-primary">Tambah Pengguna</h3>
 				</div>
 				<div class="card-body">
-					<?php if($message) {?>
-					<div class="alert alert-warning alert-dismissible fade show" role="alert">
-						<?= $message ;?>
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
+					<?php if ($message) { ?>
+						<div class="alert alert-warning alert-dismissible fade show" role="alert">
+							<?= $message; ?>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
 					<?php } ?>
-					<?php echo form_open("auth/create_user");?>
+					<?php echo form_open("auth/create_user"); ?>
 
 					<p>
-						<?php echo form_input($first_name);?>
+						<?php echo form_input($first_name); ?>
 					</p>
 
 					<p>
-						<?php echo form_input($last_name);?>
+						<?php echo form_input($last_name); ?>
 					</p>
 
 					<?php
-                    if($identity_column!=='email') {
-                        echo '<p>';
-                        echo lang('create_user_identity_label', 'identity');
-                        echo '<br />';
-                        echo form_error('identity');
-                        echo form_input($identity);
-                        echo '</p>';
-                    }
-                    ?>
+					if ($identity_column !== 'email') {
+						echo '<p>';
+						echo lang('create_user_identity_label', 'identity');
+						echo '<br />';
+						echo form_error('identity');
+						echo form_input($identity);
+						echo '</p>';
+					}
+					?>
 
 					<p>
-						<?php echo form_input($company);?>
+						<?php echo form_input($company); ?>
 					</p>
 
 					<p>
-						<?php echo form_input($email);?>
+						<?php echo form_input($email); ?>
 					</p>
 
 					<p>
-						<?php echo form_input($phone);?>
+						<?php echo form_input($phone); ?>
 					</p>
 
 					<p>
-						<?php echo form_input($password);?>
+						<?php echo form_input($password); ?>
 					</p>
 
 					<p>
-						<?php echo form_input($password_confirm);?>
+						<?php echo form_input($password_confirm); ?>
 					</p>
 
 
-					<p><?php echo form_submit('submit', lang('create_user_submit_btn'), 'class="btn btn-primary"');?></p>
+					<p><?php echo form_submit('submit', lang('create_user_submit_btn'), 'class="btn btn-primary"'); ?></p>
 
-					<?php echo form_close();?>
+					<?php echo form_close(); ?>
 
 				</div>
 			</div>

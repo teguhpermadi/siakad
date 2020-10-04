@@ -91,6 +91,7 @@ class ComposerStaticInit2ccebe7bbdf90ef2a29aa90d77b546f3
         'P' => 
         array (
             'Psr\\SimpleCache\\' => 16,
+            'Psr\\Log\\' => 8,
             'Prophecy\\' => 9,
             'PhpOffice\\PhpWord\\' => 18,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
@@ -98,11 +99,13 @@ class ComposerStaticInit2ccebe7bbdf90ef2a29aa90d77b546f3
         ),
         'M' => 
         array (
+            'Monolog\\' => 8,
             'Matrix\\' => 7,
         ),
         'F' => 
         array (
             'FontLib\\' => 8,
+            'Faker\\' => 6,
         ),
         'D' => 
         array (
@@ -114,6 +117,17 @@ class ComposerStaticInit2ccebe7bbdf90ef2a29aa90d77b546f3
         array (
             'Complex\\' => 8,
             'Colors\\' => 7,
+        ),
+        'A' => 
+        array (
+            'Aura\\Project_Kernel\\_Config\\' => 28,
+            'Aura\\Project_Kernel\\' => 20,
+            'Aura\\Dispatcher\\' => 16,
+            'Aura\\Di\\' => 8,
+            'Aura\\Cli_Kernel\\_Config\\' => 24,
+            'Aura\\Cli_Kernel\\' => 16,
+            'Aura\\Cli\\_Config\\' => 17,
+            'Aura\\Cli\\' => 9,
         ),
     );
 
@@ -148,6 +162,10 @@ class ComposerStaticInit2ccebe7bbdf90ef2a29aa90d77b546f3
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'Prophecy\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
@@ -164,6 +182,10 @@ class ComposerStaticInit2ccebe7bbdf90ef2a29aa90d77b546f3
         array (
             0 => __DIR__ . '/..' . '/phpoffice/common/src/Common',
         ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
         'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
@@ -171,6 +193,10 @@ class ComposerStaticInit2ccebe7bbdf90ef2a29aa90d77b546f3
         'FontLib\\' => 
         array (
             0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
+        ),
+        'Faker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker',
         ),
         'Dompdf\\' => 
         array (
@@ -191,6 +217,38 @@ class ComposerStaticInit2ccebe7bbdf90ef2a29aa90d77b546f3
         'Colors\\' => 
         array (
             0 => __DIR__ . '/..' . '/mistic100/randomcolor/src',
+        ),
+        'Aura\\Project_Kernel\\_Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aura/project-kernel/config',
+        ),
+        'Aura\\Project_Kernel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aura/project-kernel/src',
+        ),
+        'Aura\\Dispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aura/dispatcher/src',
+        ),
+        'Aura\\Di\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aura/di/src',
+        ),
+        'Aura\\Cli_Kernel\\_Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aura/cli-kernel/config',
+        ),
+        'Aura\\Cli_Kernel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aura/cli-kernel/src',
+        ),
+        'Aura\\Cli\\_Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aura/cli/config',
+        ),
+        'Aura\\Cli\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aura/cli/src',
         ),
     );
 

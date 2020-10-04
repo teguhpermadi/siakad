@@ -946,4 +946,15 @@ class Auth extends CI_Controller
 			return $view_html;
 		}
 	}
+
+	//edit teguh
+
+	function manage_group()
+	{
+		$this->load->view('template/header');
+		$this->load->view('template/sidebar');
+		$this->load->view('auth/manage_group');
+		$this->load->view('template/sidebar');
+
+	}
 }

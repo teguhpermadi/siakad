@@ -19,7 +19,7 @@
 		</div>
 
 		<div class="col">
-			<a href="<?= base_url('auth/create_group'); ?>" class="btn btn-warning btn-icon-split">
+			<a href="<?= base_url('auth/manage_group'); ?>" class="btn btn-warning btn-icon-split">
 				<span class="icon text-white-50">
 					<i class="fas fa-user-tag"></i>
 				</span>

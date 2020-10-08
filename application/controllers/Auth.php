@@ -951,10 +951,13 @@ class Auth extends CI_Controller
 
 	function manage_group()
 	{
+		$this->db->select('*');
+		$this->db->from('groups');
+		$data['groups'] = $this->db->get()->result_array();
 		$this->load->view('template/header');
 		$this->load->view('template/sidebar');
-		$this->load->view('auth/manage_group');
-		$this->load->view('template/sidebar');
+		$this->load->view('auth/manage_group', $data);
+		$this->load->view('template/footer');
 
 	}
 }

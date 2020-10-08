@@ -12,33 +12,21 @@
 				<div class="card-header py-3">
 					<h6 class="m-0 font-weight-bold text-primary">Tambah Grup</h6>
 				</div>
-				<div class="card-body">
-					<?php if($message) {?>
-					<div class="alert alert-warning alert-dismissible fade show" role="alert">
-						<?= $message ;?>
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
+				<form>
+					<div class="card-body">
+						<div class="form-group">
+							<label for="">Group Name</label>
+							<input type="text" class='form-control'>
+						</div>
+						<div class="form-group">
+							<label for="">Description</label>
+							<input type="text" class='form-control'>
+						</div>
 					</div>
-					<?php } ?>
-					<?php echo form_open("auth/create_group");?>
-
-					<div class="form-group">
-						<?php echo lang('create_group_name_label', 'group_name');?> <br />
-						<?php echo form_input($group_name);?>
+					<div class="card-footer">
+						<button type="submit" class='btn btn-primary'>Simpan</button>
 					</div>
-
-					<div class="form-group">
-						<?php echo lang('create_group_desc_label', 'description');?> <br />
-						<?php echo form_input($description);?>
-					</div>
-
-					<div class="form-group">
-						<?php echo form_submit('submit', lang('create_group_submit_btn'), 'class="btn btn-primary"');?>
-					</div>
-
-					<?php echo form_close();?>
-				</div>
+				</form>
 			</div>
 		</div>
 
@@ -51,6 +39,15 @@
 					The styling for this basic card example is created by using default Bootstrap utility classes. By
 					using utility classes, the style of the card component can be easily modified with no need for any
 					custom CSS!
+					<table class='table table-hover'>
+						<?php foreach ($groups as $group) { ?>
+							<tr>
+								<td><?= $group['name'] ?></td>
+								<td><?= $group['description'] ?></td>
+								<td><a href="<?= base_url('auth/edit_group/'.$group['id']) ?>" class="btn btn-warning btn-sm">Edit</a></td>
+							</tr>
+						<?php } ?>
+					</table>
 				</div>
 			</div>
 		</div>

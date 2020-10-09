@@ -865,7 +865,8 @@ class Auth extends CI_Controller
 				if ($group_update)
 				{
 					$this->session->set_flashdata('message', $this->lang->line('edit_group_saved'));
-					redirect("auth", 'refresh');
+					// redirect("auth", 'refresh');
+					redirect('auth/manage_group');
 				}
 				else
 				{
@@ -884,6 +885,7 @@ class Auth extends CI_Controller
 			'name'    => 'group_name',
 			'id'      => 'group_name',
 			'type'    => 'text',
+			'class'	  => 'form-control',
 			'value'   => $this->form_validation->set_value('group_name', $group->name),
 		];
 		if ($this->config->item('admin_group', 'ion_auth') === $group->name) {
@@ -894,10 +896,14 @@ class Auth extends CI_Controller
 			'name'  => 'group_description',
 			'id'    => 'group_description',
 			'type'  => 'text',
+			'class'	  => 'form-control',
 			'value' => $this->form_validation->set_value('group_description', $group->description),
 		];
 
+		$this->load->view('template/header');
+		$this->load->view('template/sidebar');
 		$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
+		$this->load->view('template/footer');
 	}
 
 	/**

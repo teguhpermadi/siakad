@@ -45,21 +45,21 @@
 						<h3><?php echo lang('edit_user_groups_heading'); ?></h3>
 						<?php foreach ($groups as $group) : ?>
 							<div class="form-check form-check-inline">
-							<label class="checkbox">
-								<?php
-								$gID = $group['id'];
-								$checked = null;
-								$item = null;
-								foreach ($currentGroups as $grp) {
-									if ($gID == $grp->id) {
-										$checked = ' checked="checked"';
-										break;
+								<label class="checkbox">
+									<?php
+									$gID = $group['id'];
+									$checked = null;
+									$item = null;
+									foreach ($currentGroups as $grp) {
+										if ($gID == $grp->id) {
+											$checked = ' checked="checked"';
+											break;
+										}
 									}
-								}
-								?>
-								<input type="checkbox" name="groups[]" value="<?php echo $group['id']; ?>" <?php echo $checked; ?>>
-								<?php echo htmlspecialchars($group['name'], ENT_QUOTES, 'UTF-8'); ?>
-							</label>
+									?>
+									<input type="checkbox" name="groups[]" value="<?php echo $group['id']; ?>" <?php echo $checked; ?>>
+									<?php echo htmlspecialchars($group['name'], ENT_QUOTES, 'UTF-8'); ?>
+								</label>
 							</div>
 						<?php endforeach ?>
 
@@ -68,7 +68,10 @@
 					<?php echo form_hidden('id', $user->id); ?>
 					<?php echo form_hidden($csrf); ?>
 
-					<p><?php echo form_submit('submit', lang('edit_user_submit_btn'), 'class="btn btn-primary"'); ?></p>
+					<p>
+						<?php echo form_submit('submit', lang('edit_user_submit_btn'), 'class="btn btn-primary"'); ?>
+						<a href="<?= base_url('users') ?>" class="btn btn-secondary">Cancel</a>
+					</p>
 
 					<?php echo form_close(); ?>
 

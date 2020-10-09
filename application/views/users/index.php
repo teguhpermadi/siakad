@@ -8,33 +8,16 @@
 		<h1 class="h3 mb-0 text-gray-800">Data Pengguna</h1>
 	</div>
 
-	<div class='row mb-4'>
-		<div class="col">
-			<a href="<?= base_url('auth/create_user'); ?>" class="btn btn-info btn-icon-split">
-				<span class="icon text-white-50">
-					<i class="fas fa-user-plus"></i>
-				</span>
+	<div class='mb-4'>
+		<div class="btn-group" role="group" aria-label="Basic example">
+			<a href="<?= base_url('auth/create_user'); ?>" class="btn btn-primary">
 				<span class="text">Tambah Pengguna</span>
 			</a>
-		</div>
-
-		<div class="col">
-			<a href="<?= base_url('auth/manage_group'); ?>" class="btn btn-warning btn-icon-split">
-				<span class="icon text-white-50">
-					<i class="fas fa-user-tag"></i>
-				</span>
+			<a href="<?= base_url('auth/manage_group'); ?>" class="btn btn-primary">
 				<span class="text">Kelola Grup</span>
 			</a>
 		</div>
 
-		<div class="col">
-			<a href="#" class="btn btn-primary btn-icon-split">
-				<span class="icon text-white-50">
-					<i class="fas fa-upload"></i>
-				</span>
-				<span class="text">Upload Pengguna</span>
-			</a>
-		</div>
 	</div>
 
 	<!-- DataTales Example -->

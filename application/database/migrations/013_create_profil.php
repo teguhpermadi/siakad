@@ -55,17 +55,17 @@ class Migration_create_profil extends CI_Migration
                 'constraint' => '255',
                 'null' => TRUE,
             ),
-            'rt' => array(
+            'telp' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,
             ),
-            'rw' => array(
+            'website' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,
             ),
-            'dusun' => array(
+            'email' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,
@@ -75,16 +75,12 @@ class Migration_create_profil extends CI_Migration
                 'constraint' => '255',
                 'null' => TRUE,
             ),
-            'lintang' => array(
+            'logo' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,
             ),
-            'bujur' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => TRUE,
-            ),
+            
         ));
 
         // Add Primary Key.

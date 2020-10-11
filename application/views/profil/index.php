@@ -1,40 +1,75 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-<!-- cek datanya jika kosong -->
-<?php if($num_rows == 0): ?>
-			<div class="alert alert-danger" role="alert">
-				<p>Anda belum memasukan profil sekolah.</p><a href='<?= base_url('profil/add'); ?>' class='btn btn-primary'>Profil Sekolah</a>
-			</div>
-			<?php endif; ?>
+	<!-- cek datanya jika kosong -->
+	<?php if ($num_rows == 0) : ?>
+		<div class="alert alert-danger" role="alert">
+			<p>Anda belum memasukan profil sekolah.</p><a href='<?= base_url('profil/add'); ?>' class='btn btn-primary'>Profil Sekolah</a>
+		</div>
+	<?php endif; ?>
 
 	<div class="row">
 		<div class='col-md-12'>
-			<?php foreach($profil as $p){ ?>
-			<div class="card">
-                <img class="card-img-top" src="https://picsum.photos/1053/180">
-				<div class="card-body">
-					<h1 class="text-uppercase text-primary"><?php echo $p['namaSekolah']; ?></h1>
+			<?php foreach ($profil as $p) { ?>
+				<div class="card">
+					<img class="card-img-top" src="https://picsum.photos/1053/180">
+					<div class="card-body">
+
+						<div class="d-flex bd-highlight mb-3">
+							<div class="mr-auto p-2 bd-highlight">
+								<h1 class="text-uppercase text-primary"><?php echo $p['namaSekolah']; ?></h1>
+							</div>
+							<div class="p-2 bd-highlight">
+								<img class="rounded float-right" src="<?= base_url('uploads/' . $p['logo']) ?>" alt="not found" height="150px">
+							</div>
+						</div>
+					</div>
+					<table class='table table-striped'>
+						<tr>
+							<td>NPSN</td>
+							<td><?= $p['npsn']; ?></td>
+						</tr>
+						<tr>
+							<td>Alamat</td>
+							<td><?= $p['alamat']; ?></td>
+						</tr>
+						<tr>
+							<td>Desa/Kelurahan</td>
+							<td><?= $p['desaKelurahan']; ?></td>
+						</tr>
+						<tr>
+							<td>Kecamatan</td>
+							<td><?= $p['kecamatan']; ?></td>
+						</tr>
+						<tr>
+							<td>Kota/Kabupaten</td>
+							<td><?= $p['kabupatenKota']; ?></td>
+						</tr>
+						<tr>
+							<td>Provinsi</td>
+							<td><?= $p['provinsi']; ?></td>
+						</tr>
+						<tr>
+							<td>Kode Pos</td>
+							<td><?= $p['kodePos']; ?></td>
+						</tr>
+						<tr>
+							<td>Telp</td>
+							<td><?= $p['telp']; ?></td>
+						</tr>
+						<tr>
+							<td>Website</td>
+							<td><?= $p['website']; ?></td>
+						</tr>
+						<tr>
+							<td>Email</td>
+							<td><?= $p['email']; ?></td>
+						</tr>
+					</table>
+					<div class="card-body">
+						<a href="<?php echo site_url('profil/edit/' . $p['id']); ?>" class="btn btn-primary">Edit</a>
+					</div>
 				</div>
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">NPSN: <?php echo $p['npsn']; ?></li>
-                    <li class="list-group-item">Alamat: <?php echo $p['alamat']; ?></li>
-                    <li class="list-group-item">Telp: <?php echo $p['telp']; ?></li>
-					<li class="list-group-item">Webste: <?php echo $p['website']; ?></li>
-					<li class="list-group-item">Email: <?php echo $p['email']; ?></li>
-					<li class="list-group-item">Kode Pos: <?php echo $p['kodePos']; ?></li>
-					<li class="list-group-item">Desa/Kelurahan: <?php echo $p['desaKelurahan']; ?></li>
-					<li class="list-group-item">Kecamatan: <?php echo $p['kecamatan']; ?></li>
-					<li class="list-group-item">Kota/Kabupaten :<?php echo $p['kabupatenKota']; ?></li>
-					<li class="list-group-item">Provinsi: <?php echo $p['provinsi']; ?></li>
-					
-					<li class="list-group-item">Logo: <?php echo $p['logo']; ?></li>
-					<li class="list-group-item">Bujur: <?php echo $p['bujur']; ?></li>
-				</ul>
-				<div class="card-body">
-					<a href="<?php echo site_url('profil/edit/'.$p['id']); ?>" class="btn btn-primary">Edit</a>
-				</div>
-			</div>
 			<?php } ?>
 		</div>
 	</div>
@@ -68,7 +103,7 @@
 							<th>Bujur</th>
 							<th>Actions</th>
 						</tr>
-						<?php foreach($profil as $p){ ?>
+						<?php foreach ($profil as $p) { ?>
 						<tr>
 							<td><?php echo $p['id']; ?></td>
 							<td><?php echo $p['namaSekolah']; ?></td>
@@ -86,9 +121,9 @@
 							<td><?php echo $p['lintang']; ?></td>
 							<td><?php echo $p['bujur']; ?></td>
 							<td>
-								<a href="<?php echo site_url('profil/edit/'.$p['id']); ?>"
+								<a href="<?php echo site_url('profil/edit/' . $p['id']); ?>"
 									class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a>
-								<a href="<?php echo site_url('profil/remove/'.$p['id']); ?>"
+								<a href="<?php echo site_url('profil/remove/' . $p['id']); ?>"
 									class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
 							</td>
 						</tr>

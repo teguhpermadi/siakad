@@ -110,12 +110,17 @@ class Profil extends CI_Controller
 
                 $this->load->library('upload', $config);
 
-                if (!$this->upload->do_upload('logo')) {
-                    $error = array('error' => $this->upload->display_errors());
-                    print_r($error);
+                if ($_FILES['logo']['name'] == "") {
+                    $logo = $this->input->post('logo_old');
                 } else {
-                    $data = array('upload_data' => $this->upload->data());
-                    print_r($data);
+                    if (!$this->upload->do_upload('logo')) {
+                        $error = array('error' => $this->upload->display_errors());
+                        print_r($error);
+                    } else {
+                        $data = array('upload_data' => $this->upload->data());
+                        $logo = $data['upload_data']['file_name'];
+                        print_r($data);
+                    }
                 }
 
                 $params = array(
@@ -131,7 +136,7 @@ class Profil extends CI_Controller
                     'website' => $this->input->post('website'),
                     'email' => $this->input->post('email'),
                     'kodePos' => $this->input->post('kodePos'),
-                    'logo' => 'logo.' . $file_ext,
+                    'logo' => $logo,
                 );
 
                 $this->Profil_model->update_profil($id, $params);

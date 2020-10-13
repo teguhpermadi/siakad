@@ -35,6 +35,11 @@ class Migration_create_tahun_pelajaran extends CI_Migration
                 'constraint' => '255',
                 'null' => TRUE,
             ),
+            'ttd' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => TRUE,
+            ),
         ));
 
         // Add Primary Key.

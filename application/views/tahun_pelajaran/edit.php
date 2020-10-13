@@ -3,84 +3,79 @@
 
 	<!-- Content Row -->
 	<div class="row">
-		<div class="col-12">
+		<div class="col-6">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
 					<h3 class="m-0 font-weight-bold text-primary">Tahun Pelajaran</h3>
 				</div>
 				<div class="card-body">
-					<?php echo form_open('tahun_pelajaran/edit/'.$tahun_pelajaran['id'],array("class"=>"form-horizontal")); ?>
+					<?php echo form_open_multipart('tahun_pelajaran/edit/' . $tahun_pelajaran['id'], array("class" => "form-horizontal")); ?>
 					<div class="form-group">
-						<label for="tahun" class="col-md-4 control-label"><span
-								class="text-danger">*</span>Tahun</label>
-						<div class="col-md-8">
-							<input type="text" name="tahun"
-								value="<?php echo ($this->input->post('tahun') ? $this->input->post('tahun') : $tahun_pelajaran['tahun']); ?>"
-								class="form-control" id="tahun" />
-							<span class="text-danger"><?php echo form_error('tahun');?></span>
+						<label for="tahun" class="col-md-4 control-label"><span class="text-danger">*</span>Tahun</label>
+						<div class="col-md-12">
+							<input type="text" name="tahun" value="<?php echo ($this->input->post('tahun') ? $this->input->post('tahun') : $tahun_pelajaran['tahun']); ?>" class="form-control" id="tahun" />
+							<span class="text-danger"><?php echo form_error('tahun'); ?></span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="semester" class="col-md-4 control-label"><span
-								class="text-danger">*</span>Semester</label>
-						<div class="col-md-8">
+						<label for="semester" class="col-md-4 control-label"><span class="text-danger">*</span>Semester</label>
+						<div class="col-md-12">
 							<select name="semester" class="form-control">
 								<option value="">select</option>
-								<?php 
-            $semester_values = array(
-                'ganjil'=>'Ganjil',
-                'genap'=>'Genap',
-            );
+								<?php
+								$semester_values = array(
+									'ganjil' => 'Ganjil',
+									'genap' => 'Genap',
+								);
 
-            foreach($semester_values as $value => $display_text)
-            {
-                $selected = ($value == $tahun_pelajaran['semester']) ? ' selected="selected"' : "";
+								foreach ($semester_values as $value => $display_text) {
+									$selected = ($value == $tahun_pelajaran['semester']) ? ' selected="selected"' : "";
 
-                echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
-            } 
-            ?>
+									echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
+								}
+								?>
 							</select>
-							<span class="text-danger"><?php echo form_error('semester');?></span>
+							<span class="text-danger"><?php echo form_error('semester'); ?></span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="id_kepsek" class="col-md-4 control-label"><span
-								class="text-danger">*</span>Guru</label>
-						<div class="col-md-8">
+						<label for="id_kepsek" class="col-md-4 control-label"><span class="text-danger">*</span>Guru</label>
+						<div class="col-md-12">
 							<select name="id_kepsek" class="form-control">
 								<option value="">select guru</option>
-								<?php 
-            foreach($all_guru as $guru)
-            {
-                $selected = ($guru['id'] == $tahun_pelajaran['id_kepsek']) ? ' selected="selected"' : "";
+								<?php
+								foreach ($all_guru as $guru) {
+									$selected = ($guru['id'] == $tahun_pelajaran['id_kepsek']) ? ' selected="selected"' : "";
 
-                echo '<option value="'.$guru['id'].'" '.$selected.'>'.$guru['nama_lengkap'].'</option>';
-            } 
-            ?>
+									echo '<option value="' . $guru['id'] . '" ' . $selected . '>' . $guru['nama_lengkap'] . '</option>';
+								}
+								?>
 							</select>
-							<span class="text-danger"><?php echo form_error('id_kepsek');?></span>
+							<span class="text-danger"><?php echo form_error('id_kepsek'); ?></span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="tanggal_rapor" class="col-md-4 control-label"><span
-								class="text-danger">*</span>Tanggal Rapor</label>
-						<div class="col-md-8">
-							<input type="date" name="tanggal_rapor"
-								value="<?php echo ($this->input->post('tanggal_rapor') ? $this->input->post('tanggal_rapor') : $tahun_pelajaran['tanggal_rapor']); ?>"
-								class="form-control" id="tanggal_rapor" />
-							<span class="text-danger"><?php echo form_error('tanggal_rapor');?></span>
+						<label for="tanggal_rapor" class="col-md-4 control-label"><span class="text-danger">*</span>Tanggal Rapor</label>
+						<div class="col-md-12">
+							<input type="date" name="tanggal_rapor" value="<?php echo ($this->input->post('tanggal_rapor') ? $this->input->post('tanggal_rapor') : $tahun_pelajaran['tanggal_rapor']); ?>" class="form-control" id="tanggal_rapor" />
+							<span class="text-danger"><?php echo form_error('tanggal_rapor'); ?></span>
 						</div>
 					</div>
 
 					<div class="form-group">
-						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-primary">Simpan</button>
-							<a href='<?= base_url('tahun_pelajaran') ?>' class="btn btn-secondary">Batal</a>
-						</div>
+						<label for="" class="col-md-12 control-label">Upload Scan TTD</label>
+						<img class='ml-3' src="<?= base_url('./uploads/' . $tahun_pelajaran['ttd']) ?>" alt="not found" srcset="" height="100px">
+						<input class="col-md-12" type="file" name="ttd" id="ttd" />
+						<input type="hidden" name="ttd_old" value="<?= $tahun_pelajaran['ttd'] ?>">
 					</div>
 
-					<?php echo form_close(); ?>
 				</div>
+				<div class="card-footer">
+					<button type="submit" class="btn btn-primary">Simpan</button>
+					<a href='<?= base_url('tahun_pelajaran') ?>' class="btn btn-secondary">Batal</a>
+				</div>
+
+				<?php echo form_close(); ?>
 			</div>
 		</div>
 	</div>

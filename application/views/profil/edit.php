@@ -14,7 +14,7 @@
 						<div class="row clearfix">
 							<div class="col-md-6">
 								<label for="namaSekolah" class="control-label"><span
-										class="text-danger">*</span>NamaSekolah</label>
+										class="text-danger">*</span>Nama Institusi</label>
 								<div class="form-group">
 									<input type="text" name="namaSekolah"
 										value="<?php echo ($this->input->post('namaSekolah') ? $this->input->post('namaSekolah') : $profil['namaSekolah']); ?>"
@@ -23,7 +23,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label for="npsn" class="control-label">Npsn</label>
+								<label for="npsn" class="control-label">Nomor Induk Institusi</label>
 								<div class="form-group">
 									<input type="text" name="npsn"
 										value="<?php echo ($this->input->post('npsn') ? $this->input->post('npsn') : $profil['npsn']); ?>"
@@ -31,7 +31,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label for="bentukSekolah" class="control-label">BentukSekolah</label>
+								<label for="bentukSekolah" class="control-label">Bentuk Institusi</label>
 								<div class="form-group">
 									<input type="text" name="bentukSekolah"
 										value="<?php echo ($this->input->post('bentukSekolah') ? $this->input->post('bentukSekolah') : $profil['bentukSekolah']); ?>"
@@ -49,7 +49,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label for="desaKelurahan" class="control-label">DesaKelurahan</label>
+								<label for="desaKelurahan" class="control-label">Kelurahan</label>
 								<div class="form-group">
 									<input type="text" name="desaKelurahan"
 										value="<?php echo ($this->input->post('desaKelurahan') ? $this->input->post('desaKelurahan') : $profil['desaKelurahan']); ?>"
@@ -65,7 +65,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label for="kabupatenKota" class="control-label">KabupatenKota</label>
+								<label for="kabupatenKota" class="control-label">Kota</label>
 								<div class="form-group">
 									<input type="text" name="kabupatenKota"
 										value="<?php echo ($this->input->post('kabupatenKota') ? $this->input->post('kabupatenKota') : $profil['kabupatenKota']); ?>"
@@ -81,7 +81,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label for="telp" class="control-label">telp</label>
+								<label for="telp" class="control-label">Telp</label>
 								<div class="form-group">
 									<input type="text" name="telp"
 										value="<?php echo ($this->input->post('telp') ? $this->input->post('telp') : $profil['telp']); ?>"
@@ -89,7 +89,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label for="website" class="control-label">website</label>
+								<label for="website" class="control-label">Website</label>
 								<div class="form-group">
 									<input type="text" name="website"
 										value="<?php echo ($this->input->post('website') ? $this->input->post('website') : $profil['website']); ?>"
@@ -97,7 +97,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label for="email" class="control-label">email</label>
+								<label for="email" class="control-label">Email</label>
 								<div class="form-group">
 									<input type="text" name="email"
 										value="<?php echo ($this->input->post('email') ? $this->input->post('email') : $profil['email']); ?>"
@@ -105,7 +105,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label for="kodePos" class="control-label">KodePos</label>
+								<label for="kodePos" class="control-label">Kode Pos</label>
 								<div class="form-group">
 									<input type="text" name="kodePos"
 										value="<?php echo ($this->input->post('kodePos') ? $this->input->post('kodePos') : $profil['kodePos']); ?>"
@@ -113,7 +113,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label for="logo" class="control-label">logo</label>
+								<label for="logo" class="control-label">Logo</label>
 								<div class="form-group">
 									<img src="<?= base_url('./uploads/'.$profil['logo']) ?>" alt="not found" srcset="" height="100px">
 									<input type="file" name="logo" id="logo" />

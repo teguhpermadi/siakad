@@ -63,7 +63,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="" class="col-md-12 control-label">Upload Scan TTD</label>
+						<label for="" class="col-md-12 control-label">Upload Scan TTD (PNG)</label>
 						<img class='ml-3' src="<?= base_url('./uploads/' . $tahun_pelajaran['ttd']) ?>" alt="not found" srcset="" height="100px">
 						<input class="col-md-12" type="file" name="ttd" id="ttd" />
 						<input type="hidden" name="ttd_old" value="<?= $tahun_pelajaran['ttd'] ?>">

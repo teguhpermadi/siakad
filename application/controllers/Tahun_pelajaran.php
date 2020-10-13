@@ -47,7 +47,7 @@ class Tahun_pelajaran extends CI_Controller
         if ($this->form_validation->run()) {
             // upload image
             $config['upload_path']          = './uploads/';
-            $config['allowed_types']        = 'jpg|png';
+            $config['allowed_types']        = 'png';
             $config['overwrite']             = true;
             $config['file_name']             = 'ttd_' . $this->input->post('tahun');
 
@@ -102,7 +102,7 @@ class Tahun_pelajaran extends CI_Controller
                 // upload image
                 $file_ext = pathinfo($_FILES["ttd"]["name"], PATHINFO_EXTENSION);
                 $config['upload_path']          = './uploads/';
-                $config['allowed_types']        = 'jpg|png';
+                $config['allowed_types']        = 'png';
                 $config['overwrite']             = true;
                 $config['file_name']             = 'ttd_'.$this->input->post('tahun');
 

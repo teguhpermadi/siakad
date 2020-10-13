@@ -110,16 +110,9 @@
 							<div class="col-md-6">
 								<label for="logo" class="control-label">logo</label>
 								<div class="form-group">
-									<input type="text" name="logo"
-										value="<?php echo $this->input->post('logo'); ?>" class="form-control"
+									<input type="file" name="logo"
+										value="<?php echo $this->input->post('logo'); ?>" class="form-control-file"
 										id="logo" />
-								</div>
-							</div>
-							<div class="col-md-6">
-								<label for="bujur" class="control-label">Bujur</label>
-								<div class="form-group">
-									<input type="text" name="bujur" value="<?php echo $this->input->post('bujur'); ?>"
-										class="form-control" id="bujur" />
 								</div>
 							</div>
 						</div>

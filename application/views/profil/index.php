@@ -27,9 +27,6 @@
 					<li class="list-group-item">Kecamatan: <?php echo $p['kecamatan']; ?></li>
 					<li class="list-group-item">Kota/Kabupaten :<?php echo $p['kabupatenKota']; ?></li>
 					<li class="list-group-item">Provinsi: <?php echo $p['provinsi']; ?></li>
-					
-					<li class="list-group-item">Logo: <?php echo $p['logo']; ?></li>
-					<li class="list-group-item">Bujur: <?php echo $p['bujur']; ?></li>
 				</ul>
 				<div class="card-body">
 					<a href="<?php echo site_url('profil/edit/'.$p['id']); ?>" class="btn btn-primary">Edit</a>

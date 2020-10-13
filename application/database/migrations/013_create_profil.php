@@ -55,32 +55,27 @@ class Migration_create_profil extends CI_Migration
                 'constraint' => '255',
                 'null' => TRUE,
             ),
-            'rt' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => TRUE,
-            ),
-            'rw' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => TRUE,
-            ),
-            'dusun' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => TRUE,
-            ),
             'kodePos' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,
             ),
-            'lintang' => array(
+            'telp' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,
             ),
-            'bujur' => array(
+            'logo' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => TRUE,
+            ),
+            'website' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => TRUE,
+            ),
+            'email' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,

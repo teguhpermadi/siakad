@@ -55,17 +55,7 @@ class Migration_create_profil extends CI_Migration
                 'constraint' => '255',
                 'null' => TRUE,
             ),
-            'kodePos' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => TRUE,
-            ),
             'telp' => array(
-                'type' => 'VARCHAR',
-                'constraint' => '255',
-                'null' => TRUE,
-            ),
-            'logo' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,
@@ -80,6 +70,17 @@ class Migration_create_profil extends CI_Migration
                 'constraint' => '255',
                 'null' => TRUE,
             ),
+            'logo' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => TRUE,
+            ),
+            'logo' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => TRUE,
+            ),
+            
         ));
 
         // Add Primary Key.

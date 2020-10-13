@@ -9,110 +9,87 @@
 					<h3 class="m-0 font-weight-bold text-primary">Profil Lembaga</h3>
 				</div>
 				<div class="card-body">
-					<?php echo form_open('profil/add'); ?>
+					<?php echo form_open_multipart('profil/add'); ?>
 					<div class="box-body">
 						<div class="row clearfix">
 							<div class="col-md-6">
-								<label for="namaSekolah" class="control-label"><span
-										class="text-danger">*</span>NamaSekolah</label>
+								<label for="namaSekolah" class="control-label"><span class="text-danger">*</span>NamaSekolah</label>
 								<div class="form-group">
-									<input type="text" name="namaSekolah"
-										value="<?php echo $this->input->post('namaSekolah'); ?>" class="form-control"
-										id="namaSekolah" />
-									<span class="text-danger"><?php echo form_error('namaSekolah');?></span>
+									<input type="text" name="namaSekolah" value="<?php echo $this->input->post('namaSekolah'); ?>" class="form-control" id="namaSekolah" />
+									<span class="text-danger"><?php echo form_error('namaSekolah'); ?></span>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label for="npsn" class="control-label">Npsn</label>
 								<div class="form-group">
-									<input type="text" name="npsn" value="<?php echo $this->input->post('npsn'); ?>"
-										class="form-control" id="npsn" />
+									<input type="text" name="npsn" value="<?php echo $this->input->post('npsn'); ?>" class="form-control" id="npsn" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label for="bentukSekolah" class="control-label">BentukSekolah</label>
 								<div class="form-group">
-									<input type="text" name="bentukSekolah"
-										value="<?php echo $this->input->post('bentukSekolah'); ?>" class="form-control"
-										id="bentukSekolah" />
+									<input type="text" name="bentukSekolah" value="<?php echo $this->input->post('bentukSekolah'); ?>" class="form-control" id="bentukSekolah" />
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label for="alamat" class="control-label"><span
-										class="text-danger">*</span>Alamat</label>
+								<label for="alamat" class="control-label"><span class="text-danger">*</span>Alamat</label>
 								<div class="form-group">
-									<input type="text" name="alamat" value="<?php echo $this->input->post('alamat'); ?>"
-										class="form-control" id="alamat" />
-									<span class="text-danger"><?php echo form_error('alamat');?></span>
+									<input type="text" name="alamat" value="<?php echo $this->input->post('alamat'); ?>" class="form-control" id="alamat" />
+									<span class="text-danger"><?php echo form_error('alamat'); ?></span>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label for="desaKelurahan" class="control-label">DesaKelurahan</label>
 								<div class="form-group">
-									<input type="text" name="desaKelurahan"
-										value="<?php echo $this->input->post('desaKelurahan'); ?>" class="form-control"
-										id="desaKelurahan" />
+									<input type="text" name="desaKelurahan" value="<?php echo $this->input->post('desaKelurahan'); ?>" class="form-control" id="desaKelurahan" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label for="kecamatan" class="control-label">Kecamatan</label>
 								<div class="form-group">
-									<input type="text" name="kecamatan"
-										value="<?php echo $this->input->post('kecamatan'); ?>" class="form-control"
-										id="kecamatan" />
+									<input type="text" name="kecamatan" value="<?php echo $this->input->post('kecamatan'); ?>" class="form-control" id="kecamatan" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label for="kabupatenKota" class="control-label">KabupatenKota</label>
 								<div class="form-group">
-									<input type="text" name="kabupatenKota"
-										value="<?php echo $this->input->post('kabupatenKota'); ?>" class="form-control"
-										id="kabupatenKota" />
+									<input type="text" name="kabupatenKota" value="<?php echo $this->input->post('kabupatenKota'); ?>" class="form-control" id="kabupatenKota" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label for="provinsi" class="control-label">Provinsi</label>
 								<div class="form-group">
-									<input type="text" name="provinsi"
-										value="<?php echo $this->input->post('provinsi'); ?>" class="form-control"
-										id="provinsi" />
+									<input type="text" name="provinsi" value="<?php echo $this->input->post('provinsi'); ?>" class="form-control" id="provinsi" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label for="telp" class="control-label">telp</label>
 								<div class="form-group">
-									<input type="text" name="telp" value="<?php echo $this->input->post('telp'); ?>"
-										class="form-control" id="telp" />
+									<input type="text" name="telp" value="<?php echo $this->input->post('telp'); ?>" class="form-control" id="telp" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label for="website" class="control-label">website</label>
 								<div class="form-group">
-									<input type="text" name="website" value="<?php echo $this->input->post('website'); ?>"
-										class="form-control" id="website" />
+									<input type="text" name="website" value="<?php echo $this->input->post('website'); ?>" class="form-control" id="website" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label for="email" class="control-label">email</label>
 								<div class="form-group">
-									<input type="text" name="email" value="<?php echo $this->input->post('email'); ?>"
-										class="form-control" id="email" />
+									<input type="text" name="email" value="<?php echo $this->input->post('email'); ?>" class="form-control" id="email" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label for="kodePos" class="control-label">KodePos</label>
 								<div class="form-group">
-									<input type="text" name="kodePos"
-										value="<?php echo $this->input->post('kodePos'); ?>" class="form-control"
-										id="kodePos" />
+									<input type="text" name="kodePos" value="<?php echo $this->input->post('kodePos'); ?>" class="form-control" id="kodePos" />
 								</div>
 							</div>
 							<div class="col-md-6">
 								<label for="logo" class="control-label">logo</label>
 								<div class="form-group">
-									<input type="file" name="logo"
-										value="<?php echo $this->input->post('logo'); ?>" class="form-control-file"
-										id="logo" />
+									<input type="file" name="logo" class="form-control-file" id="logo" />
 								</div>
 							</div>
 						</div>

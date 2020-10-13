@@ -9,7 +9,7 @@
 					<h3 class="m-0 font-weight-bold text-primary">Profil Lembaga</h3>
 				</div>
 				<div class="card-body">
-					<?php echo form_open('profil/edit/'.$profil['id']); ?>
+					<?php echo form_open_multipart('profil/edit/'.$profil['id']); ?>
 					<div class="box-body">
 						<div class="row clearfix">
 							<div class="col-md-6">
@@ -115,25 +115,17 @@
 							<div class="col-md-6">
 								<label for="logo" class="control-label">logo</label>
 								<div class="form-group">
-									<input type="text" name="logo"
-										value="<?php echo ($this->input->post('logo') ? $this->input->post('logo') : $profil['logo']); ?>"
-										class="form-control" id="logo" />
-								</div>
-							</div>
-							<div class="col-md-6">
-								<label for="bujur" class="control-label">Bujur</label>
-								<div class="form-group">
-									<input type="text" name="bujur"
-										value="<?php echo ($this->input->post('bujur') ? $this->input->post('bujur') : $profil['bujur']); ?>"
-										class="form-control" id="bujur" />
+									<img src="<?= base_url('./uploads/'.$profil['logo']) ?>" alt="not found" srcset="" height="100px">
+									<input type="file" name="logo" id="logo" />
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="box-footer">
-						<button type="submit" class="btn btn-success">
-							<i class="fa fa-check"></i> Save
+						<button type="submit" class="btn btn-primary">
+							Simpan
 						</button>
+						<a class="btn btn-secondary" href="<?= base_url('profil'); ?>">Batal</a>
 					</div>
 					<?php echo form_close(); ?>
 				</div>

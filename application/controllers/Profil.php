@@ -35,30 +35,30 @@ class Profil extends CI_Controller
      */
     function add()
     {
-        // upload
-        $config['upload_path']          = 'uploads/';
-        $config['allowed_types']        = 'jpg|png';
-        $config['max_size']             = 100;
-        $config['max_width']            = 1024;
-        $config['max_height']           = 768;
-
-        $this->load->library('upload', $config);
-
-        if ( ! $this->upload->do_upload('userfile'))
-        {
-                $error = array('error' => $this->upload->display_errors());
-        }
-        else
-        {
-                $data = array('upload_data' => $this->upload->data());
-        }
-        
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('namaSekolah', 'NamaSekolah', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
 
         if ($this->form_validation->run()) {
+
+            // upload image
+            $file_ext = pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
+            $config['upload_path']          = './uploads/';
+            $config['allowed_types']        = 'jpg|png';
+            $config['overwrite']             = true;
+            $config['file_name']             = 'logo';
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('logo')) {
+                $error = array('error' => $this->upload->display_errors());
+                print_r($error);
+            } else {
+                $data = array('upload_data' => $this->upload->data());
+                print_r($data);
+            }
+
             $params = array(
                 'namaSekolah' => $this->input->post('namaSekolah'),
                 'npsn' => $this->input->post('npsn'),
@@ -72,9 +72,9 @@ class Profil extends CI_Controller
                 'website' => $this->input->post('website'),
                 'email' => $this->input->post('email'),
                 'kodePos' => $this->input->post('kodePos'),
-                'logo' => $this->input->post('logo'),
+                'logo' => 'logo.' . $file_ext,
             );
-            
+
             $profil_id = $this->Profil_model->add_profil($params);
             redirect('profil/index');
         } else {
@@ -101,6 +101,23 @@ class Profil extends CI_Controller
             $this->form_validation->set_rules('alamat', 'Alamat', 'required');
 
             if ($this->form_validation->run()) {
+                // upload image
+                $file_ext = pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
+                $config['upload_path']          = './uploads/';
+                $config['allowed_types']        = 'jpg|png';
+                $config['overwrite']             = true;
+                $config['file_name']             = 'logo';
+
+                $this->load->library('upload', $config);
+
+                if (!$this->upload->do_upload('logo')) {
+                    $error = array('error' => $this->upload->display_errors());
+                    print_r($error);
+                } else {
+                    $data = array('upload_data' => $this->upload->data());
+                    print_r($data);
+                }
+
                 $params = array(
                     'namaSekolah' => $this->input->post('namaSekolah'),
                     'npsn' => $this->input->post('npsn'),
@@ -114,8 +131,7 @@ class Profil extends CI_Controller
                     'website' => $this->input->post('website'),
                     'email' => $this->input->post('email'),
                     'kodePos' => $this->input->post('kodePos'),
-                    'logo' => $this->input->post('logo'),
-                    'bujur' => $this->input->post('bujur'),
+                    'logo' => 'logo.' . $file_ext,
                 );
 
                 $this->Profil_model->update_profil($id, $params);

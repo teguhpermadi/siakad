@@ -45,7 +45,7 @@ class Profil extends CI_Controller
             // upload image
             $file_ext = pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
             $config['upload_path']          = './uploads/';
-            $config['allowed_types']        = 'jpg|png';
+            $config['allowed_types']        = 'png';
             $config['overwrite']             = true;
             $config['file_name']             = 'logo';
 
@@ -104,7 +104,7 @@ class Profil extends CI_Controller
                 // upload image
                 $file_ext = pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
                 $config['upload_path']          = './uploads/';
-                $config['allowed_types']        = 'jpg|png';
+                $config['allowed_types']        = 'png';
                 $config['overwrite']             = true;
                 $config['file_name']             = 'logo';
 

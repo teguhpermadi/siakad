@@ -113,7 +113,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label for="logo" class="control-label">Logo</label>
+								<label for="logo" class="control-label">Logo (PNG)</label>
 								<div class="form-group">
 									<img src="<?= base_url('./uploads/'.$profil['logo']) ?>" alt="not found" srcset="" height="100px">
 									<input type="file" name="logo" id="logo" />

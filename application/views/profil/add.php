@@ -87,7 +87,7 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<label for="logo" class="control-label">Logo</label>
+								<label for="logo" class="control-label">Logo (PNG)</label>
 								<div class="form-group">
 									<input type="file" name="logo" class="form-control-file" id="logo" />
 								</div>

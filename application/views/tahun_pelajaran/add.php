@@ -72,7 +72,7 @@
 					</div>
 					<div class="form-group">
 						<label for="" class="col-md-12 control-label">Upload Scan TTD (PNG)</label>
-						<input class="col-md-12" type="file" name="ttd" id="ttd">
+						<input class="col-md-12" type="file" name="ttd" id="ttd" accept="image/x-png">
 					</div>
 
 				</div>

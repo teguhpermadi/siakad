@@ -116,7 +116,7 @@
 								<label for="logo" class="control-label">Logo (PNG)</label>
 								<div class="form-group">
 									<img src="<?= base_url('./uploads/'.$profil['logo']) ?>" alt="not found" srcset="" height="100px">
-									<input type="file" name="logo" id="logo" />
+									<input type="file" name="logo" id="logo" accept="image/x-png"/>
 									<input type="hidden" name="logo_old" value="<?= $profil['logo']; ?>">
 								</div>
 							</div>

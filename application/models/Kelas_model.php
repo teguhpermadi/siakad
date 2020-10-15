@@ -53,4 +53,12 @@ class Kelas_model extends CI_Model
     {
         return $this->db->delete('kelas',array('id'=>$id));
     }
+
+    // hitung
+    function count_row()
+    {
+        $this->db->select('id');
+        $this->db->from('kelas');
+        return $this->db->get()->num_rows();
+    }
 }

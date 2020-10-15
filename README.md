@@ -6,3 +6,4 @@ version siakad-alpa
 3. fix bug profil
 4. fix bug tahun pelajaran
 5. fix bug clear cache profil dan tahun pelajaran
+6. fix bug dashboard

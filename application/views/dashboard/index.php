@@ -5,46 +5,50 @@
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
 	</div>
-	<?php echo $this->session->flashdata('message');?>
+	<?php echo $this->session->flashdata('message'); ?>
 
 	<!-- title -->
 	<div class="row mb-4">
 		<div class='col-12'>
 			<!-- cek datanya jika kosong -->
-			<?php if($num_rows == 0): ?>
-			<div class="alert alert-danger" role="alert">
-				<p>Anda belum memasukan profil sekolah.</p><a href='<?= base_url('profil/add'); ?>' class='btn btn-primary'>Profil Sekolah</a>
-			</div>
+			<?php if ($num_rows == 0) : ?>
+				<div class="alert alert-danger" role="alert">
+					<p>Anda belum memasukan profil sekolah.</p><a href='<?= base_url('profil/add'); ?>' class='btn btn-primary'>Profil Sekolah</a>
+				</div>
 			<?php endif; ?>
 
 			<!-- cek data tahun pelajaran -->
-			<?php if($tahun_pelajaran == null): ?>
-			<div class="alert alert-danger" role="alert">
-				<p>Anda belum memasukan data Tahun Pelajaran.</p><a href='<?= base_url('tahun_pelajaran'); ?>' class='btn btn-primary'>Tahun Pelajaran</a>
-			</div>
-			<?php endif; ?>
-			<?php foreach($profil as $p) {?>
-			<div class="card">
-				<div class="card-body">
-					<p>
-						<img src="<?= base_url('uploads/' . $p['logo']) ?>" class='img-thumbnail float-left mr-4 mt-4' />
-						<ul class="list-unstyled">
-							<li>
-								<h3 class="text-primary">Sistem Informasi Akademik</h3>
-							</li>
-							<li>
-								<h4 class="text-uppercase"><?= $p['namaSekolah']?></h4>
-							</li>
-							<li>Alamat: <?= $p['alamat']?></li>
-							<li>Telp: <?= $p['telp']?></li>
-							<li>Email: <?= $p['email']?></li>
-							<li>Website: <?= $p['website']?></li>
-							<li><a href="<?php echo site_url('profil/edit/'.$p['id']); ?>" class="btn btn-primary">Edit
-									Profil</a></li>
-						</ul>
-					</p>
+			<?php if ($tahun_pelajaran == null) : ?>
+				<div class="alert alert-danger" role="alert">
+					<p>Anda belum memasukan data Tahun Pelajaran.</p><a href='<?= base_url('tahun_pelajaran'); ?>' class='btn btn-primary'>Tahun Pelajaran</a>
 				</div>
-			</div>
+			<?php endif; ?>
+			<?php foreach ($profil as $p) { ?>
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-2">
+								<img class='img-thumbnail shadow-sm' src="<?= base_url('uploads/' . $p['logo']) ?>"/>
+							</div>
+							<div class="col-md-10">
+								<ul class="list-unstyled">
+									<li>
+										<h3 class="text-primary"><strong>Sistem Informasi Akademik</strong></h3>
+									</li>
+									<li>
+										<h4 class="text-uppercase"><?= $p['namaSekolah'] ?></h4>
+									</li>
+									<li>Alamat: <?= $p['alamat'] ?></li>
+									<li>Telp: <?= $p['telp'] ?></li>
+									<li>Email: <?= $p['email'] ?></li>
+									<li>Website: <?= $p['website'] ?></li>
+									<li><a href="<?php echo site_url('profil/edit/' . $p['id']); ?>" class="btn btn-primary">Edit
+											Profil</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
 			<?php } ?>
 		</div>
 	</div>
@@ -92,9 +96,9 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Jumlah Kelas dan Rombel
+							<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Jumlah Kelas
 							</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlah_kelas; ?></div>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-users fa-2x"></i>
@@ -112,7 +116,7 @@
 						<div class="col mr-2">
 							<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Jumlah Mata Pelajaran
 							</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+							<div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jumlah_mapel; ?></div>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-book fa-2x"></i>

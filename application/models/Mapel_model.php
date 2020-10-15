@@ -53,4 +53,12 @@ class Mapel_model extends CI_Model
     {
         return $this->db->delete('mapel',array('id'=>$id));
     }
+
+    // hitung
+    function count_row()
+    {
+        $this->db->select('id');
+        $this->db->from('mapel');
+        return $this->db->get()->num_rows();
+    }
 }

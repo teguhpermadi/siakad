@@ -8,6 +8,8 @@ class Dashboard extends CI_Controller {
         $this->load->model('Profil_model');
         $this->load->model('Guru_model');
         $this->load->model('Siswa_model');
+        $this->load->model('Kelas_model');
+        $this->load->model('Mapel_model');
         $this->load->model('Tahun_pelajaran_model');
 
         // cek user login
@@ -24,6 +26,8 @@ class Dashboard extends CI_Controller {
         $this->data['num_rows'] = $this->Profil_model->count_row();
         $this->data['jumlah_guru'] = $this->Guru_model->count_row();
         $this->data['jumlah_siswa'] = $this->Siswa_model->count_row();
+        $this->data['jumlah_kelas'] = $this->Kelas_model->count_row();
+        $this->data['jumlah_mapel'] = $this->Mapel_model->count_row();
         
         // print_r($_SESSION);
         // $this->session->set_flashdata('message', 'anda berhasil menginput data');

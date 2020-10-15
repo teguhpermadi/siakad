@@ -27,7 +27,7 @@
 			<div class="card">
 				<div class="card-body">
 					<p>
-						<img src="https://picsum.photos/200" class='img-thumbnail float-left mr-4 mt-4' />
+						<img src="<?= base_url('uploads/' . $p['logo']) ?>" class='img-thumbnail float-left mr-4 mt-4' />
 						<ul class="list-unstyled">
 							<li>
 								<h3 class="text-primary">Sistem Informasi Akademik</h3>

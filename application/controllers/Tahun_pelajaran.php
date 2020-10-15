@@ -49,7 +49,7 @@ class Tahun_pelajaran extends CI_Controller
             $config['upload_path']          = './uploads/';
             $config['allowed_types']        = 'png';
             $config['overwrite']             = true;
-            $config['file_name']             = 'ttd_' . $this->input->post('tahun');
+            $config['file_name']             = 'ttd_' . $this->input->post('tahun') . '_' . $this->input->post('semester');
 
             $this->load->library('upload', $config);
 
@@ -68,6 +68,8 @@ class Tahun_pelajaran extends CI_Controller
                 );
 
                 $tahun_pelajaran_id = $this->Tahun_pelajaran_model->add_tahun_pelajaran($params);
+                // Deletes cache for the currently requested URI
+                $this->output->delete_cache('tahun_pelajaran/index');
                 redirect('tahun_pelajaran/index');
             }
         } else {
@@ -104,7 +106,7 @@ class Tahun_pelajaran extends CI_Controller
                 $config['upload_path']          = './uploads/';
                 $config['allowed_types']        = 'png';
                 $config['overwrite']             = true;
-                $config['file_name']             = 'ttd_'.$this->input->post('tahun');
+                $config['file_name']             = 'ttd_' . $this->input->post('tahun') . '_' . $this->input->post('semester');
 
                 $this->load->library('upload', $config);
 
@@ -130,6 +132,8 @@ class Tahun_pelajaran extends CI_Controller
                 );
 
                 $this->Tahun_pelajaran_model->update_tahun_pelajaran($id, $params);
+                // Deletes cache for the currently requested URI
+                $this->output->delete_cache('tahun_pelajaran/index');
                 redirect('tahun_pelajaran/index');
             } else {
                 $this->load->model('Guru_model');

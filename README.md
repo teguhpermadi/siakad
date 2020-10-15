@@ -5,3 +5,4 @@ version siakad-alpa
 2. fix bug manage groups
 3. fix bug profil
 4. fix bug tahun pelajaran
+5. fix bug clear cache profil dan tahun pelajaran

@@ -76,6 +76,8 @@ class Profil extends CI_Controller
             );
 
             $profil_id = $this->Profil_model->add_profil($params);
+            // Deletes cache for the currently requested URI
+            $this->output->delete_cache('profil/index');
             redirect('profil/index');
         } else {
             $data['_view'] = 'profil/add';
@@ -140,6 +142,8 @@ class Profil extends CI_Controller
                 );
 
                 $this->Profil_model->update_profil($id, $params);
+                // Deletes cache for the currently requested URI
+                $this->output->delete_cache('profil/index');
                 redirect('profil/index');
             } else {
                 $data['_view'] = 'profil/edit';

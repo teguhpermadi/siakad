@@ -34,7 +34,7 @@ class Siswa_model extends CI_Model
     function add_siswa($params)
     {
         $this->db->insert('siswa',$params);
-        // return $this->db->insert_id();
+        return $this->db->insert_id();
     }
     
     /*

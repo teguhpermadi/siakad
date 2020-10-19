@@ -9,8 +9,8 @@
 					<h3 class="m-0 font-weight-bold text-primary">Tambah Siswa</h3>
 				</div>
 				<div class="card-body">
-					<?php echo form_open('siswa/add', array("class" => "form-horizontal")); ?>
-					<h3>Identitas Pribadi</h3>
+					<?php echo form_open_multipart('siswa/add', array("class" => "form-horizontal")); ?>
+					<h3 class="text-info font-weight-bold">Identitas Pribadi</h3>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
@@ -77,13 +77,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="nis">NIS (Nomor Induk Siswa)</label>
-								<input type="text" name="nis" value="<?php echo $this->input->post('nis'); ?>" class="form-control" id="nis" />
+								<input type="text" pattern="\d*" name="nis" value="<?php echo $this->input->post('nis'); ?>" class="form-control" id="nis" />
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="nisn">NISN (Nomor Induk Siswa Nasional)</label>
-								<input type="text" name="nisn" value="<?php echo $this->input->post('nisn'); ?>" class="form-control" id="nisn" />
+								<input type="text" pattern="\d*" name="nisn" value="<?php echo $this->input->post('nisn'); ?>" class="form-control" id="nisn" />
 							</div>
 						</div>
 					</div>
@@ -91,13 +91,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="nik">NIK (Nomor Induk Kependudukan)</label>
-								<input type="text" name="nik" value="<?php echo $this->input->post('nik'); ?>" class="form-control" id="nik" />
+								<input type="text" pattern="\d*" name="nik" value="<?php echo $this->input->post('nik'); ?>" class="form-control" id="nik" maxlength="16"/>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="nikk">NIKK (Nomor Induk Kartu Keluarga)</label>
-								<input type="text" name="nikk" value="<?php echo $this->input->post('nikk'); ?>" class="form-control" id="nikk" />
+								<input type="text" pattern="\d*" name="nikk" value="<?php echo $this->input->post('nikk'); ?>" class="form-control" id="nikk" maxlength="16"/>
 							</div>
 						</div>
 					</div>
@@ -129,140 +129,155 @@
 							</div>
 						</div>
 					</div>
-
-
-
-					<div class="form-group">
-						<label for="kecamatan">Kecamatan</label>
-						<div>
-							<input type="text" name="kecamatan" value="<?php echo $this->input->post('kecamatan'); ?>" class="form-control" id="kecamatan" />
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="kecamatan">Kecamatan</label>
+								<input type="text" name="kecamatan" value="<?php echo $this->input->post('kecamatan'); ?>" class="form-control" id="kecamatan" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="kota_kab">Kota/Kab</label>
+								<input type="text" name="kota_kab" value="<?php echo $this->input->post('kota_kab'); ?>" class="form-control" id="kota_kab" />
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="kota_kab">Kota/Kab</label>
-						<div>
-							<input type="text" name="kota_kab" value="<?php echo $this->input->post('kota_kab'); ?>" class="form-control" id="kota_kab" />
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="provinsi">Provinsi</label>
+								<input type="text" name="provinsi" value="<?php echo $this->input->post('provinsi'); ?>" class="form-control" id="provinsi" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="kode_pos">Kode Pos</label>
+								<input type="number" name="kode_pos" value="<?php echo $this->input->post('kode_pos'); ?>" class="form-control" id="kode_pos" maxlength="5"/>
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="provinsi">Provinsi</label>
-						<div>
-							<input type="text" name="provinsi" value="<?php echo $this->input->post('provinsi'); ?>" class="form-control" id="provinsi" />
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="tahun_masuk">Tahun Masuk</label>
+								<input type="number" name="tahun_masuk" value="<?php echo $this->input->post('tanggal_masuk'); ?>" class="form-control" id="tanggal_masuk" />
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="kode_pos">Kode Pos</label>
-						<div>
-							<input type="text" name="kode_pos" value="<?php echo $this->input->post('kode_pos'); ?>" class="form-control" id="kode_pos" />
-						</div>
-					</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="aktif">Status Keaktifan</label>
+								<div>
+									<select name="aktif" class="form-control">
+										<option value="">select</option>
+										<?php
+										$aktif_values = array(
+											'1' => 'Aktif',
+											'0' => 'Tidak Aktif',
+										);
 
+										foreach ($aktif_values as $value => $display_text) {
+											// $selected = ($value == $this->input->post('aktif')) ? ' selected="selected"' : "";
+											$selected = ($value == 1) ? ' selected="selected"' : "";
+
+											echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
+										}
+										?>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="form-group">
 						<label for="foto">Foto</label>
-						<div>
-							<input type="text" name="foto" value="<?php echo $this->input->post('foto'); ?>" class="form-control" id="foto" />
+						<br>
+						<input type="file" name="foto" id="foto" accept="image/x-png"/>
+					</div>
+					<h3 class="text-info font-weight-bold">Identitas Ayah</h3>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="ayah">Ayah</label>
+								<input type="text" name="ayah" value="<?php echo $this->input->post('ayah'); ?>" class="form-control" id="ayah" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="pekerjaan_ayah">Pekerjaan Ayah</label>
+								<input type="text" name="pekerjaan_ayah" value="<?php echo $this->input->post('pekerjaan_ayah'); ?>" class="form-control" id="pekerjaan_ayah" />
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="tanggal_masuk">Tahun Masuk</label>
-						<div>
-							<input type="text" name="tanggal_masuk" value="<?php echo $this->input->post('tanggal_masuk'); ?>" class="form-control" id="tanggal_masuk" />
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="penghasilan_ayah">Penghasilan Ayah</label>
+								<input type="number" name="penghasilan_ayah" value="<?php echo $this->input->post('penghasilan_ayah'); ?>" class="form-control" id="penghasilan_ayah" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="telp_ayah">Telp Ayah</label>
+								<input type="number" name="telp_ayah" value="<?php echo $this->input->post('telp_ayah'); ?>" class="form-control" id="telp_ayah" />
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="aktif">Status Keaktifan</label>
-						<div>
-							<select name="aktif" class="form-control">
-								<option value="">select</option>
-								<?php
-								$aktif_values = array(
-									'1' => 'Aktif',
-									'0' => 'Tidak Aktif',
-								);
-
-								foreach ($aktif_values as $value => $display_text) {
-									$selected = ($value == $this->input->post('aktif')) ? ' selected="selected"' : "";
-
-									echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
-								}
-								?>
-							</select>
+					<h3 class="text-info font-weight-bold">Identitas Ibu</h3>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="ibu">Ibu</label>
+								<input type="text" name="ibu" value="<?php echo $this->input->post('ibu'); ?>" class="form-control" id="ibu" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="pekerjaan_ibu">Pekerjaan Ibu</label>
+								<input type="text" name="pekerjaan_ibu" value="<?php echo $this->input->post('pekerjaan_ibu'); ?>" class="form-control" id="pekerjaan_ibu" />
+							</div>
 						</div>
 					</div>
-
-					<h3>Identitas Ayah</h3>
-					<div class="form-group">
-						<label for="ayah">Ayah</label>
-						<div>
-							<input type="text" name="ayah" value="<?php echo $this->input->post('ayah'); ?>" class="form-control" id="ayah" />
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="penghasilan_ibu">Penghasilan Ibu</label>
+								<input type="number" name="penghasilan_ibu" value="<?php echo $this->input->post('penghasilan_ibu'); ?>" class="form-control" id="penghasilan_ibu" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="telp_ibu">Telp Ibu</label>
+								<input type="number" name="telp_ibu" value="<?php echo $this->input->post('telp_ibu'); ?>" class="form-control" id="telp_ibu" />
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="pekerjaan_ayah">Pekerjaan Ayah</label>
-						<div>
-							<input type="text" name="pekerjaan_ayah" value="<?php echo $this->input->post('pekerjaan_ayah'); ?>" class="form-control" id="pekerjaan_ayah" />
+					<h3 class="text-info font-weight-bold">Identitas Wali</h3>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="wali">Wali</label>
+								<input type="text" name="wali" value="<?php echo $this->input->post('wali'); ?>" class="form-control" id="wali" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="pekerjaan_wali">Pekerjaan Wali</label>
+								<input type="text" name="pekerjaan_wali" value="<?php echo $this->input->post('pekerjaan_wali'); ?>" class="form-control" id="pekerjaan_wali" />
+							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="penghasilan_ayah">Penghasilan Ayah</label>
-						<div>
-							<input type="text" name="penghasilan_ayah" value="<?php echo $this->input->post('penghasilan_ayah'); ?>" class="form-control" id="penghasilan_ayah" />
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="penghasilan_wali">Penghasilan Wali</label>
+								<input type="number" name="penghasilan_wali" value="<?php echo $this->input->post('penghasilan_wali'); ?>" class="form-control" id="penghasilan_wali" />
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="telp_ayah">Telp Ayah</label>
-						<div>
-							<input type="text" name="telp_ayah" value="<?php echo $this->input->post('telp_ayah'); ?>" class="form-control" id="telp_ayah" />
-						</div>
-					</div>
-					<h3>Identitas Ibu</h3>
-					<div class="form-group">
-						<label for="ibu">Ibu</label>
-						<div>
-							<input type="text" name="ibu" value="<?php echo $this->input->post('ibu'); ?>" class="form-control" id="ibu" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="pekerjaan_ibu">Pekerjaan Ibu</label>
-						<div>
-							<input type="text" name="pekerjaan_ibu" value="<?php echo $this->input->post('pekerjaan_ibu'); ?>" class="form-control" id="pekerjaan_ibu" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="penghasilan_ibu">Penghasilan Ibu</label>
-						<div>
-							<input type="text" name="penghasilan_ibu" value="<?php echo $this->input->post('penghasilan_ibu'); ?>" class="form-control" id="penghasilan_ibu" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="telp_ibu">Telp Ibu</label>
-						<div>
-							<input type="text" name="telp_ibu" value="<?php echo $this->input->post('telp_ibu'); ?>" class="form-control" id="telp_ibu" />
-						</div>
-					</div>
-					<h3>Identitas Wali</h3>
-					<div class="form-group">
-						<label for="wali">Wali</label>
-						<div>
-							<input type="text" name="wali" value="<?php echo $this->input->post('wali'); ?>" class="form-control" id="wali" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="pekerjaan_wali">Pekerjaan Wali</label>
-						<div>
-							<input type="text" name="pekerjaan_wali" value="<?php echo $this->input->post('pekerjaan_wali'); ?>" class="form-control" id="pekerjaan_wali" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="penghasilan_wali">Penghasilan Wali</label>
-						<div>
-							<input type="text" name="penghasilan_wali" value="<?php echo $this->input->post('penghasilan_wali'); ?>" class="form-control" id="penghasilan_wali" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="telp_wali">Telp Wali</label>
-						<div>
-							<input type="text" name="telp_wali" value="<?php echo $this->input->post('telp_wali'); ?>" class="form-control" id="telp_wali" />
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="telp_wali">Telp Wali</label>
+								<input type="number" name="telp_wali" value="<?php echo $this->input->post('telp_wali'); ?>" class="form-control" id="telp_wali" />
+							</div>
 						</div>
 					</div>
 				</div>

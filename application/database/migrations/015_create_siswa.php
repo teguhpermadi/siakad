@@ -145,7 +145,7 @@ class Migration_create_siswa extends CI_Migration
                 'constraint' => '255',
                 'null' => TRUE,
             ),
-            'tanggal_masuk' => array(
+            'tahun_masuk' => array(
                 'type' => 'DATE',
                 'null' => TRUE,
             ),
@@ -154,7 +154,7 @@ class Migration_create_siswa extends CI_Migration
                 'constraint' => '1',
                 'null' => TRUE,
             ),
-            'telp_siswa' => array(
+            'telp_wali' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
                 'null' => TRUE,

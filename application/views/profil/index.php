@@ -20,7 +20,7 @@
 								<h1 class="text-uppercase text-primary"><?php echo $p['namaSekolah']; ?></h1>
 							</div>
 							<div class="p-2 bd-highlight">
-								<img class="rounded float-right" src="<?= base_url('uploads/' . $p['logo']) ?>" alt="not found" height="150px">
+								<img class="rounded float-right" src="<?php echo ($p['logo'] ? base_url('uploads/profil/'.$p['logo']) : base_url('uploads/profil/default.png')); ?>" alt="not found" height="150px">
 							</div>
 						</div>
 					</div>

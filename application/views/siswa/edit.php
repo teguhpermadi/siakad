@@ -192,7 +192,7 @@
 					<div class="form-group">
 						<label for="foto">Foto</label>
 						<br>
-						<img src="" alt="not found" srcset="">
+						<img class="mr-4" src="<?php echo ($siswa['foto'] ? base_url('uploads/siswa/'.$siswa['foto']) : base_url('uploads/siswa/default.png')); ?>" alt="" srcset="" width="100px">
 						<input type="hidden" name="foto_old" value="<?php echo ($this->input->post('foto') ? $this->input->post('foto') : $siswa['foto']); ?>">
 						<input type="file" name="foto" id="foto" accept="image/x-png" />
 					</div>

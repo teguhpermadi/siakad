@@ -63,7 +63,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h3 class="m-0 font-weight-bold text-primary">Daftar Mata Pelajaran</h6>
+			<h3 class="m-0 font-weight-bold text-primary">Daftar Siswa</h6>
 		</div>
 		<div class="card-body">
 			<table id="datatable-siswa" class="table table-striped table-bordered" style="width:100%">

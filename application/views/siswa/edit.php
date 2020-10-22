@@ -77,8 +77,9 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="nis">NIS (Nomor Induk Siswa)</label>
+								<label for="nis"><span class="text-danger">*</span>NIS (Nomor Induk Siswa)</label>
 								<input type="text" name="nis" value="<?php echo ($this->input->post('nis') ? $this->input->post('nis') : $siswa['nis']); ?>" class="form-control" id="nis" />
+								<span class="text-danger"><?php echo form_error('nis'); ?></span>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -194,7 +195,7 @@
 						<br>
 						<img class="mr-4" src="<?php echo ($siswa['foto'] ? base_url('uploads/siswa/'.$siswa['foto']) : base_url('uploads/siswa/default.png')); ?>" alt="" srcset="" width="100px">
 						<input type="hidden" name="foto_old" value="<?php echo ($this->input->post('foto') ? $this->input->post('foto') : $siswa['foto']); ?>">
-						<input type="file" name="foto" id="foto" accept="image/x-png" />
+						<input type="file" name="foto" id="foto" accept="image/x-jpg" />
 					</div>
 					<h3 class="text-info font-weight-bold">Identitas Ayah</h3>
 					<div class="row">

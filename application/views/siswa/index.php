@@ -79,7 +79,7 @@
 				<tr>
 					<td><?php echo $m['nama_lengkap']; ?></td>
 					<td><?php echo $m['nis']; ?></td>
-					<td><?php echo $m['aktif']; ?></td>
+					<td><?php echo ($m['aktif'] == 1 ? '<span class="badge badge-primary">Aktif</span>' : '<span class="badge badge-secondary">Non-aktif</span>'); ?></td>
 					<td>
 						<a href="<?php echo site_url('siswa/edit/'.$m['id']); ?>" class="btn btn-info btn-xs">Edit</a>
 						<a href="<?php echo site_url('siswa/remove/'.$m['id']); ?>"

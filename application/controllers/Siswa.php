@@ -42,13 +42,14 @@ class Siswa extends CI_Controller
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
+        $this->form_validation->set_rules('nis', 'Nomor Induk Siswa', 'required');
 
         if ($this->form_validation->run()) {
             // upload image
             $config['upload_path']          = './uploads/siswa/';
-            $config['allowed_types']        = 'png';
+            $config['allowed_types']        = 'jpg';
             $config['overwrite']             = true;
-            $config['file_name']             = time();
+            $config['file_name']             = $this->input->post('nis');
 
             $this->load->library('upload', $config);
 
@@ -117,14 +118,15 @@ class Siswa extends CI_Controller
             $this->load->library('form_validation');
 
             $this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required');
+            $this->form_validation->set_rules('nis', 'Nomor Induk Siswa', 'required');
 
             if ($this->form_validation->run()) {
                 // upload image
                 $file_ext = pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION);
                 $config['upload_path']          = './uploads/siswa/';
-                $config['allowed_types']        = 'png';
+                $config['allowed_types']        = 'jpg';
                 $config['overwrite']             = true;
-                $config['file_name']             = time();
+                $config['file_name']             = $this->input->post('nis');
 
                 $this->load->library('upload', $config);
 

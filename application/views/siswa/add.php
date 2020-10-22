@@ -76,8 +76,9 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="nis">NIS (Nomor Induk Siswa)</label>
+								<label for="nis"><span class="text-danger">*</span>NIS (Nomor Induk Siswa)</label>
 								<input type="text" pattern="\d*" name="nis" value="<?php echo $this->input->post('nis'); ?>" class="form-control" id="nis" />
+								<span class="text-danger"><?php echo form_error('nis'); ?></span>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -191,7 +192,7 @@
 					<div class="form-group">
 						<label for="foto">Foto</label>
 						<br>
-						<input type="file" name="foto" id="foto" accept="image/x-png"/>
+						<input type="file" name="foto" id="foto" accept="image/x-jpg"/>
 					</div>
 					<h3 class="text-info font-weight-bold">Identitas Ayah</h3>
 					<div class="row">

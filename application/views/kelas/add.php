@@ -9,46 +9,45 @@
 					<h3 class="m-0 font-weight-bold text-primary">Tambah Guru</h3>
 				</div>
 				<div class="card-body">
-					<?php echo form_open('kelas/add',array("class"=>"form-horizontal")); ?>
+					<?php echo form_open('kelas/add', array("class" => "form-horizontal")); ?>
 
 					<div class="form-group">
-						<label for="tingkat" class="col-md-4 control-label"><span
-								class="text-danger">*</span>Tingkat</label>
-						<div class="col-md-8">
-							<select name="tingkat" class="form-control">
-								<option value="">select</option>
-								<?php 
-            $tingkat_values = array(
-                '10'=>'10',
-                '11'=>'11',
-                '12'=>'12',
-            );
+						<label for="tingkat" class="control-label"><span class="text-danger">*</span>Tingkat</label>
+						<select name="tingkat" class="form-control">
+							<option value="">select</option>
+							<?php
+							$tingkat_values = array(
+								'1' => '1',
+								'2' => '2',
+								'3' => '3',
+								'4' => '4',
+								'5' => '5',
+								'6' => '6',
+								'7' => '7',
+								'8' => '8',
+								'9' => '9',
+								'10' => '10',
+								'11' => '11',
+								'12' => '12',
+							);
 
-            foreach($tingkat_values as $value => $display_text)
-            {
-                $selected = ($value == $this->input->post('tingkat')) ? ' selected="selected"' : "";
+							foreach ($tingkat_values as $value => $display_text) {
+								$selected = ($value == $this->input->post('tingkat')) ? ' selected="selected"' : "";
 
-                echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
-            } 
-            ?>
-							</select>
-							<span class="text-danger"><?php echo form_error('tingkat');?></span>
-						</div>
+								echo '<option value="' . $value . '" ' . $selected . '>' . $display_text . '</option>';
+							}
+							?>
+						</select>
+						<span class="text-danger"><?php echo form_error('tingkat'); ?></span>
 					</div>
 					<div class="form-group">
-						<label for="nama" class="col-md-4 control-label"><span class="text-danger">*</span>Nama</label>
-						<div class="col-md-8">
-							<input type="text" name="nama" value="<?php echo $this->input->post('nama'); ?>"
-								class="form-control" id="nama" />
-							<span class="text-danger"><?php echo form_error('nama');?></span>
-						</div>
+						<label for="nama" class="control-label"><span class="text-danger">*</span>Nama</label>
+						<input type="text" name="nama" value="<?php echo $this->input->post('nama'); ?>" class="form-control" id="nama" />
+						<span class="text-danger"><?php echo form_error('nama'); ?></span>
 					</div>
 					<div class="form-group">
-						<label for="kode_kelas" class="col-md-4 control-label">Kode Kelas</label>
-						<div class="col-md-8">
-							<input type="text" name="kode_kelas" value="<?php echo $this->input->post('kode_kelas'); ?>"
-								class="form-control" id="kode_kelas" />
-						</div>
+						<label for="kode_kelas" class="control-label">Kode Kelas</label>
+						<input type="text" name="kode_kelas" value="<?php echo $this->input->post('kode_kelas'); ?>" class="form-control" id="kode_kelas" />
 					</div>
 
 					<div class="form-group">

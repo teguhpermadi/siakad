@@ -229,7 +229,7 @@ class Siswa extends CI_Controller
             $data = array('upload_data' => $this->upload->data());
 
             $helper = new Sample();
-            $inputFileName = 'uploads/siswa.' . $file_ext;
+            $inputFileName = 'uploads/'.$data['upload_data']['file_name'];
             $helper->log('Loading file ' . pathinfo($inputFileName, PATHINFO_BASENAME) . ' using IOFactory to identify the format');
             $spreadsheet = IOFactory::load($inputFileName);
             $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
@@ -277,7 +277,6 @@ class Siswa extends CI_Controller
             // $dataAkhir membaca $dataAwal dari array urutan ke 2
             $dataAkhir = array_slice($dataAwal, 1);
             $this->session->set_flashdata('berhasil_upload', 'Anda berhasil mengunggah <strong>' . $jumlahData . ' data siswa.</strong>');
-
             $this->db->insert_batch('siswa', $dataAkhir);
             unlink($inputFileName);
             redirect('siswa');

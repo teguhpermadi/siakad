@@ -14,6 +14,12 @@
 		<h1 class="h3 mb-0 text-gray-800">Rombongan Belajar</h1>
 	</div>
 
+	<?php if(empty($_SESSION['tahun'])){ ?>
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			Anda tidak dapat menambahkan rombel selama tidak ada <b>Tahun Pelajaran yang aktif!</b>
+	</div>
+	<?php } else {?>
+
 	<div class="row mb-4">
 		<div class="col">
 			<a href="<?= base_url('rombel/add'); ?>" class="btn btn-info btn-icon-split">
@@ -24,6 +30,8 @@
 			</a>
 		</div>
 	</div>
+
+	<?php } ?>
 
 	<!-- flash data -->
 	<?php if($this->session->flashdata('berhasil')) { ?>

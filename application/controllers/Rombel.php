@@ -35,6 +35,7 @@ class Rombel extends CI_Controller{
     function add()
     {   
         $data['siswa'] = $this->Rombel_model->get_all_siswa();
+        // print_r($data['siswa']);
         $data['kelas'] = $this->Rombel_model->get_all_kelas();
 
         $this->load->library('form_validation');

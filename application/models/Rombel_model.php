@@ -69,7 +69,12 @@ class Rombel_model extends CI_Model
     {
         // $this->db->order_by('id', 'desc');
         // return $this->db->get('siswa')->result_array();
-        return $this->db->query("SELECT * FROM siswa WHERE NOT EXISTS (SELECT * FROM rombel WHERE siswa.id = rombel.id_siswa AND rombel.id_tahun = ".$_SESSION['id_tahun_pelajaran'].")")->result_array();
+        return $this->db->query("SELECT * FROM siswa WHERE NOT EXISTS 
+        (
+            SELECT * FROM rombel 
+            WHERE siswa.id = rombel.id_siswa 
+            AND rombel.id_tahun = ".$_SESSION['id_tahun_pelajaran']."
+        )")->result_array();
     }
 
     /*

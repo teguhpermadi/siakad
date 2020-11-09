@@ -10,3 +10,5 @@ version siakad-alpa
 7. fix bug siswa
 8. fix bug kelas
 9. fix bug rombel
+10. fix bug pengajar
+11. fix bug walikelas

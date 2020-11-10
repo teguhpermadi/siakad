@@ -162,8 +162,8 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="tanggal_masuk">Tanggal Masuk</label>
-								<input type="number" name="tanggal_masuk" value="<?php echo ($this->input->post('tanggal_masuk') ? $this->input->post('tanggal_masuk') : $siswa['tanggal_masuk']); ?>" class="form-control" id="tanggal_masuk" />
+								<label for="tahun_masuk">Tanggal Masuk</label>
+								<input type="number" name="tahun_masuk" value="<?php echo ($this->input->post('tahun_masuk') ? $this->input->post('tahun_masuk') : $siswa['tahun_masuk']); ?>" class="form-control" id="tahun_masuk" />
 							</div>
 						</div>
 						<div class="col-md-6">

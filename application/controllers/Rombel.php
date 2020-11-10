@@ -131,19 +131,11 @@ class Rombel extends CI_Controller{
     /*
      * Deleting rombel
      */
-    function remove($id)
+    function remove($id_kelas)
     {
-        $rombel = $this->Rombel_model->get_rombel($id);
-
-        // check if the rombel exists before trying to delete it
-        if(isset($rombel['id']))
-        {
-            $this->session->set_flashdata('hapus', 'Anda berhasil menghapus data id rombel <strong>'.$rombel['id'].'</strong>');
-            $this->Rombel_model->delete_rombel($id);
-            redirect('rombel/index');
-        }
-        else
-            show_error('The rombel you are trying to delete does not exist.');
+        $this->session->set_flashdata('hapus', 'Anda berhasil menghapus rombel');
+        $this->Rombel_model->delete_rombel($id_kelas);
+        redirect('rombel/index');
     }
 
     function simpan()

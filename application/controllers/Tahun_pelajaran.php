@@ -55,7 +55,19 @@ class Tahun_pelajaran extends CI_Controller
 
             if (!$this->upload->do_upload('ttd')) {
                 $error = array('error' => $this->upload->display_errors());
-                print_r($error);
+                // print_r($error);
+                // print_r($data);
+                $params = array(
+                    'semester' => $this->input->post('semester'),
+                    'id_kepsek' => $this->input->post('id_kepsek'),
+                    'tahun' => $this->input->post('tahun'),
+                    'tanggal_rapor' => $this->input->post('tanggal_rapor'),
+                );
+
+                $tahun_pelajaran_id = $this->Tahun_pelajaran_model->add_tahun_pelajaran($params);
+                // Deletes cache for the currently requested URI
+                $this->output->delete_cache('tahun_pelajaran/index');
+                redirect('tahun_pelajaran/index');
             } else {
                 $data = array('upload_data' => $this->upload->data());
                 // print_r($data);

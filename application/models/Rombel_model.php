@@ -57,9 +57,9 @@ class Rombel_model extends CI_Model
     /*
      * function to delete rombel
      */
-    function delete_rombel($id)
+    function delete_rombel($id_kelas)
     {
-        return $this->db->delete('rombel',array('id'=>$id));
+        return $this->db->delete('rombel',array('id_kelas'=>$id_kelas, 'id_tahun'=>$_SESSION['id_tahun_pelajaran']));
     }
 
     /*
@@ -110,7 +110,7 @@ class Rombel_model extends CI_Model
         $this->db->where('rombel.id_kelas ='.$id_kelas);
         $this->db->where('rombel.id_tahun ='.$_SESSION['id_tahun_pelajaran']);
         $this->db->join('siswa', 'siswa.id = rombel.id_siswa');
-        $this->db->order_by('siswa.id', 'desc');
+        $this->db->order_by('siswa.nama_lengkap', 'asc');
         return $this->db->get()->result_array();
     }
 
@@ -173,7 +173,7 @@ class Rombel_model extends CI_Model
         return $this->db->query('SELECT siswa.id as id_siswa, siswa.nama_lengkap, rombel.id_kelas as cek
         FROM siswa   
         LEFT JOIN rombel               
-        ON siswa.id = rombel.id_siswa and rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'])->result_array();
+        ON siswa.id = rombel.id_siswa and rombel.id_tahun = '.$_SESSION['id_tahun_pelajaran'].' WHERE siswa.aktif = 1')->result_array();
     }
 
     /*

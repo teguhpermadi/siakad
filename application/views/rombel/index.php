@@ -1,3 +1,4 @@
+
 <style>
 	.area {
 		/* background: white; */
@@ -82,7 +83,7 @@
 							<span class="badge badge-info">Laki-laki: <?= $jml_siswa_laki; ?></span>
 							<span class="badge badge-info">Perempuan: <?= $jml_siswa_perempuan; ?></span>
 						</div>
-						
+						<div class='simplescrool'>
 						<ul class="list-group mb-3 area">
 							<?php foreach ($siswa as $s) { ?>
 								<li class="list-group-item d-flex justify-content-between align-items-center">
@@ -91,6 +92,7 @@
 								</li>
 							<?php } ?>
 						</ul>
+						</div>
 						<a href="<?= base_url('rombel/edit_rombel/' . $k['id_kelas']); ?>" class="btn btn-primary">Edit
 							Kelas</a>
 						<!-- Default dropup button -->
@@ -137,8 +139,3 @@
 <a class="scroll-to-top rounded" href="#page-top">
 	<i class="fas fa-angle-up"></i>
 </a>
-
-<script>
-	let scrollDiv = document.querySelector(".area");
-	SimpleScrollbar.initEl(scrollDiv);
-</script>

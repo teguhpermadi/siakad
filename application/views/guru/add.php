@@ -115,7 +115,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="email" class="col-md-12 control-label">Email</label>
+						<label for="email" class="col-md-12 control-label"><span class="text-danger">*</span> Email</label>
 						<div class="col-md-12">
 							<input type="text" name="email" value="<?php echo $this->input->post('email'); ?>"
 								class="form-control" id="email" />

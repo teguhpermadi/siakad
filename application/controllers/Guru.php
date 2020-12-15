@@ -43,7 +43,7 @@ class Guru extends CI_Controller{
 		// $this->form_validation->set_rules('nip','Nip','numeric');
 		// $this->form_validation->set_rules('nik','Nik','numeric');
 		// $this->form_validation->set_rules('nikk','Nikk','numeric');
-		$this->form_validation->set_rules('email','Email','valid_email');
+		$this->form_validation->set_rules('email','Email','valid_email|required');
 		$this->form_validation->set_rules('telp','Telp','numeric');
 		
 		if($this->form_validation->run())     

@@ -91,10 +91,10 @@
 		<div class="col-md-12">
 			<div class="btn-group" role="group" aria-label="Basic example">
 				<a class="btn btn-secondary" href="<?= base_url('penilaian') ?>">Kembali</a>
-				<a class="btn btn-secondary"
+				<!-- <a class="btn btn-secondary"
 					href="<?= base_url('penilaian/download/'.$id_mapel.'-'.$id_kelas) ?>">Download Excel</a>
 				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#upload">Upload
-					Excel</button>
+					Excel</button> -->
 				<a class="btn btn-secondary" href="<?= base_url('penilaian/cetak/'.$id_mapel.'-'.$id_kelas) ?>"
 					target="blank">Cetak Nilai</a>
 			</div>
@@ -340,7 +340,7 @@ function get_chart() {
 					setTimeout(function () {
 						$("#overlay").fadeOut(300);
 					}, 500);
-					// console.log(data)
+					console.log(data)
 					$('#id_kd').val(idKd)
 					$('#submit').show();
 					var html = ''

@@ -14,6 +14,7 @@ class Leger_model extends CI_Model
         $this->db->join('absensi', 'rombel.id_siswa = absensi.id_siswa', 'left outer');
         $this->db->join('catatan', 'catatan.id_siswa = rombel.id_siswa', 'left outer');
         $this->db->order_by('siswa.nama_lengkap');
+        $this->db->group_by('siswa.nama_lengkap');
         $db = $this->db->get();
 
         return $db->result_array();

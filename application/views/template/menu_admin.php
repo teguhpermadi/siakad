@@ -53,3 +53,9 @@
 		<i class="fas fa-users-cog"></i>
 		<span>Data Pengguna</span></a>
 </li>
+<!-- Nav Item - Charts -->
+<li class="nav-item">
+	<a class="nav-link" href="<?= base_url('rapor/template_rapor'); ?>">
+		<i class="fas fa-users-cog"></i>
+		<span>Template Rapor</span></a>
+</li>

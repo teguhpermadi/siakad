@@ -65,11 +65,12 @@ class Rapor extends CI_Controller
             $des_tuntas = $this->Rapor_model->get_deskripsi_tuntas($mapel['id_mapel'], $id_siswa, $kkm['kkm']);
             $des_tidak_tuntas = $this->Rapor_model->get_deskripsi_tidak_tuntas($mapel['id_mapel'], $id_siswa, $kkm['kkm']);
 
-            if (empty($des_tuntas['deskripsi']) or empty($des_tidak_tuntas['deskripsi'])) {
-                $deskripsi = 'PADA MAPEL INI ADA KOMPENTENSI DASAR YANG BELUM DI NILAI.';
-            } else {
-                $deskripsi = $des_tuntas['deskripsi'] . ' dan ' . $des_tidak_tuntas['deskripsi'];
-            };
+            // if (empty($des_tuntas['deskripsi']) or empty($des_tidak_tuntas['deskripsi'])) {
+            //     $deskripsi = 'PADA MAPEL INI ADA KOMPENTENSI DASAR YANG BELUM DI NILAI.';
+            // } else {
+            //     $deskripsi = $des_tuntas['deskripsi'] . ' dan ' . $des_tidak_tuntas['deskripsi'];
+            // };
+            $deskripsi = $des_tuntas['deskripsi'] . ' ' . $des_tidak_tuntas['deskripsi'];
 
             array_push($data_nilai, [
                 'id_' . $mapel['kode_mapel'] => $mapel['id_mapel'],
@@ -95,7 +96,7 @@ class Rapor extends CI_Controller
         // exit;
 
         // load template rapor default
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template.docx');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template_user.docx');
 
         $templateProcessor->setValue($key, $val);
         $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'] . '.docx';
@@ -124,11 +125,12 @@ class Rapor extends CI_Controller
             $des_tuntas = $this->Rapor_model->get_deskripsi_tuntas($mapel['id_mapel'], $id_siswa, $kkm['kkm']);
             $des_tidak_tuntas = $this->Rapor_model->get_deskripsi_tidak_tuntas($mapel['id_mapel'], $id_siswa, $kkm['kkm']);
 
-            if (empty($des_tuntas['deskripsi']) or empty($des_tidak_tuntas['deskripsi'])) {
-                $deskripsi = 'PADA MAPEL INI ADA KOMPENTENSI DASAR YANG BELUM DI NILAI.';
-            } else {
-                $deskripsi = $des_tuntas['deskripsi'] . ' dan ' . $des_tidak_tuntas['deskripsi'];
-            };
+            // if (empty($des_tuntas['deskripsi']) or empty($des_tidak_tuntas['deskripsi'])) {
+            //     $deskripsi = 'PADA MAPEL INI ADA KOMPENTENSI DASAR YANG BELUM DI NILAI.';
+            // } else {
+            //     $deskripsi = $des_tuntas['deskripsi'] . ' dan ' . $des_tidak_tuntas['deskripsi'];
+            // };
+            $deskripsi = $des_tuntas['deskripsi'] . ' ' . $des_tidak_tuntas['deskripsi'];
 
             array_push($data_nilai, [
                 'id_' . $mapel['kode_mapel'] => $mapel['id_mapel'],
@@ -152,7 +154,7 @@ class Rapor extends CI_Controller
         $val = array_values($data_mentah);
 
         // load template rapor default
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template.docx');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template_user.docx');
 
         $templateProcessor->setValue($key, $val);
         $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'];
@@ -203,11 +205,12 @@ class Rapor extends CI_Controller
             $des_tuntas = $this->Rapor_model->get_deskripsi_tuntas($mapel['id_mapel'], $id_siswa, $kkm['kkm']);
             $des_tidak_tuntas = $this->Rapor_model->get_deskripsi_tidak_tuntas($mapel['id_mapel'], $id_siswa, $kkm['kkm']);
 
-            if (empty($des_tuntas['deskripsi']) or empty($des_tidak_tuntas['deskripsi'])) {
-                $deskripsi = 'PADA MAPEL INI ADA KOMPENTENSI DASAR YANG BELUM DI NILAI.';
-            } else {
-                $deskripsi = $des_tuntas['deskripsi'] . ' dan ' . $des_tidak_tuntas['deskripsi'];
-            };
+            // if (empty($des_tuntas['deskripsi']) or empty($des_tidak_tuntas['deskripsi'])) {
+            //     $deskripsi = 'PADA MAPEL INI ADA KOMPENTENSI DASAR YANG BELUM DI NILAI.';
+            // } else {
+            //     $deskripsi = $des_tuntas['deskripsi'] . ' dan ' . $des_tidak_tuntas['deskripsi'];
+            // };
+            $deskripsi = $des_tuntas['deskripsi'] . ' ' . $des_tidak_tuntas['deskripsi'];
 
             array_push($data_nilai, [
                 'id_' . $mapel['kode_mapel'] => $mapel['id_mapel'],
@@ -231,7 +234,7 @@ class Rapor extends CI_Controller
         $val = array_values($data_mentah);
 
         // load template rapor default
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template.docx');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template_user.docx');
 
         $templateProcessor->setValue($key, $val);
         $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'];
@@ -254,5 +257,33 @@ class Rapor extends CI_Controller
         // hapus file di temp
         unlink($file_html);
         unlink($file_doc);   
+    }
+
+    function template_rapor()
+    {
+        $this->load->view('rapor/template_rapor');
+    }
+
+    function do_upload_template()
+    {
+        $config['upload_path']          = './uploads/';
+                $config['allowed_types']        = 'docx';
+                $config['file_name'] = 'Template';
+                $config['overwrite'] = true;
+
+                $this->load->library('upload', $config);
+
+                if ( ! $this->upload->do_upload('userfile'))
+                {
+                        $error = array('error' => $this->upload->display_errors());
+                        print_r($error);
+                        // $this->load->view('rapor/template_rapor', $error);
+                }
+                else
+                {
+                        $data = array('upload_data' => $this->upload->data());
+                        echo 'Berhasil upload';
+                        // $this->load->view('rapor/template_rapor', $data);
+                }
     }
 }

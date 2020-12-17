@@ -41,6 +41,9 @@ class Migration_create_nilai extends CI_Migration
         // Add Primary Key.
         $this->dbforge->add_key("id", TRUE);
         $this->dbforge->add_key("id_tahun");
+        $this->dbforge->add_key("id_mapel");
+        $this->dbforge->add_key("id_siswa");
+        $this->dbforge->add_key("id_kd");
 
         // Table attributes.
 

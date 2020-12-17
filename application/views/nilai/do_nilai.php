@@ -42,7 +42,6 @@
 	.is-hide {
 		display: none;
 	}
-
 </style>
 
 <div class="container-fluid">
@@ -53,34 +52,34 @@
 	</div>
 
 	<!-- flash data -->
-	<?php if($this->session->flashdata('berhasil_upload')) { ?>
-	<div class="alert alert-primary alert-dismissible fade show" role="alert">
-		<?= $this->session->flashdata('berhasil_upload'); ?>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
+	<?php if ($this->session->flashdata('berhasil_upload')) { ?>
+		<div class="alert alert-primary alert-dismissible fade show" role="alert">
+			<?= $this->session->flashdata('berhasil_upload'); ?>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
 	<?php } ?>
 
 	<!-- flash data -->
-	<?php if($this->session->flashdata('gagal_upload')) { ?>
-	<div class="alert alert-warning alert-dismissible fade show" role="alert">
-		<?= $this->session->flashdata('gagal_upload'); ?>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
+	<?php if ($this->session->flashdata('gagal_upload')) { ?>
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			<?= $this->session->flashdata('gagal_upload'); ?>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
 	<?php } ?>
 
-<!-- jika kkm nya belum di setting -->
-<?php if($kkm[0]['kkm'] == 0){?>
-	<!-- <div class="row"> -->
+	<!-- jika kkm nya belum di setting -->
+	<?php if ($kkm[0]['kkm'] == 0) { ?>
+		<!-- <div class="row"> -->
 		<div class="alert alert-warning" role="alert">
-		<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-		Anda belum mengatur KKM untuk mata pelajaran ini.
+			<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+			Anda belum mengatur KKM untuk mata pelajaran ini.
 		</div>
-	<!-- </div> -->
-<?php }?>
+		<!-- </div> -->
+	<?php } ?>
 
 	<div class="row p-3">
 		<!-- chart -->
@@ -91,12 +90,10 @@
 		<div class="col-md-12">
 			<div class="btn-group" role="group" aria-label="Basic example">
 				<a class="btn btn-secondary" href="<?= base_url('penilaian') ?>">Kembali</a>
-				<!-- <a class="btn btn-secondary"
-					href="<?= base_url('penilaian/download/'.$id_mapel.'-'.$id_kelas) ?>">Download Excel</a>
+				<a class="btn btn-secondary" href="<?= base_url('penilaian/download/' . $id_mapel . '-' . $id_kelas) ?>">Download Excel</a>
 				<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#upload">Upload
-					Excel</button> -->
-				<a class="btn btn-secondary" href="<?= base_url('penilaian/cetak/'.$id_mapel.'-'.$id_kelas) ?>"
-					target="blank">Cetak Nilai</a>
+					Excel</button>
+				<a class="btn btn-secondary" href="<?= base_url('penilaian/cetak/' . $id_mapel . '-' . $id_kelas) ?>" target="blank">Cetak Nilai</a>
 			</div>
 		</div>
 	</div>
@@ -107,12 +104,12 @@
 			<div class="card">
 				<div class="card-header">Kompetensi Dasar</div>
 				<div class="card-body">
-					<?php 
+					<?php
 					// jika tidak ada KD
-					if(empty($kd_pengetahuan) && empty($kd_keterampilan)){
+					if (empty($kd_pengetahuan) && empty($kd_keterampilan)) {
 						echo '<div class="d-flex bd-highlight">
 						<div class="p-2 flex-fill bd-highlight"><h3><i class="fa fa-exclamation-triangle text-warning"></i></h3></div>
-						<div class="p-2 flex-fill bd-highlight">Silahkan <a class="font-weight-bold" href="'.base_url('kompetensi_dasar').'">Tambahkan</a> Kompetensi Dasar dahulu untuk mata pelajaran ini.</div>
+						<div class="p-2 flex-fill bd-highlight">Silahkan <a class="font-weight-bold" href="' . base_url('kompetensi_dasar') . '">Tambahkan</a> Kompetensi Dasar dahulu untuk mata pelajaran ini.</div>
 						</div></div>';
 					} else {
 						echo '<table class="table table-hover m-0" id="example"><tbody>';
@@ -120,16 +117,16 @@
 						// tampilkan kd pengetahuan
 						foreach ($kd_pengetahuan as $k) {
 							echo '<tr data-toggle="tooltip" data-placement="right" title="KD Pengetahuan"
-							data-idMapel="'.$id_mapel.'" data-idKelas="'.$id_kelas.'" data-idKd="'.$k['id'].'">
-									<td><p class="mb-0">'.$k['kd'].'</p></td>
+							data-idMapel="' . $id_mapel . '" data-idKelas="' . $id_kelas . '" data-idKd="' . $k['id'] . '">
+									<td><p class="mb-0">' . $k['kd'] . '</p></td>
 								</tr>';
 						}
 
 						// tampilkan kd keterampilan
 						foreach ($kd_keterampilan as $k) {
 							echo '<tr data-toggle="tooltip" data-placement="right" title="KD Keterampilan"
-							data-idMapel="'.$id_mapel.'" data-idKelas="'.$id_kelas.'" data-idKd="'.$k['id'].'">
-									<td><p class="mb-0">'.$k['kd'].'</p></td>
+							data-idMapel="' . $id_mapel . '" data-idKelas="' . $id_kelas . '" data-idKd="' . $k['id'] . '">
+									<td><p class="mb-0">' . $k['kd'] . '</p></td>
 								</tr>';
 						}
 						echo '</tbody></table>';
@@ -201,12 +198,13 @@
 			</div>
 			<form method="post" action="<?= base_url('penilaian/do_upload'); ?>" enctype="multipart/form-data">
 				<div class="modal-body">
-					<div class="custom-file">
-						<input type="hidden" name="id_mapel" value="<?= $id_mapel; ?>">
-						<input type="hidden" name="id_kelas" value="<?= $id_kelas; ?>">
-						<input type="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01"
-							name="userfile" size="20">
-						<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+					<input type="hidden" name="id_mapel" value="<?= $id_mapel; ?>">
+					<input type="hidden" name="id_kelas" value="<?= $id_kelas; ?>">
+					<div class="form-group">
+						<input type="file" class="form-control-file" aria-describedby="inputGroupFileAddon01" name="userfile" size="20">
+						<label class="form-control-file" for="inputGroupFile01">Choose file</label>
+						<!-- <label for="exampleFormControlFile1">Example file input</label>
+						<input type="file" class="form-control-file" id="exampleFormControlFile1"> -->
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -219,92 +217,88 @@
 </div>
 
 <script src="<?= base_url('assets/vendor/chart.js/Chart.js'); ?>"></script>
-<script src="<?= base_url()?>assets/vendor/jquery/jquery.js"></script>
+<script src="<?= base_url() ?>assets/vendor/jquery/jquery.js"></script>
 
 <script>
- 
-  //Create horizontalBar plug-in for ChartJS
-  var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
-  Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
-  
-      draw: function () {
-          originalLineDraw.apply(this, arguments);
-  
-          var chart = this.chart;
-          var ctx = chart.chart.ctx;
-  
-          var index = chart.config.options.lineAtIndex;
-          if (index) {
-  
-              var xaxis = chart.scales['x-axis-0'];
-              var yaxis = chart.scales['y-axis-0'];
-  
-              var x1 = xaxis.getPixelForValue(index);                       
-              var y1 = 0;                                                   
-  
-              var x2 = xaxis.getPixelForValue(index);                       
-              var y2 = yaxis.height;                                        
-  
-              ctx.save();
-              ctx.beginPath();
-              ctx.moveTo(x1, y1);
-              ctx.strokeStyle = 'red';
-              ctx.lineTo(x2, y2);
-              ctx.stroke();
-  
-              ctx.restore();
-          }
-      }
-  });
+	//Create horizontalBar plug-in for ChartJS
+	var originalLineDraw = Chart.controllers.horizontalBar.prototype.draw;
+	Chart.helpers.extend(Chart.controllers.horizontalBar.prototype, {
 
-</script>
+		draw: function() {
+			originalLineDraw.apply(this, arguments);
 
-<script>
-function get_chart() {
-			$.get('<?= base_url("penilaian/get_avg/".$id_mapel.'-'.$id_kelas); ?>')
-				.done((data) => {
-					var nama_siswa = data['nama_siswa']
-					var rerata = data['rerata']
-					var colors = data['randomcolor']
+			var chart = this.chart;
+			var ctx = chart.chart.ctx;
 
-					// jika datanya berhasil di load
-					var ctx = document.getElementById('myChart').getContext('2d');
-					var myPieChart = new Chart(ctx, {
-						type: 'horizontalBar',
-						"data": {
-							"labels": nama_siswa,
-							"datasets": [{
-								"label": "Rata-rata",
-								"data": rerata,
-								"fill": false,
-								"backgroundColor": colors,
-							}
-							]
-						},
-						"options": {
-							"scales": {
-								"xAxes": [{
-									"ticks": {
-										"beginAtZero": true,
-										"max": 100,
-									}
-								}],
-							},
-							"lineAtIndex": '<?= $kkm[0]['kkm'] ?>',
-							"legend": {
-								"display": false
-							},
-						}
-					});
-				})
-				.fail(
-					(console.error())
-				);
+			var index = chart.config.options.lineAtIndex;
+			if (index) {
+
+				var xaxis = chart.scales['x-axis-0'];
+				var yaxis = chart.scales['y-axis-0'];
+
+				var x1 = xaxis.getPixelForValue(index);
+				var y1 = 0;
+
+				var x2 = xaxis.getPixelForValue(index);
+				var y2 = yaxis.height;
+
+				ctx.save();
+				ctx.beginPath();
+				ctx.moveTo(x1, y1);
+				ctx.strokeStyle = 'red';
+				ctx.lineTo(x2, y2);
+				ctx.stroke();
+
+				ctx.restore();
+			}
 		}
+	});
+</script>
 
+<script>
+	function get_chart() {
+		$.get('<?= base_url("penilaian/get_avg/" . $id_mapel . '-' . $id_kelas); ?>')
+			.done((data) => {
+				var nama_siswa = data['nama_siswa']
+				var rerata = data['rerata']
+				var colors = data['randomcolor']
+
+				// jika datanya berhasil di load
+				var ctx = document.getElementById('myChart').getContext('2d');
+				var myPieChart = new Chart(ctx, {
+					type: 'horizontalBar',
+					"data": {
+						"labels": nama_siswa,
+						"datasets": [{
+							"label": "Rata-rata",
+							"data": rerata,
+							"fill": false,
+							"backgroundColor": colors,
+						}]
+					},
+					"options": {
+						"scales": {
+							"xAxes": [{
+								"ticks": {
+									"beginAtZero": true,
+									"max": 100,
+								}
+							}],
+						},
+						"lineAtIndex": '<?= $kkm[0]['kkm'] ?>',
+						"legend": {
+							"display": false
+						},
+					}
+				});
+			})
+			.fail(
+				(console.error())
+			);
+	}
 </script>
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		// tampilkan data default sebelum kd di klik oleh user
 		showInfo();
 		get_chart()
@@ -319,7 +313,7 @@ function get_chart() {
 		};
 
 		// tampilkan data siswa ketika kd sudah di klik oleh user
-		$('tr').click(function () {
+		$('tr').click(function() {
 			// show spinner
 			$("#overlay").fadeIn(300);
 
@@ -328,16 +322,16 @@ function get_chart() {
 			var idKelas = $(this).attr('data-idKelas');
 			$.ajax({
 				type: 'GET',
-				url: '<?= base_url("penilaian/get_siswa")?>',
+				url: '<?= base_url("penilaian/get_siswa") ?>',
 				dataType: 'JSON',
 				data: {
 					idKelas: idKelas,
 					idMapel: idMapel,
 					idKd: idKd
 				},
-				success: function (data) {
+				success: function(data) {
 					// hide spinner
-					setTimeout(function () {
+					setTimeout(function() {
 						$("#overlay").fadeOut(300);
 					}, 500);
 					console.log(data)
@@ -378,7 +372,7 @@ function get_chart() {
 			return false;
 		});
 
-		$('#submit').click(function () {
+		$('#submit').click(function() {
 			// setting sweetalert2
 			const Toast = Swal.mixin({
 				toast: true,
@@ -390,7 +384,7 @@ function get_chart() {
 				url: '<?= base_url("penilaian/save"); ?>',
 				type: 'POST',
 				data: $('#form_nilai').serialize(),
-				success: function (data) {
+				success: function(data) {
 					// show sweetalert2
 					Toast.fire({
 						icon: 'success',
@@ -400,13 +394,12 @@ function get_chart() {
 					get_chart();
 
 				},
-				error: function (error) {
+				error: function(error) {
 					alert('error!');
 				}
 			});
 		});
 	});
-
 </script>
 
 <!-- chart -->

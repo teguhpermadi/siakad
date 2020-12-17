@@ -6,112 +6,122 @@
 		<h1 class="h3 mb-0 text-gray-800">Nilai Pengetahuan</h1>
 	</div>
 
-	<?php if(empty($mapel)){ ?>
-	<!-- jika data mapelnya kosong -->
-	<div class="row">
-		<div class="col-md-12">
-			<div class="alert alert-danger fade show" role="alert">
-				Tidak ada mata pelajaran yang Anda ajar, silahkan hubungi Administrator.
-			</div>
-		</div>
-	</div>
-	<?php } else { 
-            foreach($mapel as $m) { 
-		?>
-	<div>
-		<!-- tampilkan nama mapelnya -->
+	<?php if (empty($mapel)) { ?>
+		<!-- jika data mapelnya kosong -->
 		<div class="row">
 			<div class="col-md-12">
-				<div class="alert alert-info fade show" role='alert'>
-					<h4 class='text-uppercase font-weight-bold'><?= $m['nama_mapel']; ?></h4>
-					<div class="d-flex flex-row bd-highlight">
-						<div class="p-2 bd-highlight">
-							<button class="btn btn-info btn-kkm" data-mapel="<?= $m['nama_mapel']; ?>"
-								data-idmapel="<?= $m['id_mapel'] ?>">Atur KKM</button>
-						</div>
-						<div class="p-2 bd-highlight align-self-center show-kkm" id="show_kkm_id_mapel_<?= $m['id_mapel']; ?>">
-						<?php
-							$kkm = $this->Penilaian_model->get_kkm($m['id_mapel']);
-
-							// cek kkm
-							if($kkm){
-								// echo json_encode($kkm);
-								echo '<i class="fas fa-info-circle"></i>';
-								for ($i=0; $i < count($kkm); $i++) { 
-									echo ' <span class="mr-3"><b>KKM Tingkat '.$kkm[$i]['tingkat'].'</b> : '.$kkm[$i]['kkm'].'</span>';
-								}
-							} else {
-								echo '<span class="text-danger"><i class="fas fa-info-circle"></i> <b>Mata pelajaran ini belum atur KKM</b><span>';
-							}
-						?>
-						</div>
-					</div>
+				<div class="alert alert-danger fade show" role="alert">
+					Tidak ada mata pelajaran yang Anda ajar, silahkan hubungi Administrator.
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<!-- jika user tersebut wali kelas, tampilkan kelasnya -->
-			<?php 
-		$walikelas = $this->Penilaian_model->get_kelas($m['id_mapel']);
-		foreach ($walikelas as $w) {
-			if($w['id_kelas'] == user_info()['id_kelas'])
-			{
+		<?php } else {
+		foreach ($mapel as $m) {
 		?>
-			<div class="col-md-6">
-				<div class="card shadow mb-4">
-					<div class="card-header">
-						<span class='text-uppercase'>Kelas <?= $w['nama_kelas']; ?></span>
-						<span class="badge badge-primary float-right"><i class="fa fa-award mr-1"></i>Walikelas</span>
-					</div>
-					<div class="card-body">
+			<div>
+				<!-- tampilkan nama mapelnya -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="alert alert-info fade show" role='alert'>
+							<h4 class='text-uppercase font-weight-bold'><?= $m['nama_mapel']; ?></h4>
+							<div class="d-flex flex-row bd-highlight">
+								<div class="p-2 bd-highlight">
+									<button class="btn btn-info btn-kkm" data-mapel="<?= $m['nama_mapel']; ?>" data-idmapel="<?= $m['id_mapel'] ?>">Atur KKM</button>
+								</div>
+								<div class="p-2 bd-highlight align-self-center show-kkm" id="show_kkm_id_mapel_<?= $m['id_mapel']; ?>">
+									<?php
+									$kkm = $this->Penilaian_model->get_kkm($m['id_mapel']);
 
-						<!-- PIE CHART -->
-						<canvas id="myChart-id_walikelas-<?=$w['id_kelas'] ?>"></canvas>
-
-					</div>
-					<div class="card-footer">
-						<a href="<?= base_url('penilaian/do_nilai/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
-							class='btn btn-primary'>Lakukan Penilaian</a>
-						<a href="<?= base_url('penilaian/cetak/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
-							class='btn btn-primary float-right' target="_blank">Cetak Penilaian</a>
-					</div>
-				</div>
-			</div>
-
-			<?php }}?>
-		</div>
-
-		<!-- tampilkan kelas yang lain -->
-		<div class="row">
-			<?php 
-		$walikelas = $this->Penilaian_model->get_kelas($m['id_mapel']);
-		foreach ($walikelas as $w) {
-			if($w['id_kelas'] != user_info()['id_kelas'])
-			{
-		?>
-			<div class="col-md-4">
-				<div class="card shadow mb-4">
-					<div class="card-header">
-						<span class='text-uppercase'>Kelas <?= $w['nama_kelas']; ?></span>
-					</div>
-					<div class="card-body">
-
-						<!-- PIE CHART -->
-						<canvas id="myChart-id_kelas-<?=$w['id_kelas'] ?>"></canvas>
-
-					</div>
-					<div class="card-footer">
-						<a href="<?= base_url('penilaian/do_nilai/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
-							class='btn btn-primary'>Lakukan Penilaian</a>
-						<a href="<?= base_url('penilaian/cetak/').$m['id_mapel'].'-'.$w['id_kelas']; ?>"
-							class='btn btn-primary float-right' target="_blank">Cetak Penilaian</a>
+									// cek kkm
+									if ($kkm) {
+										// echo json_encode($kkm);
+										echo '<i class="fas fa-info-circle"></i>';
+										for ($i = 0; $i < count($kkm); $i++) {
+											echo ' <span class="mr-3"><b>KKM Tingkat ' . $kkm[$i]['tingkat'] . '</b> : ' . $kkm[$i]['kkm'] . '</span>';
+										}
+									} else {
+										echo '<span class="text-danger"><i class="fas fa-info-circle"></i> <b>Mata pelajaran ini belum atur KKM</b><span>';
+									}
+									?>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
+				<div class="row">
+					<!-- jika user tersebut wali kelas, tampilkan kelasnya -->
+					<?php
+					$walikelas = $this->Penilaian_model->get_kelas($m['id_mapel']);
+					foreach ($walikelas as $w) {
+						if ($w['id_kelas'] == user_info()['id_kelas']) {
+					?>
+							<div class="col-md-6">
+								<div class="card shadow mb-4">
+									<div class="card-header">
+										<span class='text-uppercase'>Kelas <?= $w['nama_kelas']; ?></span>
+										<span class="badge badge-primary float-right"><i class="fa fa-award mr-1"></i>Walikelas</span>
+									</div>
+									<div class="card-body">
+
+										<!-- PIE CHART -->
+										<canvas id="myChart-id_walikelas-<?= $w['id_kelas'] ?>"></canvas>
+
+									</div>
+									<div class="card-footer">
+										<a href="<?= base_url('penilaian/do_nilai/') . $m['id_mapel'] . '-' . $w['id_kelas']; ?>" class='btn btn-primary'>Lakukan Penilaian</a>
+										<!-- <a href="<?= base_url('penilaian/cetak/') . $m['id_mapel'] . '-' . $w['id_kelas']; ?>" class='btn btn-primary float-right' target="_blank">Cetak Penilaian</a> -->
+										<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Pilihan
+										</button>
+										<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+											<a class="dropdown-item" href="<?= base_url('penilaian/download/') . $m['id_mapel'] . '-' . $w['id_kelas']; ?>">Download Excel</a>
+											<a class="dropdown-item" href="<?= base_url('penilaian/cetak/') . $m['id_mapel'] . '-' . $w['id_kelas']; ?>">Cetak</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+					<?php }
+					} ?>
+				</div>
+
+				<!-- tampilkan kelas yang lain -->
+				<div class="row">
+					<?php
+					$walikelas = $this->Penilaian_model->get_kelas($m['id_mapel']);
+					foreach ($walikelas as $w) {
+						if ($w['id_kelas'] != user_info()['id_kelas']) {
+					?>
+							<div class="col-md-4">
+								<div class="card shadow mb-4">
+									<div class="card-header">
+										<span class='text-uppercase'>Kelas <?= $w['nama_kelas']; ?></span>
+									</div>
+									<div class="card-body">
+
+										<!-- PIE CHART -->
+										<canvas id="myChart-id_kelas-<?= $w['id_kelas'] ?>"></canvas>
+
+									</div>
+									<div class="card-footer">
+										<a href="<?= base_url('penilaian/do_nilai/') . $m['id_mapel'] . '-' . $w['id_kelas']; ?>" class='btn btn-primary'>Lakukan Penilaian</a>
+										<!-- <a href="<?= base_url('penilaian/cetak/') . $m['id_mapel'] . '-' . $w['id_kelas']; ?>" class='btn btn-primary float-right' target="_blank">Cetak Penilaian</a> -->
+										<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Pilihan
+										</button>
+										<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+											<a class="dropdown-item" href="<?= base_url('penilaian/download/') . $m['id_mapel'] . '-' . $w['id_kelas']; ?>">Download Excel</a>
+											<a class="dropdown-item" href="<?= base_url('penilaian/cetak/') . $m['id_mapel'] . '-' . $w['id_kelas']; ?>">Cetak</a>
+										</div>
+									</div>
+								</div>
+							</div>
+					<?php }
+					} ?>
+				</div>
 			</div>
-			<?php }}?>
-		</div>
-	</div>
-	<?php }; } ?>
+	<?php };
+	} ?>
 	<!-- content row -->
 
 </div>
@@ -142,8 +152,7 @@
 </a>
 
 <!-- Modal KKM -->
-<div class="modal fade" id="kkmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-	aria-hidden="true">
+<div class="modal fade" id="kkmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -167,7 +176,7 @@
 </div>
 
 <script src="<?= base_url('assets/vendor/chart.js/Chart.js'); ?>"></script>
-<script src="<?= base_url()?>assets/vendor/jquery/jquery.js"></script>
+<script src="<?= base_url() ?>assets/vendor/jquery/jquery.js"></script>
 <script>
 	// tampilkan data nilainya rombel_walikelas
 	$.get('<?= base_url("penilaian/cek_nilai_kd_walikelas"); ?>')
@@ -244,39 +253,39 @@
 		);
 
 	// tampilkan modal kkm
-	$('.btn-kkm').click(function () {
+	$('.btn-kkm').click(function() {
 		var nama_mapel = $(this).attr("data-mapel")
 		var id_mapel = $(this).attr("data-idmapel")
 		html = ''
 		$.ajax({
 			type: 'GET',
-			url: '<?= base_url("penilaian/get_kkm/")?>' + id_mapel,
+			url: '<?= base_url("penilaian/get_kkm/") ?>' + id_mapel,
 			dataType: 'JSON',
 			// data: {
 			// 	kelas_tingkat: kelas_tingkat
 			// },
-			success: function (data) {
+			success: function(data) {
 				// console.log(id_mapel)
 				for (let i = 0; i < data['kelas_tingkat'].length; i++) {
 					// cek kkm nya
 					var kkm;
-					if(data.kkm[i] != null) {
+					if (data.kkm[i] != null) {
 						kkm = data.kkm[i]['kkm']
 					} else {
 						kkm = ''
 					}
-					
+
 					// tampilkan kelas tingkat dan kkmnya
 					html += `<div class="form-group">
-							<input type="hidden" name="id_mapel" value="`+ id_mapel +`"/>
-							<input type="hidden" name="tingkat[]" value="`+ data.kelas_tingkat[i]['kelas_tingkat']+`"/>
-							<label>Kelas Tingkat `+ data.kelas_tingkat[i]['kelas_tingkat']+`</label>
-							<input class="form-control" type="number" name="kkm[]" min="0" max="100" value="`+ kkm +`">
-							</div>`					
+							<input type="hidden" name="id_mapel" value="` + id_mapel + `"/>
+							<input type="hidden" name="tingkat[]" value="` + data.kelas_tingkat[i]['kelas_tingkat'] + `"/>
+							<label>Kelas Tingkat ` + data.kelas_tingkat[i]['kelas_tingkat'] + `</label>
+							<input class="form-control" type="number" name="kkm[]" min="0" max="100" value="` + kkm + `">
+							</div>`
 				}
 				$('#konten').html(html)
 			},
-			error: function (error) {
+			error: function(error) {
 				console.log(error)
 			}
 		});
@@ -289,35 +298,34 @@
 		$('#kkmModal').modal('show')
 	});
 
-	$('#kkmForm').submit(function(){
+	$('#kkmForm').submit(function() {
 		// setting sweetalert2
 		const Toast = Swal.mixin({
-				toast: true,
-				position: 'top-end',
-				showConfirmButton: false,
-				timer: 1500
-			})
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 1500
+		})
 
 		$.ajax({
-              url: '<?= base_url('penilaian/save_kkm') ?>',
-              data:$(this).serialize(),
-              type:"POST",
-              success:function(data) {
-				  console.log(data)
-				  $('#kkmModal').modal('hide')
-				  // show sweetalert2
-					Toast.fire({
-						icon: 'success',
-						title: 'Tersimpan'
-					})
-					setTimeout(
-					function() 
-					{
+			url: '<?= base_url('penilaian/save_kkm') ?>',
+			data: $(this).serialize(),
+			type: "POST",
+			success: function(data) {
+				console.log(data)
+				$('#kkmModal').modal('hide')
+				// show sweetalert2
+				Toast.fire({
+					icon: 'success',
+					title: 'Tersimpan'
+				})
+				setTimeout(
+					function() {
 						//do something special
-					location.reload();
+						location.reload();
 					}, 1000);
-              }
-            })
-            return false;
-          });
+			}
+		})
+		return false;
+	});
 </script>

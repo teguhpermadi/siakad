@@ -18,18 +18,22 @@ class Migration_create_nilai extends CI_Migration
             'id_tahun' => array(
                 'type' => 'INT',
                 'constraint' => '255',
+                'unique'            => TRUE
             ),
             'id_mapel' => array(
                 'type' => 'INT',
                 'constraint' => '255',
+                'unique'            => TRUE
             ),
             'id_siswa' => array(
                 'type' => 'INT',
                 'constraint' => '255',
+                'unique'            => TRUE
             ),
             'id_kd' => array(
                 'type' => 'INT',
                 'constraint' => '255',
+                'unique'            => TRUE
             ),
             'nilai' => array(
                 'type' => 'INT',
@@ -40,10 +44,10 @@ class Migration_create_nilai extends CI_Migration
 
         // Add Primary Key.
         $this->dbforge->add_key("id", TRUE);
-        $this->dbforge->add_key("id_tahun");
-        $this->dbforge->add_key("id_mapel");
-        $this->dbforge->add_key("id_siswa");
-        $this->dbforge->add_key("id_kd");
+        // $this->dbforge->add_key("id_tahun");
+        // $this->dbforge->add_key("id_mapel");
+        // $this->dbforge->add_key("id_siswa");
+        // $this->dbforge->add_key("id_kd");
 
         // Table attributes.
 

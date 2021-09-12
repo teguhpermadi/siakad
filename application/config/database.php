@@ -79,7 +79,6 @@ $db['default'] = array(
 	'username' => 'root',
 	'password' => '',
 	'database' => 'siakad',
-	// 'database' => 'test',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

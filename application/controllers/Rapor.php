@@ -13,6 +13,7 @@ class Rapor extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Rapor_model');
+        $this->load->model('Jadwal_pelajaran_model');
 
         // cek user login
         check_login();
@@ -96,7 +97,7 @@ class Rapor extends CI_Controller
         // exit;
 
         // load template rapor default
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template_user.docx');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template_user_tingkat'.$get_rombel_siswa['tingkat_kelas'].'.docx');
 
         $templateProcessor->setValue($key, $val);
         $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'] . '.docx';
@@ -154,7 +155,7 @@ class Rapor extends CI_Controller
         $val = array_values($data_mentah);
 
         // load template rapor default
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template_user.docx');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template_user_tingkat'.$get_rombel_siswa['tingkat_kelas'].'.docx');
 
         $templateProcessor->setValue($key, $val);
         $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'];
@@ -193,7 +194,9 @@ class Rapor extends CI_Controller
         $walikelas = $this->Rapor_model->get_walikelas();
         $get_data_siswa = $this->Rapor_model->get_data_siswa($id_siswa);
         $get_rombel_siswa = $this->Rapor_model->get_rombel_siswa($id_siswa);
-        $get_mapel_siswa = $this->Rapor_model->get_mapel_siswa($id_siswa);
+        // print_r($get_rombel_siswa);
+        // $get_mapel_siswa = $this->Rapor_model->get_mapel_siswa($id_siswa);
+        $get_mapel_siswa = $this->Jadwal_pelajaran_model->get_mapel_by_kelas_for_rapor($get_rombel_siswa['id_kelas']);;
         $get_absensi = $this->Rapor_model->get_absensi($id_siswa);
         $get_catatan = $this->Rapor_model->get_catatan($id_siswa);
         $data_nilai = [];
@@ -201,6 +204,7 @@ class Rapor extends CI_Controller
         // dapatkan kkm, nilai dan deskripsi kd untuk masing-masing mapel
         foreach ($get_mapel_siswa as $mapel) {
             $kkm = $this->Rapor_model->get_kkm($mapel['id_mapel'], $mapel['tingkat']);
+            // print_r($kkm);
             $nilai = $this->Rapor_model->get_nilai($mapel['id_mapel'], $id_siswa);
             $des_tuntas = $this->Rapor_model->get_deskripsi_tuntas($mapel['id_mapel'], $id_siswa, $kkm['kkm']);
             $des_tidak_tuntas = $this->Rapor_model->get_deskripsi_tidak_tuntas($mapel['id_mapel'], $id_siswa, $kkm['kkm']);
@@ -229,12 +233,11 @@ class Rapor extends CI_Controller
 
         $data_mentah = array_merge($tahun, $walikelas, $get_data_siswa, $get_rombel_siswa, $get_absensi, $get_catatan, $result);
         // pisahkan array key dan values untuk PHPword TemplateProcessor
-
         $key = array_keys($data_mentah);
         $val = array_values($data_mentah);
 
         // load template rapor default
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template_user.docx');
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor('uploads/Template_user_tingkat'.$get_rombel_siswa['tingkat_kelas'].'.docx');
 
         $templateProcessor->setValue($key, $val);
         $filename = 'Rapor ' . $get_data_siswa['nama_lengkap'] . ' Tahun ' . $_SESSION['tahun'] . ' Semester ' . $_SESSION['semester'];
@@ -267,23 +270,23 @@ class Rapor extends CI_Controller
     function do_upload_template()
     {
         $config['upload_path']          = './uploads/';
-                $config['allowed_types']        = 'docx';
-                $config['file_name'] = 'Template';
-                $config['overwrite'] = true;
+        $config['allowed_types']        = 'docx';
+        $config['file_name'] = 'Template';
+        $config['overwrite'] = true;
 
-                $this->load->library('upload', $config);
+        $this->load->library('upload', $config);
 
-                if ( ! $this->upload->do_upload('userfile'))
-                {
-                        $error = array('error' => $this->upload->display_errors());
-                        print_r($error);
-                        // $this->load->view('rapor/template_rapor', $error);
-                }
-                else
-                {
-                        $data = array('upload_data' => $this->upload->data());
-                        echo 'Berhasil upload';
-                        // $this->load->view('rapor/template_rapor', $data);
-                }
+        if ( ! $this->upload->do_upload('userfile'))
+        {
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
+            // $this->load->view('rapor/template_rapor', $error);
+        }
+        else
+        {
+            $data = array('upload_data' => $this->upload->data());
+            echo 'Berhasil upload';
+            // $this->load->view('rapor/template_rapor', $data);
+        }
     }
 }

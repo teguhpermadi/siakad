@@ -35,7 +35,8 @@ function check_login()
 						'tahun_pelajaran',
 						'users',
 						'walikelas',
-						'rapor'
+						'rapor',
+						'jadwal_pelajaran'
 					];
 				break;
 

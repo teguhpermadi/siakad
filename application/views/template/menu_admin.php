@@ -43,6 +43,7 @@
 			<a class="collapse-item" href="<?= base_url('guru'); ?>">Guru</a>
 			<a class="collapse-item" href="<?= base_url('mapel'); ?>">Mata Pelajaran</a>
 			<a class="collapse-item" href="<?= base_url('pengajar'); ?>">Pengajar</a>
+			<a class="collapse-item" href="<?= base_url('jadwal_pelajaran'); ?>">Jadwal Pelajaran</a>
 		</div>
 	</div>
 </li>

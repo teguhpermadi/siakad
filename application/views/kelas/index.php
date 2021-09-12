@@ -5,9 +5,7 @@
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800">Daftar Kelas</h1>
 	</div>
-
-
-
+	
 	<!-- flash data -->
 	<?php if ($this->session->flashdata('berhasil')) { ?>
 		<div class="alert alert-success alert-dismissible fade show" role="alert">

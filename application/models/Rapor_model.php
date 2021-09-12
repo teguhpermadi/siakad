@@ -122,9 +122,10 @@ class Rapor_model extends CI_Model
         $this->db->from('kriteria_ketuntasan');
         $this->db->where('id_tahun', $_SESSION['id_tahun_pelajaran']);
         $this->db->where('id_mapel', $id_mapel);
-        $this->db->where('id_guru', $id_guru);
+        // $this->db->where('id_guru', $id_guru);
         $this->db->where('tingkat', $tingkat);
         $db = $this->db->get();
+        // return $db->last_query();
         return $db->row_array();
     }
 
